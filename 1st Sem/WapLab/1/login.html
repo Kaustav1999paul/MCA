@@ -1,0 +1,91 @@
+<html>
+<head>
+<title>Login</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<style>
+
+.myForm{
+padding: 20px;
+background-color: white;
+margin-left: 45px;
+border-radius: 20px;
+margin-top: 20px;
+width: 330px;
+box-shadow: 0 1px 40px 10px grey;
+}
+
+.container{
+padding-top: 150px;
+}
+
+#Password{
+margin-top: 20px;
+}
+
+#Button{
+background-image: linear-gradient(45deg, red, orange);
+color: white;
+border: none;
+margin-top: 40px;
+border-radius: 50px;
+transition: 0.5s ease;
+}
+
+#Button:hover{
+background-image: linear-gradient(45deg, orange, red);
+border-radius: 20px;
+padding-top: 10px;
+padding-bottom: 10px;
+}
+
+</style>
+<body style="background-color: white;">
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-6">
+<h2 class="text-center" style="color: red;">Book Store</h2>
+<h4 class="text-center">Get all the books at your fingertips<br>Anywhere anytime</h4>
+
+
+<h3 class="text-center"><b>Login</b></h2>
+
+</div>
+
+
+<div class="col-md-6 text-center">
+<form action="" class="myForm">
+
+<div class="form-group">
+<input type="email" class="form-control" placeholder="Email" id="Email" required>
+<input type="password" class="form-control" placeholder="Password" id="Password" required>
+<button type="submit" id="Button" onClick="login()" class="form-control">Login</button>
+</div>
+
+<div class="form-group">
+<a onClick="alertt()">Forget Password</a>
+</div>
+
+</form>
+</div>
+</div>
+</div>
+
+
+<script>
+function alertt(){
+alert("!!!Forget Password!!!")
+}
+
+function login(){
+window.location.href = "index.html"
+}
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+

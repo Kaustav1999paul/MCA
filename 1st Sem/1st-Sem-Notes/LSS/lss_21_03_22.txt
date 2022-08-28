@@ -1,0 +1,19 @@
+Parent process
+child
+Orphan
+Zomni
+Daemon
+
+Process States
+Running 
+Sleeping
+Daemon
+
+Commands in linux for process management
+exec, pgrep
+Creating a process in background
+ps, jobs, sleep, kill, fg, ps, cc, bg etc
+Process Table
+
+
+Standard input, output, error

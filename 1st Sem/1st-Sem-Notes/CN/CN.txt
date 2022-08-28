@@ -1,0 +1,74 @@
+
+			< UNIT 1 >
+Protocol Hierarchies: https: //www.geeksforgee ks.org/protocol-hierarchies-in-computer-network/
+
+Types of Transmission Technology: https: //www.geeksforgeeks.org/types-of-transmission-technology/
+
+OSI Reference Model: https://www.geeksforgeeks.org/layers-of-osi-model/ 
+
+TCP/IP Reference Model: https://www.geeksforgeeks.org/tcp-ip-model/ 
+
+Connection Oriented vs Connection less: https://www.youtube.com/watch?v=x-Y0-lGongQ
+
+Service Premitives/Operations: https://www.youtube.com/watch?v=qk0-Pt6KBEQ
+			       https://www.youtube.com/watch?v=md0HhxgI228
+
+Frequency Division and Time division multiplexing: https://www.geeksforgeeks.org/frequency-division-and-time-division-multiplexing/
+
+Code Division Multiplexing: https://www.tutorialspoint.com/code-division-multiplexing
+
+
+ 
+
+
+
+			< UNIT 2 >
+DataLink Layer:
+https://www.youtube.com/watch?v=JRgmPco0KWI
+
+> Responcible for the delivery of message
+> Checks and makes sure that the delivery of data is error free or not
+> The packets received from the Network Layer to the DLL are further divided into frames depending upon the frame size of the NIC (Network Interface Card).
+> When frame buffer is full, it stops the transmitting signals.
+
+Devices in DLL: Swithces and bridges
+NOTE: [The physical Layer, DLL and NL comes under the hardware and the rest 4 comes under the software.So the OSI reff model is the combo of H/W and S/W]
+
+Functions of DLL: 
+> Node to Node Delivery
+> Framing: https://www.geeksforgeeks.org/framing-in-data-link-layer/
+> Physical Addressing: DLL adds physical address of sender or receiver in the header of each frame.
+> Error Control: It re-transmits the damaged or lost frames (CRC | CheckSum | Parity)
+> Access Control
+> Flow controle: When the frame buffer is full, it will stop the transmission. when it is empty it will again 			 transmit it. (Stop and Wait | Go back N | Selective repeat) 
+
+Byte Stuffing
+
+Bit Stuffing
+ 
+Error Detecting Codes
+	> Parity.
+	> Checksums.
+	> Cyclic Redundancy Checks (CRCs).
+
+Simple Stop-and-Wait Protocol
+
+Stop-and-Wait ARQ Protocol
+	> Piggybacking
+	> Transmission Delay (Tt)
+	> Propagation Delay (Tp)
+	> Round-Trip Time (RTT)
+	
+Sliding Window Protocols
+
+
+
+
+
+
+
+
+
+
+
+

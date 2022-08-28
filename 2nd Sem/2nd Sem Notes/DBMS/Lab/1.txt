@@ -1,0 +1,2589 @@
+Lab 1
+
+
+Last login: Wed Aug  3 09:31:23 on ttys001
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+(base) Kaustavs-MacBook-Pro:~ kaustavpaul$ mysql -u iRV21MC047 -p -h 
+172.16.34.35 
+Enter password: 
+ERROR 1045 (28000): Access denied for user 'iRV21MC047'@'172.17.3.31' 
+(using password: YES)
+(base) Kaustavs-MacBook-Pro:~ kaustavpaul$ mysql -u 1RV21MC047 -p -h 
+172.16.34.35 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 1224
+Server version: 5.7.38-0ubuntu0.18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input 
+statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| 1RV21MC047         |
+| 1RV21MC047_exe2    |
++--------------------+
+3 rows in set (0.02 sec)
+
+mysql> use 1RV21MC047_exe2;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++---------------------------+
+| Tables_in_1RV21MC047_exe2 |
++---------------------------+
+| Check1                    |
+| Contract                  |
+| Doctor                    |
+| Drug                      |
+| Patient                   |
+| Pherma_Company            |
+| Phermacy                  |
+| Prescribe                 |
+| Sell                      |
++---------------------------+
+9 rows in set (0.02 sec)
+
+mysql> drop Check1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual 
+that corresponds to your MySQL server version for the right syntax to use 
+near 'Check1' at line 1
+mysql> drop table Check1;
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> drop table Contract;
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> drop table Doctor;
+ERROR 1217 (23000): Cannot delete or update a parent row: a foreign key 
+constraint fails
+mysql> drop table Patient;
+ERROR 1217 (23000): Cannot delete or update a parent row: a foreign key 
+constraint fails
+mysql> drop table Drug;
+ERROR 1217 (23000): Cannot delete or update a parent row: a foreign key 
+constraint fails
+mysql> show tables;
++---------------------------+
+| Tables_in_1RV21MC047_exe2 |
++---------------------------+
+| Doctor                    |
+| Drug                      |
+| Patient                   |
+| Pherma_Company            |
+| Phermacy                  |
+| Prescribe                 |
+| Sell                      |
++---------------------------+
+7 rows in set (0.01 sec)
+
+mysql> drop table Sell;
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> drop table Prescribe;
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> drop table Phermacy;
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> drop table Pherma_Company;
+ERROR 1217 (23000): Cannot delete or update a parent row: a foreign key 
+constraint fails
+mysql> show tables;
++---------------------------+
+| Tables_in_1RV21MC047_exe2 |
++---------------------------+
+| Doctor                    |
+| Drug                      |
+| Patient                   |
+| Pherma_Company            |
++---------------------------+
+4 rows in set (0.01 sec)
+
+mysql> drop table Drug;
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> drop table Patient;
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> drop table Doctor;
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> show tables;
++---------------------------+
+| Tables_in_1RV21MC047_exe2 |
++---------------------------+
+| Pherma_Company            |
++---------------------------+
+1 row in set (0.01 sec)
+
+mysql> drop table Pherma_Company;
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> show tables;
+Empty set (0.01 sec)
+
+mysql> CREATE TABLE PATIENT(PSSN VARCHAR(10), PName VARCHAR(30), PAge INT, 
+PAddress VARCHAR(50),PRIMARY KEY(PSSN));
+Query OK, 0 rows affected (0.22 sec)
+
+mysql> CREATE TABLE DOCTOR(DSSN VARCHAR(10), DName VARCHAR(30), Speciality 
+VARCHAR(30), ExpYr INT, PRIMARY KEY(DSSN));
+Query OK, 0 rows affected (0.28 sec)
+
+mysql> CREATE TABLE PHCOMPANY(CName VARCHAR(30), CAddress VARCHAR(50), 
+CPhone_No BIGINT, PRIMARY KEY(CName));
+Query OK, 0 rows affected (0.22 sec)
+
+mysql> CREATE TABLE PHARMACY(PHName VARCHAR(30), PHPhone_No BIGINT, 
+PHAddress VARCHAR(50), PRIMARY KEY(PHName));
+Query OK, 0 rows affected (0.31 sec)
+
+mysql> CREATE TABLE DRUG(TradeName VARCHAR(30), Formula VARCHAR(30), CName 
+VARCHAR(30), PRIMARY KEY(TradeName), FOREIGN KEY(CName) REFERENCES 
+PHCOMPANY(CName));
+Query OK, 0 rows affected (0.38 sec)
+
+mysql> CREATE TABLE CONTRACT_WITH(Start_Date DATE, End_Date DATE, Text 
+VARCHAR(30), Supervisor VARCHAR(30), CName VARCHAR(30), PHName 
+VARCHAR(30), PRIMARY KEY(CName, PHName), FOREIGN KEY(CName) REFERENCES 
+PHCOMPANY(CName), FOREIGN KEY(PHName) REFERENCES PHARMACY(PHName));
+Query OK, 0 rows affected (0.37 sec)
+
+mysql> CREATE TABLE SELL(Price FLOAT, PHName VARCHAR(30), TradeName 
+VARCHAR(30), PRIMARY KEY(PHName, TradeName), FOREIGN KEY(PHName) 
+REFERENCES PHARMACY(PHName), FOREIGN KEY(TradeName) REFERENCES 
+DRUG(TradeName));
+Query OK, 0 rows affected (0.50 sec)
+
+mysql> CREATE TABLE PRESCRIBE(Date1 DATE,Quantity VARCHAR(20), DSSN 
+VARCHAR(10), TradeName VARCHAR(30), PSSN VARCHAR(10), PRIMARY KEY(DSSN, 
+TradeName, PSSN), FOREIGN KEY(DSSN) REFERENCES DOCTOR(DSSN), FOREIGN 
+KEY(TradeName) REFERENCES DRUG(TradeName), FOREIGN KEY(PSSN) REFERENCES 
+PATIENT(PSSN));
+Query OK, 0 rows affected (0.39 sec)
+
+mysql> CREATE TABLE CHECK1(PSSN VARCHAR(10), DSSN VARCHAR(10), PRIMARY 
+KEY(PSSN,DSSN), FOREIGN KEY(DSSN) REFERENCES DOCTOR(DSSN), FOREIGN 
+KEY(PSSN) REFERENCES PATIENT(PSSN));
+Query OK, 0 rows affected (0.40 sec)
+
+mysql> show tables;
++---------------------------+
+| Tables_in_1RV21MC047_exe2 |
++---------------------------+
+| CHECK1                    |
+| CONTRACT_WITH             |
+| DOCTOR                    |
+| DRUG                      |
+| PATIENT                   |
+| PHARMACY                  |
+| PHCOMPANY                 |
+| PRESCRIBE                 |
+| SELL                      |
++---------------------------+
+9 rows in set (0.01 sec)
+
+mysql> INSERT INTO PHARMACY VALUES ('Raj', 4566541253, 'JP Nagar');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO PHARMACY VALUES ('Raja', 4566545253, 'RR Nagar');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO PHARMACY VALUES ('Raju', 4566545200, 'RR Nagar');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> INSERT INTO PHARMACY VALUES ('Rajua', 4566541200, 'RR Nagar');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO PHARMACY VALUES ('Raan', 4566541200, 'RR Nagar');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO PHARMACY VALUES ('Raanu', 1566541200, 'RR Nagar');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO PHARMACY VALUES ('Babuu', 1566541230, 'RR Nagar');
+Query OK, 1 row affected (0.05 sec)
+
+mysql>  INSERT INTO PHARMACY VALUES ('Sona', 1566541566, 'RR Nagar');
+Query OK, 1 row affected (0.04 sec)
+
+mysql>  INSERT INTO PHARMACY VALUES ('Meera', 1566441566, 'RR Nagar');
+Query OK, 1 row affected (0.05 sec)
+
+mysql>  INSERT INTO PHARMACY VALUES ('Meer', 1966441566, 'RR Nagar');
+Query OK, 1 row affected (0.05 sec)
+
+mysql>  INSERT INTO PHARMACY VALUES ('Mary', 1966441560, 'RR Nagar');
+Query OK, 1 row affected (0.03 sec)
+
+mysql>  INSERT INTO PHARMACY VALUES ('Mardelo', 1766441560, 'RR Nagar');
+Query OK, 1 row affected (0.04 sec)
+
+mysql>  INSERT INTO PHARMACY VALUES ('Mardi', 1766441590, 'RR Nagar');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO PHARMACY VALUES ('Josep', 1766444390, 'RR Nagar');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO PHARMACY VALUES ('Jose', 0766444390, 'RR Nagar');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO PHARMACY VALUES ('Josh', 1766444090, 'Jaya Nagar');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> INSERT INTO PHCOMPANY VALUES ('CAD Pharma Inc', 'RR Nagar', 
+8796541592);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO PHCOMPANY VALUES ('ACD Pharma Inc', 'RR Nagar', 
+9796541592);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO PHCOMPANY VALUES ('ABC Pharma Inc', 'JP Nagar', 
+9096541592);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO PHCOMPANY VALUES ('ABD Pharma Inc', 'Kormangla', 
+9096541562);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO PHCOMPANY VALUES ('XXZ Pharma Inc', 'Kormangla', 
+0096541562);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO PHCOMPANY VALUES ('KK Pharma Inc', 'Magistic', 
+1096541562);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO PHCOMPANY VALUES ('KoX Pharma Inc', 'Magistic', 
+1096521562);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> 
+mysql> INSERT INTO PHCOMPANY VALUES ('KoT Pharma Inc', 'Moon', 
+1096520562);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO PHCOMPANY VALUES ('TT Pharma Inc', 'Moon', 1096520062);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO PHCOMPANY VALUES ('TTL Pharma Inc', 'Moon Gali', 
+6096520062);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO PHCOMPANY VALUES ('TTLC Pharma Inc', 'Moon Galn', 
+6096520092);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> INSERT INTO DRUG VALUES ('Dolo', 'Tablet', 'CAD Pharma Inc');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> INSERT INTO DRUG VALUES ('HHOmega', 'Capsule', 'CAD Pharma Inc');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO DRUG VALUES ('Poisonka', 'Capsule', 'ABC Pharma Inc'); 
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO DRUG VALUES ('PoiTron', 'Capsule', 'XXZ Pharma Inc'); 
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO DRUG VALUES ('PoiTro', 'Capsule', 'TT Pharma Inc');;
+Query OK, 1 row affected (0.04 sec)
+
+ERROR: 
+No query specified
+
+mysql> 
+mysql> INSERT INTO DRUG VALUES ('PoiTro', 'Capsule', 'TT Pharma Inc');;
+ERROR 1062 (23000): Duplicate entry 'PoiTro' for key 'PRIMARY'
+ERROR: 
+No query specified
+
+mysql> INSERT INTO DRUG VALUES ('PoiTro', 'Capsule', 'TT Pharma Inc');
+ERROR 1062 (23000): Duplicate entry 'PoiTro' for key 'PRIMARY'
+mysql> INSERT INTO DRUG VALUES ('PoiTroi', 'Capsule', 'TTL Pharma Inc');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO DRUG VALUES ('PoiTroion', 'Capsule', 'TTLC Pharma 
+Inc');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO DRUG VALUES ('Gackfruit Cough', 'Serup', 'ABD Pharma 
+Inc');
+Query OK, 1 row affected (0.14 sec)
+
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql>  INSERT INTO DOCTOR VALUES ('D101', 'Edmund', 'Eye Specialist', 
+10); 
+Query OK, 1 row affected (0.06 sec)
+
+mysql> 
+mysql>  INSERT INTO DOCTOR VALUES ('D102', 'Ela', 'Eye Specialist', 11);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> 
+mysql>  INSERT INTO DOCTOR VALUES ('D103', 'Ala', 'Nose Specialist', 10);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> 
+mysql>  INSERT INTO DOCTOR VALUES ('D104', 'Alice', 'Skin Specialist', 
+10);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> 
+mysql>  INSERT INTO DOCTOR VALUES ('D105', 'Anna', 'Cardiologist', 20);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> 
+mysql>  INSERT INTO DOCTOR VALUES ('D106', 'Sheela', 'OrthoPedic Surgeon', 
+17);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> 
+mysql>  INSERT INTO DOCTOR VALUES ('D107', 'Sheha', 'OrthoPedic Surgeon', 
+17);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> 
+mysql>  INSERT INTO DOCTOR VALUES ('D108', 'Saha', 'Gyno Surgeon', 17);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> 
+mysql>  INSERT INTO DOCTOR VALUES ('D109', 'Sahani', 'Gyno Surgeon', 17);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO PATIENT VALUES ('P101', 'Ishani', 21, 'MG Road');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> 
+mysql> INSERT INTO PATIENT VALUES ('P102', 'Isha', 21, 'Mageri Road');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> 
+mysql> INSERT INTO PATIENT VALUES ('P103', 'Ishita', 21, 'Mageri Road');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> 
+mysql> INSERT INTO PATIENT VALUES ('P104', 'Aish', 20, 'Kengeri');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> 
+mysql> INSERT INTO PATIENT VALUES ('P105', 'Aishwaria', 23, 'Kengeri');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> 
+mysql> INSERT INTO PATIENT VALUES ('P106', 'Pyush', 5, 'Kengeri');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> 
+mysql> INSERT INTO PATIENT VALUES ('P107', 'Pyusha', 56, 'Kengeri Left');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> 
+mysql> INSERT INTO PATIENT VALUES ('P108', 'Punit', 61, 'Kengeri Right');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> 
+mysql> INSERT INTO PATIENT VALUES ('P109', 'Pintu', 41, 'RR Right');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> 
+mysql> INSERT INTO PATIENT VALUES ('P110', 'Pintushali', 40, 'RR Right');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> 
+mysql> exit
+Bye
+(base) Kaustavs-MacBook-Pro:~ kaustavpaul$ mysql -u 1RV21MC047 -p -h 
+172.16.34.35 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 1254
+Server version: 5.7.38-0ubuntu0.18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input 
+statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| 1RV21MC047         |
+| 1RV21MC047_exe2    |
++--------------------+
+3 rows in set (0.02 sec)
+
+mysql> use 1RV21MC047
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++----------------------+
+| Tables_in_1RV21MC047 |
++----------------------+
+| Album                |
+| Instrument           |
+| Musician             |
+| Perform              |
+| Play                 |
+| STUDENT              |
+| Song                 |
++----------------------+
+7 rows in set (0.01 sec)
+
+mysql> desc Album;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| A_id    | int(10)     | NO   | PRI | NULL    |       |
+| A_title | varchar(20) | NO   |     | NULL    |       |
+| Format  | varchar(20) | NO   |     | NULL    |       |
+| CRD     | date        | NO   |     | NULL    |       |
+| SSN     | varchar(10) | YES  | MUL | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.07 sec)
+
+mysql> desc Instrument;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| I_id   | int(10)     | NO   | PRI | NULL    |       |
+| I_Name | varchar(20) | NO   |     | NULL    |       |
+| I_Key  | varchar(10) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.07 sec)
+
+mysql> desc Musician;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| SSN   | varchar(10) | NO   | PRI | NULL    |       |
+| Name  | varchar(20) | NO   |     | NULL    |       |
+| Addr  | varchar(20) | NO   |     | NULL    |       |
+| Ph_No | int(11)     | NO   |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> desc Perform;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| SSN   | varchar(10) | NO   | PRI | NULL    |       |
+| S_id  | int(10)     | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.09 sec)
+
+mysql> desc Play;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| SSN   | varchar(10) | NO   | PRI | NULL    |       |
+| I_id  | int(10)     | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.04 sec)
+
+mysql> desc Song;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| S_id   | int(10)     | NO   | PRI | NULL    |       |
+| Title  | varchar(20) | NO   |     | NULL    |       |
+| Author | varchar(20) | NO   |     | NULL    |       |
+| A_id   | int(10)     | NO   | MUL | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> mysql> 
+    -> 
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual 
+that corresponds to your MySQL server version for the right syntax to use 
+near '' at line 1
+mysql> 
+mysql> 
+mysql> select count(p.I_id), i.I_Name, count(p.I_id)/(select count(*) from 
+Musician) as Average from Instrument i, Play p where p.I_id = i.I_id group 
+by p.I_id;
++---------------+-----------+---------+
+| count(p.I_id) | I_Name    | Average |
++---------------+-----------+---------+
+|             1 | Piano     |  0.1000 |
+|             1 | Tabla     |  0.1000 |
+|             2 | Tabla     |  0.2000 |
+|             1 | Guitar    |  0.1000 |
+|             1 | Harmonium |  0.1000 |
+|             2 | Flute     |  0.2000 |
+|             1 | Flute     |  0.1000 |
+|             2 | Drum      |  0.2000 |
+|             1 | Congo     |  0.1000 |
+|             2 | Drum      |  0.2000 |
++---------------+-----------+---------+
+10 rows in set (0.02 sec)
+
+mysql> 
+mysql> 
+mysql> 
+mysql> select M.*, count(P.SSN) from Musician M, Perform P where M.SSN = 
+P.SSN group by (p.SSN) having count(P.SSN) = (select count(Distinct(I_id)) 
+from Instrument);
+ERROR 1054 (42S22): Unknown column 'p.SSN' in 'group statement'
+mysql> select M.*, count(P.SSN) from Musician M, Perform P where M.SSN = 
+P.SSN group by (P.SSN) having count(P.SSN) = (select count(Distinct(I_id)) 
+from Instrument);
+Empty set (0.07 sec)
+
+mysql> select * from Instrument;
++------+-----------+-------+
+| I_id | I_Name    | I_Key |
++------+-----------+-------+
+|   21 | Piano     | D#    |
+|   22 | Tabla     | F#    |
+|   23 | Tabla     | S#    |
+|   24 | Guitar    | S     |
+|   25 | Harmonium | S4    |
+|   26 | Flute     | Node4 |
+|   27 | Flute     | Node9 |
+|   28 | Drum      | 45D   |
+|   29 | Congo     | 46D   |
+|   30 | Drum      | A40   |
++------+-----------+-------+
+10 rows in set (0.01 sec)
+
+mysql> select * from Play;
++-----+------+
+| SSN | I_id |
++-----+------+
+| 1   |   21 |
+| 1   |   22 |
+| 1   |   23 |
+| 3   |   23 |
+| 1   |   24 |
+| 1   |   25 |
+| 1   |   26 |
+| 7   |   26 |
+| 1   |   27 |
+| 1   |   28 |
+| 6   |   28 |
+| 1   |   29 |
+| 1   |   30 |
+| 5   |   30 |
++-----+------+
+14 rows in set (0.02 sec)
+
+mysql> INSERT INTO Doctor VALUES ('1', 24);
+ERROR 1146 (42S02): Table '1RV21MC047.Doctor' doesn't exist
+mysql> INSERT INTO Play VALUES ('1', 24);
+ERROR 1062 (23000): Duplicate entry '1-24' for key 'PRIMARY'
+mysql> INSERT INTO Play VALUES ('1', 25);
+ERROR 1062 (23000): Duplicate entry '1-25' for key 'PRIMARY'
+mysql> INSERT INTO Play VALUES ('1', 26);
+ERROR 1062 (23000): Duplicate entry '1-26' for key 'PRIMARY'
+mysql> INSERT INTO Play VALUES ('1', 27);
+ERROR 1062 (23000): Duplicate entry '1-27' for key 'PRIMARY'
+mysql> INSERT INTO Play VALUES ('1', 28);
+ERROR 1062 (23000): Duplicate entry '1-28' for key 'PRIMARY'
+mysql> Select * from Instrument;
++------+-----------+-------+
+| I_id | I_Name    | I_Key |
++------+-----------+-------+
+|   21 | Piano     | D#    |
+|   22 | Tabla     | F#    |
+|   23 | Tabla     | S#    |
+|   24 | Guitar    | S     |
+|   25 | Harmonium | S4    |
+|   26 | Flute     | Node4 |
+|   27 | Flute     | Node9 |
+|   28 | Drum      | 45D   |
+|   29 | Congo     | 46D   |
+|   30 | Drum      | A40   |
++------+-----------+-------+
+10 rows in set (0.02 sec)
+
+mysql> select M.*, count(P.SSN) from Musician M, Perform P where M.SSN = 
+P.SSN group by (P.SSN) having count(P.SSN) = (select count(Distinct(I_id)) 
+from Instrument);
+Empty set (0.02 sec)
+
+mysql> select M.*, count(P.SSN) from Musician M, Perform P where M.SSN = 
+P.SSN group by (P.SSN) having count(P.SSN) = (select count(Distinct(I_id)) 
+from Instrument);
+Empty set (0.01 sec)
+
+mysql> mysql> select M.*, count(P.SSN) from Musician M, Play P where M.SSN 
+= P.SSN group by (P.SSN) having count(P.SSN) = (select 
+count(Distinct(I_id)) from Instrument);
++-----+-------+------+----------+--------------+
+| SSN | Name  | Addr | Ph_No    | count(P.SSN) |
++-----+-------+------+----------+--------------+
+| 1   | Peter | LA   | 87654378 |           10 |
++-----+-------+------+----------+--------------+
+1 row in set (0.01 sec)
+
+mysql> select * from Album;
+ERROR 2013 (HY000): Lost connection to MySQL server during query
+No connection. Trying to reconnect...
+Connection id:    1498
+Current database: 1RV21MC047
+
++------+-------------+--------+------------+------+
+| A_id | A_title     | Format | CRD        | SSN  |
++------+-------------+--------+------------+------+
+|   31 | Mohabbat    | mp3    | 2022-04-30 | 2    |
+|   32 | Joonune     | mp3    | 2022-05-20 | 1    |
+|   33 | Joonuniat   | mp4    | 2012-05-20 | 3    |
+|   34 | Joonuniatya | mp4    | 2012-05-21 | 5    |
+|   35 | Juli        | mp4    | 2012-07-21 | 4    |
+|   36 | Devil       | mp4    | 2012-07-24 | 8    |
+|   37 | Devil Son   | mp4    | 2012-07-24 | 6    |
+|   38 | Dad & Son   | mp3    | 2012-07-14 | 7    |
+|   39 | Pepsi Cola  | mp3    | 2010-07-24 | 9    |
+|   40 | Red Moon    | mp3    | 2010-06-24 | 10   |
++------+-------------+--------+------------+------+
+10 rows in set (11.92 sec)
+
+mysql> show tables;
++----------------------+
+| Tables_in_1RV21MC047 |
++----------------------+
+| Album                |
+| Instrument           |
+| Musician             |
+| Perform              |
+| Play                 |
+| STUDENT              |
+| Song                 |
++----------------------+
+7 rows in set (0.01 sec)
+
+mysql> select * from Album;
++------+-------------+--------+------------+------+
+| A_id | A_title     | Format | CRD        | SSN  |
++------+-------------+--------+------------+------+
+|   31 | Mohabbat    | mp3    | 2022-04-30 | 2    |
+|   32 | Joonune     | mp3    | 2022-05-20 | 1    |
+|   33 | Joonuniat   | mp4    | 2012-05-20 | 3    |
+|   34 | Joonuniatya | mp4    | 2012-05-21 | 5    |
+|   35 | Juli        | mp4    | 2012-07-21 | 4    |
+|   36 | Devil       | mp4    | 2012-07-24 | 8    |
+|   37 | Devil Son   | mp4    | 2012-07-24 | 6    |
+|   38 | Dad & Son   | mp3    | 2012-07-14 | 7    |
+|   39 | Pepsi Cola  | mp3    | 2010-07-24 | 9    |
+|   40 | Red Moon    | mp3    | 2010-06-24 | 10   |
++------+-------------+--------+------------+------+
+10 rows in set (0.01 sec)
+
+mysql> select * from Musician;
++-----+---------+---------+-----------+
+| SSN | Name    | Addr    | Ph_No     |
++-----+---------+---------+-----------+
+| 1   | Peter   | LA      |  87654378 |
+| 10  | Rohan   | India   | 672231238 |
+| 2   | Devid   | LA      |  87654678 |
+| 3   | John    | America |  67644678 |
+| 4   | Johnina | America |  67644128 |
+| 5   | Krish   | USA     | 676441648 |
+| 6   | Krishna | USA     | 676441008 |
+| 7   | Kiran   | USA     | 672441008 |
+| 8   | Karan   | USA     | 672331008 |
+| 9   | Karana  | India   | 672331238 |
++-----+---------+---------+-----------+
+10 rows in set (0.02 sec)
+
+mysql> desc Album;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| A_id    | int(10)     | NO   | PRI | NULL    |       |
+| A_title | varchar(20) | NO   |     | NULL    |       |
+| Format  | varchar(20) | NO   |     | NULL    |       |
+| CRD     | date        | NO   |     | NULL    |       |
+| SSN     | varchar(10) | YES  | MUL | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> INSERT INTO Album VALUES (41, 'Allen Sonney', 'mp3', 2022-06-27, 
+'13');
+ERROR 1292 (22007): Incorrect date value: '1989' for column 'CRD' at row 1
+mysql> INSERT INTO Album VALUES (41, 'Allen Sonney', 'mp3', '2022-06-27', 
+'13');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key 
+constraint fails (`1RV21MC047`.`Album`, CONSTRAINT `Album_ibfk_1` FOREIGN 
+KEY (`SSN`) REFERENCES `Musician` (`SSN`))
+mysql> INSERT INTO Album VALUES (41, 'Allen Sonney', 'mp3', "2022-06-27", 
+'13');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key 
+constraint fails (`1RV21MC047`.`Album`, CONSTRAINT `Album_ibfk_1` FOREIGN 
+KEY (`SSN`) REFERENCES `Musician` (`SSN`))
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> desc Album;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| A_id    | int(10)     | NO   | PRI | NULL    |       |
+| A_title | varchar(20) | NO   |     | NULL    |       |
+| Format  | varchar(20) | NO   |     | NULL    |       |
+| CRD     | date        | NO   |     | NULL    |       |
+| SSN     | varchar(10) | YES  | MUL | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> alter table Album add column No_Song int(10) after SSN;
+Query OK, 0 rows affected (0.63 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Album;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| A_id    | int(10)     | NO   | PRI | NULL    |       |
+| A_title | varchar(20) | NO   |     | NULL    |       |
+| Format  | varchar(20) | NO   |     | NULL    |       |
+| CRD     | date        | NO   |     | NULL    |       |
+| SSN     | varchar(10) | YES  | MUL | NULL    |       |
+| No_Song | int(10)     | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> Select * from Album;
++------+-------------+--------+------------+------+---------+
+| A_id | A_title     | Format | CRD        | SSN  | No_Song |
++------+-------------+--------+------------+------+---------+
+|   31 | Mohabbat    | mp3    | 2022-04-30 | 2    |    NULL |
+|   32 | Joonune     | mp3    | 2022-05-20 | 1    |    NULL |
+|   33 | Joonuniat   | mp4    | 2012-05-20 | 3    |    NULL |
+|   34 | Joonuniatya | mp4    | 2012-05-21 | 5    |    NULL |
+|   35 | Juli        | mp4    | 2012-07-21 | 4    |    NULL |
+|   36 | Devil       | mp4    | 2012-07-24 | 8    |    NULL |
+|   37 | Devil Son   | mp4    | 2012-07-24 | 6    |    NULL |
+|   38 | Dad & Son   | mp3    | 2012-07-14 | 7    |    NULL |
+|   39 | Pepsi Cola  | mp3    | 2010-07-24 | 9    |    NULL |
+|   40 | Red Moon    | mp3    | 2010-06-24 | 10   |    NULL |
++------+-------------+--------+------------+------+---------+
+10 rows in set (0.01 sec)
+
+mysql> Select * from Song;
++------+---------------------+------------+------+
+| S_id | Title               | Author     | A_id |
++------+---------------------+------------+------+
+|   41 | Hold On             | Arijit     |   31 |
+|   42 | Hold me up          | Arijit     |   31 |
+|   43 | Pull me             | Devid      |   33 |
+|   44 | Lets go             | Devid      |   32 |
+|   45 | Chll waha           | Mithoon    |   34 |
+|   46 | Chll waha chaltehai | Jubin      |   35 |
+|   47 | Pyaar kia           | Jubin      |   36 |
+|   49 | Darna kya           | Mashmellow |   37 |
+|   50 | Darna kya tumse     | Mashmellow |   39 |
++------+---------------------+------------+------+
+9 rows in set (0.01 sec)
+
+mysql> INSERT INTO Song VALUES (51, 'Allen Joe', 'Mithoon', 31);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO Song VALUES (52, 'Kill Joe', 'Mithoon', 31);
+Query OK, 1 row affected (2.75 sec)
+
+mysql> INSERT INTO Song VALUES (53, 'Kill Joe K', 'Mithoon', 31);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from Album;
++------+-------------+--------+------------+------+---------+
+| A_id | A_title     | Format | CRD        | SSN  | No_Song |
++------+-------------+--------+------------+------+---------+
+|   31 | Mohabbat    | mp3    | 2022-04-30 | 2    |    NULL |
+|   32 | Joonune     | mp3    | 2022-05-20 | 1    |    NULL |
+|   33 | Joonuniat   | mp4    | 2012-05-20 | 3    |    NULL |
+|   34 | Joonuniatya | mp4    | 2012-05-21 | 5    |    NULL |
+|   35 | Juli        | mp4    | 2012-07-21 | 4    |    NULL |
+|   36 | Devil       | mp4    | 2012-07-24 | 8    |    NULL |
+|   37 | Devil Son   | mp4    | 2012-07-24 | 6    |    NULL |
+|   38 | Dad & Son   | mp3    | 2012-07-14 | 7    |    NULL |
+|   39 | Pepsi Cola  | mp3    | 2010-07-24 | 9    |    NULL |
+|   40 | Red Moon    | mp3    | 2010-06-24 | 10   |    NULL |
++------+-------------+--------+------------+------+---------+
+10 rows in set (0.01 sec)
+
+mysql> select * from Song;
++------+---------------------+------------+------+
+| S_id | Title               | Author     | A_id |
++------+---------------------+------------+------+
+|   41 | Hold On             | Arijit     |   31 |
+|   42 | Hold me up          | Arijit     |   31 |
+|   43 | Pull me             | Devid      |   33 |
+|   44 | Lets go             | Devid      |   32 |
+|   45 | Chll waha           | Mithoon    |   34 |
+|   46 | Chll waha chaltehai | Jubin      |   35 |
+|   47 | Pyaar kia           | Jubin      |   36 |
+|   49 | Darna kya           | Mashmellow |   37 |
+|   50 | Darna kya tumse     | Mashmellow |   39 |
+|   51 | Allen Joe           | Mithoon    |   31 |
+|   52 | Kill Joe            | Mithoon    |   31 |
+|   53 | Kill Joe K          | Mithoon    |   31 |
++------+---------------------+------------+------+
+12 rows in set (0.01 sec)
+
+mysql> update Album set No_Song = 5 where S_id = 41;
+ERROR 1054 (42S22): Unknown column 'S_id' in 'where clause'
+mysql> update Album set No_Song = 5 where A_id = 41;
+Query OK, 0 rows affected (0.01 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> Select * from Album;
++------+-------------+--------+------------+------+---------+
+| A_id | A_title     | Format | CRD        | SSN  | No_Song |
++------+-------------+--------+------------+------+---------+
+|   31 | Mohabbat    | mp3    | 2022-04-30 | 2    |    NULL |
+|   32 | Joonune     | mp3    | 2022-05-20 | 1    |    NULL |
+|   33 | Joonuniat   | mp4    | 2012-05-20 | 3    |    NULL |
+|   34 | Joonuniatya | mp4    | 2012-05-21 | 5    |    NULL |
+|   35 | Juli        | mp4    | 2012-07-21 | 4    |    NULL |
+|   36 | Devil       | mp4    | 2012-07-24 | 8    |    NULL |
+|   37 | Devil Son   | mp4    | 2012-07-24 | 6    |    NULL |
+|   38 | Dad & Son   | mp3    | 2012-07-14 | 7    |    NULL |
+|   39 | Pepsi Cola  | mp3    | 2010-07-24 | 9    |    NULL |
+|   40 | Red Moon    | mp3    | 2010-06-24 | 10   |    NULL |
++------+-------------+--------+------------+------+---------+
+10 rows in set (0.01 sec)
+
+mysql> update Album set No_Song = 5 where A_id = 31;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> Select * from Album;
++------+-------------+--------+------------+------+---------+
+| A_id | A_title     | Format | CRD        | SSN  | No_Song |
++------+-------------+--------+------------+------+---------+
+|   31 | Mohabbat    | mp3    | 2022-04-30 | 2    |       5 |
+|   32 | Joonune     | mp3    | 2022-05-20 | 1    |    NULL |
+|   33 | Joonuniat   | mp4    | 2012-05-20 | 3    |    NULL |
+|   34 | Joonuniatya | mp4    | 2012-05-21 | 5    |    NULL |
+|   35 | Juli        | mp4    | 2012-07-21 | 4    |    NULL |
+|   36 | Devil       | mp4    | 2012-07-24 | 8    |    NULL |
+|   37 | Devil Son   | mp4    | 2012-07-24 | 6    |    NULL |
+|   38 | Dad & Son   | mp3    | 2012-07-14 | 7    |    NULL |
+|   39 | Pepsi Cola  | mp3    | 2010-07-24 | 9    |    NULL |
+|   40 | Red Moon    | mp3    | 2010-06-24 | 10   |    NULL |
++------+-------------+--------+------------+------+---------+
+10 rows in set (0.04 sec)
+
+mysql> update Album set No_Song = 1 where A_id = 32;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update Album set No_Song = 1 where A_id = 33;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update Album set No_Song = 1 where A_id = 34;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update Album set No_Song = 1 where A_id = 35;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update Album set No_Song = 1 where A_id = 36;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update Album set No_Song = 1 where A_id = 37;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update Album set No_Song = 0 where A_id = 38;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update Album set No_Song = 0 where A_id = 40;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update Album set No_Song = 1 where A_id = 39;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> Select * from Album;
++------+-------------+--------+------------+------+---------+
+| A_id | A_title     | Format | CRD        | SSN  | No_Song |
++------+-------------+--------+------------+------+---------+
+|   31 | Mohabbat    | mp3    | 2022-04-30 | 2    |       5 |
+|   32 | Joonune     | mp3    | 2022-05-20 | 1    |       1 |
+|   33 | Joonuniat   | mp4    | 2012-05-20 | 3    |       1 |
+|   34 | Joonuniatya | mp4    | 2012-05-21 | 5    |       1 |
+|   35 | Juli        | mp4    | 2012-07-21 | 4    |       1 |
+|   36 | Devil       | mp4    | 2012-07-24 | 8    |       1 |
+|   37 | Devil Son   | mp4    | 2012-07-24 | 6    |       1 |
+|   38 | Dad & Son   | mp3    | 2012-07-14 | 7    |       0 |
+|   39 | Pepsi Cola  | mp3    | 2010-07-24 | 9    |       1 |
+|   40 | Red Moon    | mp3    | 2010-06-24 | 10   |       0 |
++------+-------------+--------+------------+------+---------+
+10 rows in set (0.01 sec)
+
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> desc Musician;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| SSN   | varchar(10) | NO   | PRI | NULL    |       |
+| Name  | varchar(20) | NO   |     | NULL    |       |
+| Addr  | varchar(20) | NO   |     | NULL    |       |
+| Ph_No | int(11)     | NO   |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+
+mysql> desc Instrument;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| I_id   | int(10)     | NO   | PRI | NULL    |       |
+| I_Name | varchar(20) | NO   |     | NULL    |       |
+| I_Key  | varchar(10) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> desc Play;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| SSN   | varchar(10) | NO   | PRI | NULL    |       |
+| I_id  | int(10)     | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+mysql> desc Album;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| A_id    | int(10)     | NO   | PRI | NULL    |       |
+| A_title | varchar(20) | NO   |     | NULL    |       |
+| Format  | varchar(20) | NO   |     | NULL    |       |
+| CRD     | date        | NO   |     | NULL    |       |
+| SSN     | varchar(10) | YES  | MUL | NULL    |       |
+| No_Song | int(10)     | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> select distinct(a.A_title) from Musician m, Instrument i, Play p, 
+Album a where m.SSN = p.SSN and i.I_id = p.I_id and i.I_Name = 'Flute' and 
+exist(select m.Name from Musician m, Instrument i, Play p, Album a where 
+m.SSN = p.SSN and i.I_id = p.I_id and i.I_Name = 'Guitar') and a.SSN in 
+(select SSN from Album where No_Song > (select avg(No_Song) from Album));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual 
+that corresponds to your MySQL server version for the right syntax to use 
+near 'select m.Name from Musician m, Instrument i, Play p, Album a where 
+m.SSN = p.SSN' at line 1
+mysql> mysql> select distinct(a.A_title) from Musician m, Instrument i, 
+Play p, Album a where m.SSN = p.SSN and i.I_id = p.I_id and i.I_Name = 
+'Flute' and exist(select m.Name from MusicInstrument i, Play p, Album a 
+where m.SSN = p.SSN and i.I_id = p.I_id and i.I_Name = 'Guitar') and a.SSN 
+in (select SSN from Album where No_Song > (select avg(No_Song) from 
+Album));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual 
+that corresponds to your MySQL server version for the right syntax to use 
+near 'select m.Name from Musician m, Instrument i, Play p, Album a where 
+m.SSN = p.SSN' at line 1
+mysql> 
+mysql> 
+mysql> 
+mysql> select distinct(a.A_title) from Musician m, Instrument i, Play p, 
+Album a where m.SSN = p.SSN and i.I_id = p.I_id and i.I_Name = 'Flute' and 
+exist(select m.Name from Musician m, Instrument i, Play p, Album a where 
+m.SSN = p.SSN and i.I_id = p.I_id and i.I_Name = 'Guitar') and a.SSN in 
+(select SSN from Album where No_Song > (select avg(No_Song) from Album));
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual 
+that corresponds to your MySQL server version for the right syntax to use 
+near 'select m.Name from Musician m, Instrument i, Play p, Album a where 
+m.SSN = p.SSN' at line 1
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> select a.Title from Musician m,Instrument i,Play p,Album a where 
+m.SSN=p.SSN and i.I_ID=p.I_ID and a.SSN=m.SSN and i.I_Name="Flute" and 
+m.SSN in(select p.SSN from Instrument i,Play p where i.I_ID=p.I_ID and 
+i.I_Name="Guitar")and No_songs > (select avg(No_songs)from Album);
+ERROR 1054 (42S22): Unknown column 'a.Title' in 'field list'
+mysql> Select * from Instrument;
++------+-----------+-------+
+| I_id | I_Name    | I_Key |
++------+-----------+-------+
+|   21 | Piano     | D#    |
+|   22 | Tabla     | F#    |
+|   23 | Tabla     | S#    |
+|   24 | Guitar    | S     |
+|   25 | Harmonium | S4    |
+|   26 | Flute     | Node4 |
+|   27 | Flute     | Node9 |
+|   28 | Drum      | 45D   |
+|   29 | Congo     | 46D   |
+|   30 | Drum      | A40   |
++------+-----------+-------+
+10 rows in set (1.65 sec)
+
+mysql> select a.A_title from Musician m,Instrument i,Play p,Album a where 
+m.SSN=p.SSN and i.I_id=p.I_id and a.SSN=m.SSN and i.I_Name="Flute" and 
+m.SSN in(select p.SSN from Instrument i,Play p where i.I_id=p.I_id and 
+i.I_Name="Guitar")and No_songs > (select avg(No_songs)from Album);
+ERROR 1054 (42S22): Unknown column 'No_songs' in 'where clause'
+mysql> select a.A_title from Musician m,Instrument i,Play p,Album a where 
+m.SSN=p.SSN and i.I_id=p.I_id and a.SSN=m.SSN and i.I_Name="Flute" and 
+m.SSN in(select p.SSN from Instrument i,Play p where i.I_id=p.I_id and 
+i.I_Name="Guitar")and No_songs > (select avg(No_song)from Album);
+ERROR 1054 (42S22): Unknown column 'No_songs' in 'where clause'
+mysql> select a.A_title from Musician m,Instrument i,Play p,Album a where 
+m.SSN=p.SSN and i.I_id=p.I_id and a.SSN=m.SSN and i.I_Name="Flute" and 
+m.SSN in(select p.SSN from Instrument i,Play p where i.I_id=p.I_id and 
+i.I_Name="Guitar")and No_songs > (select avg(No_Song)from Album);
+ERROR 1054 (42S22): Unknown column 'No_songs' in 'where clause'
+mysql> select a.A_title from Musician m,Instrument i,Play p,Album a where 
+m.SSN=p.SSN and i.I_id=p.I_id and a.SSN=m.SSN and i.I_Name="Flute" and 
+m.SSN in(select p.SSN from Instrument i,Play p where i.I_id=p.I_id and 
+i.I_Name="Guitar")and No_Song > (select avg(No_Song)from Album);
+Empty set (0.10 sec)
+
+mysql> INSERT INTO Song VALUES (54, 'Ki Joe K', 'Mithoon', 31);
+Query OK, 1 row affected (0.21 sec)
+
+mysql> INSERT INTO Song VALUES (55, 'Ki Joe K', 'Mithoon', 31);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO Song VALUES (56, 'Ki Joe Kai', 'Mithoon', 31);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO Song VALUES (57, 'Ki Joe Kaia', 'Mithoon', 31);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from Song;
++------+---------------------+------------+------+
+| S_id | Title               | Author     | A_id |
++------+---------------------+------------+------+
+|   41 | Hold On             | Arijit     |   31 |
+|   42 | Hold me up          | Arijit     |   31 |
+|   43 | Pull me             | Devid      |   33 |
+|   44 | Lets go             | Devid      |   32 |
+|   45 | Chll waha           | Mithoon    |   34 |
+|   46 | Chll waha chaltehai | Jubin      |   35 |
+|   47 | Pyaar kia           | Jubin      |   36 |
+|   49 | Darna kya           | Mashmellow |   37 |
+|   50 | Darna kya tumse     | Mashmellow |   39 |
+|   51 | Allen Joe           | Mithoon    |   31 |
+|   52 | Kill Joe            | Mithoon    |   31 |
+|   53 | Kill Joe K          | Mithoon    |   31 |
+|   54 | Ki Joe K            | Mithoon    |   31 |
+|   55 | Ki Joe K            | Mithoon    |   31 |
+|   56 | Ki Joe Kai          | Mithoon    |   31 |
+|   57 | Ki Joe Kaia         | Mithoon    |   31 |
++------+---------------------+------------+------+
+16 rows in set (0.01 sec)
+
+mysql> update Album set No_Song = 9 where A_id = 31;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from Album;
++------+-------------+--------+------------+------+---------+
+| A_id | A_title     | Format | CRD        | SSN  | No_Song |
++------+-------------+--------+------------+------+---------+
+|   31 | Mohabbat    | mp3    | 2022-04-30 | 2    |       9 |
+|   32 | Joonune     | mp3    | 2022-05-20 | 1    |       1 |
+|   33 | Joonuniat   | mp4    | 2012-05-20 | 3    |       1 |
+|   34 | Joonuniatya | mp4    | 2012-05-21 | 5    |       1 |
+|   35 | Juli        | mp4    | 2012-07-21 | 4    |       1 |
+|   36 | Devil       | mp4    | 2012-07-24 | 8    |       1 |
+|   37 | Devil Son   | mp4    | 2012-07-24 | 6    |       1 |
+|   38 | Dad & Son   | mp3    | 2012-07-14 | 7    |       0 |
+|   39 | Pepsi Cola  | mp3    | 2010-07-24 | 9    |       1 |
+|   40 | Red Moon    | mp3    | 2010-06-24 | 10   |       0 |
++------+-------------+--------+------------+------+---------+
+10 rows in set (1.24 sec)
+
+mysql> select a.A_title from Musician m,Instrument i,Play p,Album a where 
+m.SSN=p.SSN and i.I_id=p.I_id and a.SSN=m.SSN and i.I_Name="Flute" and 
+m.SSN in(select p.SSN from Instrument i,Play p where i.I_id=p.I_id and 
+i.I_Name="Guitar")and No_Song > (select avg(No_Song)from Album);
+Empty set (0.13 sec)
+
+mysql> select * from Instrument;
++------+-----------+-------+
+| I_id | I_Name    | I_Key |
++------+-----------+-------+
+|   21 | Piano     | D#    |
+|   22 | Tabla     | F#    |
+|   23 | Tabla     | S#    |
+|   24 | Guitar    | S     |
+|   25 | Harmonium | S4    |
+|   26 | Flute     | Node4 |
+|   27 | Flute     | Node9 |
+|   28 | Drum      | 45D   |
+|   29 | Congo     | 46D   |
+|   30 | Drum      | A40   |
++------+-----------+-------+
+10 rows in set (0.06 sec)
+
+mysql> select * from Play;
++-----+------+
+| SSN | I_id |
++-----+------+
+| 1   |   21 |
+| 1   |   22 |
+| 1   |   23 |
+| 3   |   23 |
+| 1   |   24 |
+| 1   |   25 |
+| 1   |   26 |
+| 7   |   26 |
+| 1   |   27 |
+| 1   |   28 |
+| 6   |   28 |
+| 1   |   29 |
+| 1   |   30 |
+| 5   |   30 |
++-----+------+
+14 rows in set (0.02 sec)
+
+mysql> select * from Produce;
+ERROR 1146 (42S02): Table '1RV21MC047.Produce' doesn't exist
+mysql> select * from Perform;
++-----+------+
+| SSN | S_id |
++-----+------+
+| 3   |   41 |
+| 4   |   41 |
+| 7   |   41 |
+| 9   |   41 |
+| 1   |   42 |
+| 2   |   43 |
+| 5   |   44 |
+| 6   |   45 |
+| 8   |   46 |
+| 1   |   47 |
++-----+------+
+10 rows in set (0.18 sec)
+
+mysql> update Play set SSN = 2 where I_id = 26;
+ERROR 1062 (23000): Duplicate entry '2-26' for key 'PRIMARY'
+mysql> insert into Play values('2', 26);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into Play values('2', 24);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> select a.A_title from Musician m,Instrument i,Play p,Album a where 
+m.SSN=p.SSN and i.I_id=p.I_id and a.SSN=m.SSN and i.I_Name="Flute" and 
+m.SSN in(select p.SSN from Instrument i,Play p where i.I_id=p.I_id and 
+i.I_Name="Guitar")and No_Song > (select avg(No_Song)from Album);
++----------+
+| A_title  |
++----------+
+| Mohabbat |
++----------+
+1 row in set (0.07 sec)
+
+mysql> select * from Album;
++------+-------------+--------+------------+------+---------+
+| A_id | A_title     | Format | CRD        | SSN  | No_Song |
++------+-------------+--------+------------+------+---------+
+|   31 | Mohabbat    | mp3    | 2022-04-30 | 2    |       9 |
+|   32 | Joonune     | mp3    | 2022-05-20 | 1    |       1 |
+|   33 | Joonuniat   | mp4    | 2012-05-20 | 3    |       1 |
+|   34 | Joonuniatya | mp4    | 2012-05-21 | 5    |       1 |
+|   35 | Juli        | mp4    | 2012-07-21 | 4    |       1 |
+|   36 | Devil       | mp4    | 2012-07-24 | 8    |       1 |
+|   37 | Devil Son   | mp4    | 2012-07-24 | 6    |       1 |
+|   38 | Dad & Son   | mp3    | 2012-07-14 | 7    |       0 |
+|   39 | Pepsi Cola  | mp3    | 2010-07-24 | 9    |       1 |
+|   40 | Red Moon    | mp3    | 2010-06-24 | 10   |       0 |
++------+-------------+--------+------------+------+---------+
+10 rows in set (1.93 sec)
+
+mysql> update Album set SSN = 3 where A_id = 34;
+Query OK, 1 row affected (0.13 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from Album;
++------+-------------+--------+------------+------+---------+
+| A_id | A_title     | Format | CRD        | SSN  | No_Song |
++------+-------------+--------+------------+------+---------+
+|   31 | Mohabbat    | mp3    | 2022-04-30 | 2    |       9 |
+|   32 | Joonune     | mp3    | 2022-05-20 | 1    |       1 |
+|   33 | Joonuniat   | mp4    | 2012-05-20 | 3    |       1 |
+|   34 | Joonuniatya | mp4    | 2012-05-21 | 3    |       1 |
+|   35 | Juli        | mp4    | 2012-07-21 | 4    |       1 |
+|   36 | Devil       | mp4    | 2012-07-24 | 8    |       1 |
+|   37 | Devil Son   | mp4    | 2012-07-24 | 6    |       1 |
+|   38 | Dad & Son   | mp3    | 2012-07-14 | 7    |       0 |
+|   39 | Pepsi Cola  | mp3    | 2010-07-24 | 9    |       1 |
+|   40 | Red Moon    | mp3    | 2010-06-24 | 10   |       0 |
++------+-------------+--------+------------+------+---------+
+10 rows in set (0.30 sec)
+
+mysql> select M.SSN, M.Name from Musician M where M.SSN not in(select 
+A.SSN from Album A, Musician M where A.SSN = M.SSN);
++-----+-------+
+| SSN | Name  |
++-----+-------+
+| 5   | Krish |
++-----+-------+
+1 row in set (0.02 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Lab 1
+
+
+Last login: Wed Aug  3 09:31:23 on ttys001
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+(base) Kaustavs-MacBook-Pro:~ kaustavpaul$ mysql -u iRV21MC047 -p -h 
+172.16.34.35 
+Enter password: 
+ERROR 1045 (28000): Access denied for user 'iRV21MC047'@'172.17.3.31' 
+(using password: YES)
+(base) Kaustavs-MacBook-Pro:~ kaustavpaul$ mysql -u 1RV21MC047 -p -h 
+172.16.34.35 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 1224
+Server version: 5.7.38-0ubuntu0.18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input 
+statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| 1RV21MC047         |
+| 1RV21MC047_exe2    |
++--------------------+
+3 rows in set (0.02 sec)
+
+mysql> use 1RV21MC047_exe2;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++---------------------------+
+| Tables_in_1RV21MC047_exe2 |
++---------------------------+
+| Check1                    |
+| Contract                  |
+| Doctor                    |
+| Drug                      |
+| Patient                   |
+| Pherma_Company            |
+| Phermacy                  |
+| Prescribe                 |
+| Sell                      |
++---------------------------+
+9 rows in set (0.02 sec)
+
+mysql> drop Check1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual 
+that corresponds to your MySQL server version for the right syntax to use 
+near 'Check1' at line 1
+mysql> drop table Check1;
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> drop table Contract;
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> drop table Doctor;
+ERROR 1217 (23000): Cannot delete or update a parent row: a foreign key 
+constraint fails
+mysql> drop table Patient;
+ERROR 1217 (23000): Cannot delete or update a parent row: a foreign key 
+constraint fails
+mysql> drop table Drug;
+ERROR 1217 (23000): Cannot delete or update a parent row: a foreign key 
+constraint fails
+mysql> show tables;
++---------------------------+
+| Tables_in_1RV21MC047_exe2 |
++---------------------------+
+| Doctor                    |
+| Drug                      |
+| Patient                   |
+| Pherma_Company            |
+| Phermacy                  |
+| Prescribe                 |
+| Sell                      |
++---------------------------+
+7 rows in set (0.01 sec)
+
+mysql> drop table Sell;
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> drop table Prescribe;
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> drop table Phermacy;
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> drop table Pherma_Company;
+ERROR 1217 (23000): Cannot delete or update a parent row: a foreign key 
+constraint fails
+mysql> show tables;
++---------------------------+
+| Tables_in_1RV21MC047_exe2 |
++---------------------------+
+| Doctor                    |
+| Drug                      |
+| Patient                   |
+| Pherma_Company            |
++---------------------------+
+4 rows in set (0.01 sec)
+
+mysql> drop table Drug;
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> drop table Patient;
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> drop table Doctor;
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> show tables;
++---------------------------+
+| Tables_in_1RV21MC047_exe2 |
++---------------------------+
+| Pherma_Company            |
++---------------------------+
+1 row in set (0.01 sec)
+
+mysql> drop table Pherma_Company;
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> show tables;
+Empty set (0.01 sec)
+
+mysql> CREATE TABLE PATIENT(PSSN VARCHAR(10), PName VARCHAR(30), PAge INT, 
+PAddress VARCHAR(50),PRIMARY KEY(PSSN));
+Query OK, 0 rows affected (0.22 sec)
+
+mysql> CREATE TABLE DOCTOR(DSSN VARCHAR(10), DName VARCHAR(30), Speciality 
+VARCHAR(30), ExpYr INT, PRIMARY KEY(DSSN));
+Query OK, 0 rows affected (0.28 sec)
+
+mysql> CREATE TABLE PHCOMPANY(CName VARCHAR(30), CAddress VARCHAR(50), 
+CPhone_No BIGINT, PRIMARY KEY(CName));
+Query OK, 0 rows affected (0.22 sec)
+
+mysql> CREATE TABLE PHARMACY(PHName VARCHAR(30), PHPhone_No BIGINT, 
+PHAddress VARCHAR(50), PRIMARY KEY(PHName));
+Query OK, 0 rows affected (0.31 sec)
+
+mysql> CREATE TABLE DRUG(TradeName VARCHAR(30), Formula VARCHAR(30), CName 
+VARCHAR(30), PRIMARY KEY(TradeName), FOREIGN KEY(CName) REFERENCES 
+PHCOMPANY(CName));
+Query OK, 0 rows affected (0.38 sec)
+
+mysql> CREATE TABLE CONTRACT_WITH(Start_Date DATE, End_Date DATE, Text 
+VARCHAR(30), Supervisor VARCHAR(30), CName VARCHAR(30), PHName 
+VARCHAR(30), PRIMARY KEY(CName, PHName), FOREIGN KEY(CName) REFERENCES 
+PHCOMPANY(CName), FOREIGN KEY(PHName) REFERENCES PHARMACY(PHName));
+Query OK, 0 rows affected (0.37 sec)
+
+mysql> CREATE TABLE SELL(Price FLOAT, PHName VARCHAR(30), TradeName 
+VARCHAR(30), PRIMARY KEY(PHName, TradeName), FOREIGN KEY(PHName) 
+REFERENCES PHARMACY(PHName), FOREIGN KEY(TradeName) REFERENCES 
+DRUG(TradeName));
+Query OK, 0 rows affected (0.50 sec)
+
+mysql> CREATE TABLE PRESCRIBE(Date1 DATE,Quantity VARCHAR(20), DSSN 
+VARCHAR(10), TradeName VARCHAR(30), PSSN VARCHAR(10), PRIMARY KEY(DSSN, 
+TradeName, PSSN), FOREIGN KEY(DSSN) REFERENCES DOCTOR(DSSN), FOREIGN 
+KEY(TradeName) REFERENCES DRUG(TradeName), FOREIGN KEY(PSSN) REFERENCES 
+PATIENT(PSSN));
+Query OK, 0 rows affected (0.39 sec)
+
+mysql> CREATE TABLE CHECK1(PSSN VARCHAR(10), DSSN VARCHAR(10), PRIMARY 
+KEY(PSSN,DSSN), FOREIGN KEY(DSSN) REFERENCES DOCTOR(DSSN), FOREIGN 
+KEY(PSSN) REFERENCES PATIENT(PSSN));
+Query OK, 0 rows affected (0.40 sec)
+
+mysql> show tables;
++---------------------------+
+| Tables_in_1RV21MC047_exe2 |
++---------------------------+
+| CHECK1                    |
+| CONTRACT_WITH             |
+| DOCTOR                    |
+| DRUG                      |
+| PATIENT                   |
+| PHARMACY                  |
+| PHCOMPANY                 |
+| PRESCRIBE                 |
+| SELL                      |
++---------------------------+
+9 rows in set (0.01 sec)
+
+mysql> INSERT INTO PHARMACY VALUES ('Raj', 4566541253, 'JP Nagar');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO PHARMACY VALUES ('Raja', 4566545253, 'RR Nagar');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO PHARMACY VALUES ('Raju', 4566545200, 'RR Nagar');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> INSERT INTO PHARMACY VALUES ('Rajua', 4566541200, 'RR Nagar');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO PHARMACY VALUES ('Raan', 4566541200, 'RR Nagar');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO PHARMACY VALUES ('Raanu', 1566541200, 'RR Nagar');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO PHARMACY VALUES ('Babuu', 1566541230, 'RR Nagar');
+Query OK, 1 row affected (0.05 sec)
+
+mysql>  INSERT INTO PHARMACY VALUES ('Sona', 1566541566, 'RR Nagar');
+Query OK, 1 row affected (0.04 sec)
+
+mysql>  INSERT INTO PHARMACY VALUES ('Meera', 1566441566, 'RR Nagar');
+Query OK, 1 row affected (0.05 sec)
+
+mysql>  INSERT INTO PHARMACY VALUES ('Meer', 1966441566, 'RR Nagar');
+Query OK, 1 row affected (0.05 sec)
+
+mysql>  INSERT INTO PHARMACY VALUES ('Mary', 1966441560, 'RR Nagar');
+Query OK, 1 row affected (0.03 sec)
+
+mysql>  INSERT INTO PHARMACY VALUES ('Mardelo', 1766441560, 'RR Nagar');
+Query OK, 1 row affected (0.04 sec)
+
+mysql>  INSERT INTO PHARMACY VALUES ('Mardi', 1766441590, 'RR Nagar');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO PHARMACY VALUES ('Josep', 1766444390, 'RR Nagar');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO PHARMACY VALUES ('Jose', 0766444390, 'RR Nagar');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO PHARMACY VALUES ('Josh', 1766444090, 'Jaya Nagar');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> INSERT INTO PHCOMPANY VALUES ('CAD Pharma Inc', 'RR Nagar', 
+8796541592);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO PHCOMPANY VALUES ('ACD Pharma Inc', 'RR Nagar', 
+9796541592);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO PHCOMPANY VALUES ('ABC Pharma Inc', 'JP Nagar', 
+9096541592);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO PHCOMPANY VALUES ('ABD Pharma Inc', 'Kormangla', 
+9096541562);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO PHCOMPANY VALUES ('XXZ Pharma Inc', 'Kormangla', 
+0096541562);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO PHCOMPANY VALUES ('KK Pharma Inc', 'Magistic', 
+1096541562);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO PHCOMPANY VALUES ('KoX Pharma Inc', 'Magistic', 
+1096521562);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> 
+mysql> INSERT INTO PHCOMPANY VALUES ('KoT Pharma Inc', 'Moon', 
+1096520562);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO PHCOMPANY VALUES ('TT Pharma Inc', 'Moon', 1096520062);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO PHCOMPANY VALUES ('TTL Pharma Inc', 'Moon Gali', 
+6096520062);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO PHCOMPANY VALUES ('TTLC Pharma Inc', 'Moon Galn', 
+6096520092);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> INSERT INTO DRUG VALUES ('Dolo', 'Tablet', 'CAD Pharma Inc');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> INSERT INTO DRUG VALUES ('HHOmega', 'Capsule', 'CAD Pharma Inc');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO DRUG VALUES ('Poisonka', 'Capsule', 'ABC Pharma Inc'); 
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO DRUG VALUES ('PoiTron', 'Capsule', 'XXZ Pharma Inc'); 
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO DRUG VALUES ('PoiTro', 'Capsule', 'TT Pharma Inc');;
+Query OK, 1 row affected (0.04 sec)
+
+ERROR: 
+No query specified
+
+mysql> 
+mysql> INSERT INTO DRUG VALUES ('PoiTro', 'Capsule', 'TT Pharma Inc');;
+ERROR 1062 (23000): Duplicate entry 'PoiTro' for key 'PRIMARY'
+ERROR: 
+No query specified
+
+mysql> INSERT INTO DRUG VALUES ('PoiTro', 'Capsule', 'TT Pharma Inc');
+ERROR 1062 (23000): Duplicate entry 'PoiTro' for key 'PRIMARY'
+mysql> INSERT INTO DRUG VALUES ('PoiTroi', 'Capsule', 'TTL Pharma Inc');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO DRUG VALUES ('PoiTroion', 'Capsule', 'TTLC Pharma 
+Inc');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO DRUG VALUES ('Gackfruit Cough', 'Serup', 'ABD Pharma 
+Inc');
+Query OK, 1 row affected (0.14 sec)
+
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql>  INSERT INTO DOCTOR VALUES ('D101', 'Edmund', 'Eye Specialist', 
+10); 
+Query OK, 1 row affected (0.06 sec)
+
+mysql> 
+mysql>  INSERT INTO DOCTOR VALUES ('D102', 'Ela', 'Eye Specialist', 11);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> 
+mysql>  INSERT INTO DOCTOR VALUES ('D103', 'Ala', 'Nose Specialist', 10);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> 
+mysql>  INSERT INTO DOCTOR VALUES ('D104', 'Alice', 'Skin Specialist', 
+10);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> 
+mysql>  INSERT INTO DOCTOR VALUES ('D105', 'Anna', 'Cardiologist', 20);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> 
+mysql>  INSERT INTO DOCTOR VALUES ('D106', 'Sheela', 'OrthoPedic Surgeon', 
+17);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> 
+mysql>  INSERT INTO DOCTOR VALUES ('D107', 'Sheha', 'OrthoPedic Surgeon', 
+17);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> 
+mysql>  INSERT INTO DOCTOR VALUES ('D108', 'Saha', 'Gyno Surgeon', 17);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> 
+mysql>  INSERT INTO DOCTOR VALUES ('D109', 'Sahani', 'Gyno Surgeon', 17);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO PATIENT VALUES ('P101', 'Ishani', 21, 'MG Road');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> 
+mysql> INSERT INTO PATIENT VALUES ('P102', 'Isha', 21, 'Mageri Road');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> 
+mysql> INSERT INTO PATIENT VALUES ('P103', 'Ishita', 21, 'Mageri Road');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> 
+mysql> INSERT INTO PATIENT VALUES ('P104', 'Aish', 20, 'Kengeri');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> 
+mysql> INSERT INTO PATIENT VALUES ('P105', 'Aishwaria', 23, 'Kengeri');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> 
+mysql> INSERT INTO PATIENT VALUES ('P106', 'Pyush', 5, 'Kengeri');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> 
+mysql> INSERT INTO PATIENT VALUES ('P107', 'Pyusha', 56, 'Kengeri Left');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> 
+mysql> INSERT INTO PATIENT VALUES ('P108', 'Punit', 61, 'Kengeri Right');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> 
+mysql> INSERT INTO PATIENT VALUES ('P109', 'Pintu', 41, 'RR Right');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> 
+mysql> INSERT INTO PATIENT VALUES ('P110', 'Pintushali', 40, 'RR Right');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> 
+mysql> exit
+Bye
+(base) Kaustavs-MacBook-Pro:~ kaustavpaul$ mysql -u 1RV21MC047 -p -h 
+172.16.34.35 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 1254
+Server version: 5.7.38-0ubuntu0.18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input 
+statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| 1RV21MC047         |
+| 1RV21MC047_exe2    |
++--------------------+
+3 rows in set (0.02 sec)
+
+mysql> use 1RV21MC047
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++----------------------+
+| Tables_in_1RV21MC047 |
++----------------------+
+| Album                |
+| Instrument           |
+| Musician             |
+| Perform              |
+| Play                 |
+| STUDENT              |
+| Song                 |
++----------------------+
+7 rows in set (0.01 sec)
+
+mysql> desc Album;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| A_id    | int(10)     | NO   | PRI | NULL    |       |
+| A_title | varchar(20) | NO   |     | NULL    |       |
+| Format  | varchar(20) | NO   |     | NULL    |       |
+| CRD     | date        | NO   |     | NULL    |       |
+| SSN     | varchar(10) | YES  | MUL | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.07 sec)
+
+mysql> desc Instrument;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| I_id   | int(10)     | NO   | PRI | NULL    |       |
+| I_Name | varchar(20) | NO   |     | NULL    |       |
+| I_Key  | varchar(10) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.07 sec)
+
+mysql> desc Musician;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| SSN   | varchar(10) | NO   | PRI | NULL    |       |
+| Name  | varchar(20) | NO   |     | NULL    |       |
+| Addr  | varchar(20) | NO   |     | NULL    |       |
+| Ph_No | int(11)     | NO   |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> desc Perform;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| SSN   | varchar(10) | NO   | PRI | NULL    |       |
+| S_id  | int(10)     | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.09 sec)
+
+mysql> desc Play;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| SSN   | varchar(10) | NO   | PRI | NULL    |       |
+| I_id  | int(10)     | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.04 sec)
+
+mysql> desc Song;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| S_id   | int(10)     | NO   | PRI | NULL    |       |
+| Title  | varchar(20) | NO   |     | NULL    |       |
+| Author | varchar(20) | NO   |     | NULL    |       |
+| A_id   | int(10)     | NO   | MUL | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> mysql> 
+    -> 
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual 
+that corresponds to your MySQL server version for the right syntax to use 
+near '' at line 1
+mysql> 
+mysql> 
+mysql> select count(p.I_id), i.I_Name, count(p.I_id)/(select count(*) from 
+Musician) as Average from Instrument i, Play p where p.I_id = i.I_id group 
+by p.I_id;
++---------------+-----------+---------+
+| count(p.I_id) | I_Name    | Average |
++---------------+-----------+---------+
+|             1 | Piano     |  0.1000 |
+|             1 | Tabla     |  0.1000 |
+|             2 | Tabla     |  0.2000 |
+|             1 | Guitar    |  0.1000 |
+|             1 | Harmonium |  0.1000 |
+|             2 | Flute     |  0.2000 |
+|             1 | Flute     |  0.1000 |
+|             2 | Drum      |  0.2000 |
+|             1 | Congo     |  0.1000 |
+|             2 | Drum      |  0.2000 |
++---------------+-----------+---------+
+10 rows in set (0.02 sec)
+
+mysql> 
+mysql> 
+mysql> 
+mysql> select M.*, count(P.SSN) from Musician M, Perform P where M.SSN = 
+P.SSN group by (p.SSN) having count(P.SSN) = (select count(Distinct(I_id)) 
+from Instrument);
+ERROR 1054 (42S22): Unknown column 'p.SSN' in 'group statement'
+mysql> select M.*, count(P.SSN) from Musician M, Perform P where M.SSN = 
+P.SSN group by (P.SSN) having count(P.SSN) = (select count(Distinct(I_id)) 
+from Instrument);
+Empty set (0.07 sec)
+
+mysql> select * from Instrument;
++------+-----------+-------+
+| I_id | I_Name    | I_Key |
++------+-----------+-------+
+|   21 | Piano     | D#    |
+|   22 | Tabla     | F#    |
+|   23 | Tabla     | S#    |
+|   24 | Guitar    | S     |
+|   25 | Harmonium | S4    |
+|   26 | Flute     | Node4 |
+|   27 | Flute     | Node9 |
+|   28 | Drum      | 45D   |
+|   29 | Congo     | 46D   |
+|   30 | Drum      | A40   |
++------+-----------+-------+
+10 rows in set (0.01 sec)
+
+mysql> select * from Play;
++-----+------+
+| SSN | I_id |
++-----+------+
+| 1   |   21 |
+| 1   |   22 |
+| 1   |   23 |
+| 3   |   23 |
+| 1   |   24 |
+| 1   |   25 |
+| 1   |   26 |
+| 7   |   26 |
+| 1   |   27 |
+| 1   |   28 |
+| 6   |   28 |
+| 1   |   29 |
+| 1   |   30 |
+| 5   |   30 |
++-----+------+
+14 rows in set (0.02 sec)
+
+mysql> INSERT INTO Doctor VALUES ('1', 24);
+ERROR 1146 (42S02): Table '1RV21MC047.Doctor' doesn't exist
+mysql> INSERT INTO Play VALUES ('1', 24);
+ERROR 1062 (23000): Duplicate entry '1-24' for key 'PRIMARY'
+mysql> INSERT INTO Play VALUES ('1', 25);
+ERROR 1062 (23000): Duplicate entry '1-25' for key 'PRIMARY'
+mysql> INSERT INTO Play VALUES ('1', 26);
+ERROR 1062 (23000): Duplicate entry '1-26' for key 'PRIMARY'
+mysql> INSERT INTO Play VALUES ('1', 27);
+ERROR 1062 (23000): Duplicate entry '1-27' for key 'PRIMARY'
+mysql> INSERT INTO Play VALUES ('1', 28);
+ERROR 1062 (23000): Duplicate entry '1-28' for key 'PRIMARY'
+mysql> Select * from Instrument;
++------+-----------+-------+
+| I_id | I_Name    | I_Key |
++------+-----------+-------+
+|   21 | Piano     | D#    |
+|   22 | Tabla     | F#    |
+|   23 | Tabla     | S#    |
+|   24 | Guitar    | S     |
+|   25 | Harmonium | S4    |
+|   26 | Flute     | Node4 |
+|   27 | Flute     | Node9 |
+|   28 | Drum      | 45D   |
+|   29 | Congo     | 46D   |
+|   30 | Drum      | A40   |
++------+-----------+-------+
+10 rows in set (0.02 sec)
+
+mysql> select M.*, count(P.SSN) from Musician M, Perform P where M.SSN = 
+P.SSN group by (P.SSN) having count(P.SSN) = (select count(Distinct(I_id)) 
+from Instrument);
+Empty set (0.02 sec)
+
+mysql> select M.*, count(P.SSN) from Musician M, Perform P where M.SSN = 
+P.SSN group by (P.SSN) having count(P.SSN) = (select count(Distinct(I_id)) 
+from Instrument);
+Empty set (0.01 sec)
+
+mysql> mysql> select M.*, count(P.SSN) from Musician M, Play P where M.SSN 
+= P.SSN group by (P.SSN) having count(P.SSN) = (select 
+count(Distinct(I_id)) from Instrument);
++-----+-------+------+----------+--------------+
+| SSN | Name  | Addr | Ph_No    | count(P.SSN) |
++-----+-------+------+----------+--------------+
+| 1   | Peter | LA   | 87654378 |           10 |
++-----+-------+------+----------+--------------+
+1 row in set (0.01 sec)
+
+mysql> select * from Album;
+ERROR 2013 (HY000): Lost connection to MySQL server during query
+No connection. Trying to reconnect...
+Connection id:    1498
+Current database: 1RV21MC047
+
++------+-------------+--------+------------+------+
+| A_id | A_title     | Format | CRD        | SSN  |
++------+-------------+--------+------------+------+
+|   31 | Mohabbat    | mp3    | 2022-04-30 | 2    |
+|   32 | Joonune     | mp3    | 2022-05-20 | 1    |
+|   33 | Joonuniat   | mp4    | 2012-05-20 | 3    |
+|   34 | Joonuniatya | mp4    | 2012-05-21 | 5    |
+|   35 | Juli        | mp4    | 2012-07-21 | 4    |
+|   36 | Devil       | mp4    | 2012-07-24 | 8    |
+|   37 | Devil Son   | mp4    | 2012-07-24 | 6    |
+|   38 | Dad & Son   | mp3    | 2012-07-14 | 7    |
+|   39 | Pepsi Cola  | mp3    | 2010-07-24 | 9    |
+|   40 | Red Moon    | mp3    | 2010-06-24 | 10   |
++------+-------------+--------+------------+------+
+10 rows in set (11.92 sec)
+
+mysql> show tables;
++----------------------+
+| Tables_in_1RV21MC047 |
++----------------------+
+| Album                |
+| Instrument           |
+| Musician             |
+| Perform              |
+| Play                 |
+| STUDENT              |
+| Song                 |
++----------------------+
+7 rows in set (0.01 sec)
+
+mysql> select * from Album;
++------+-------------+--------+------------+------+
+| A_id | A_title     | Format | CRD        | SSN  |
++------+-------------+--------+------------+------+
+|   31 | Mohabbat    | mp3    | 2022-04-30 | 2    |
+|   32 | Joonune     | mp3    | 2022-05-20 | 1    |
+|   33 | Joonuniat   | mp4    | 2012-05-20 | 3    |
+|   34 | Joonuniatya | mp4    | 2012-05-21 | 5    |
+|   35 | Juli        | mp4    | 2012-07-21 | 4    |
+|   36 | Devil       | mp4    | 2012-07-24 | 8    |
+|   37 | Devil Son   | mp4    | 2012-07-24 | 6    |
+|   38 | Dad & Son   | mp3    | 2012-07-14 | 7    |
+|   39 | Pepsi Cola  | mp3    | 2010-07-24 | 9    |
+|   40 | Red Moon    | mp3    | 2010-06-24 | 10   |
++------+-------------+--------+------------+------+
+10 rows in set (0.01 sec)
+
+mysql> select * from Musician;
++-----+---------+---------+-----------+
+| SSN | Name    | Addr    | Ph_No     |
++-----+---------+---------+-----------+
+| 1   | Peter   | LA      |  87654378 |
+| 10  | Rohan   | India   | 672231238 |
+| 2   | Devid   | LA      |  87654678 |
+| 3   | John    | America |  67644678 |
+| 4   | Johnina | America |  67644128 |
+| 5   | Krish   | USA     | 676441648 |
+| 6   | Krishna | USA     | 676441008 |
+| 7   | Kiran   | USA     | 672441008 |
+| 8   | Karan   | USA     | 672331008 |
+| 9   | Karana  | India   | 672331238 |
++-----+---------+---------+-----------+
+10 rows in set (0.02 sec)
+
+mysql> desc Album;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| A_id    | int(10)     | NO   | PRI | NULL    |       |
+| A_title | varchar(20) | NO   |     | NULL    |       |
+| Format  | varchar(20) | NO   |     | NULL    |       |
+| CRD     | date        | NO   |     | NULL    |       |
+| SSN     | varchar(10) | YES  | MUL | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> INSERT INTO Album VALUES (41, 'Allen Sonney', 'mp3', 2022-06-27, 
+'13');
+ERROR 1292 (22007): Incorrect date value: '1989' for column 'CRD' at row 1
+mysql> INSERT INTO Album VALUES (41, 'Allen Sonney', 'mp3', '2022-06-27', 
+'13');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key 
+constraint fails (`1RV21MC047`.`Album`, CONSTRAINT `Album_ibfk_1` FOREIGN 
+KEY (`SSN`) REFERENCES `Musician` (`SSN`))
+mysql> INSERT INTO Album VALUES (41, 'Allen Sonney', 'mp3', "2022-06-27", 
+'13');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key 
+constraint fails (`1RV21MC047`.`Album`, CONSTRAINT `Album_ibfk_1` FOREIGN 
+KEY (`SSN`) REFERENCES `Musician` (`SSN`))
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> desc Album;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| A_id    | int(10)     | NO   | PRI | NULL    |       |
+| A_title | varchar(20) | NO   |     | NULL    |       |
+| Format  | varchar(20) | NO   |     | NULL    |       |
+| CRD     | date        | NO   |     | NULL    |       |
+| SSN     | varchar(10) | YES  | MUL | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> alter table Album add column No_Song int(10) after SSN;
+Query OK, 0 rows affected (0.63 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Album;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| A_id    | int(10)     | NO   | PRI | NULL    |       |
+| A_title | varchar(20) | NO   |     | NULL    |       |
+| Format  | varchar(20) | NO   |     | NULL    |       |
+| CRD     | date        | NO   |     | NULL    |       |
+| SSN     | varchar(10) | YES  | MUL | NULL    |       |
+| No_Song | int(10)     | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> Select * from Album;
++------+-------------+--------+------------+------+---------+
+| A_id | A_title     | Format | CRD        | SSN  | No_Song |
++------+-------------+--------+------------+------+---------+
+|   31 | Mohabbat    | mp3    | 2022-04-30 | 2    |    NULL |
+|   32 | Joonune     | mp3    | 2022-05-20 | 1    |    NULL |
+|   33 | Joonuniat   | mp4    | 2012-05-20 | 3    |    NULL |
+|   34 | Joonuniatya | mp4    | 2012-05-21 | 5    |    NULL |
+|   35 | Juli        | mp4    | 2012-07-21 | 4    |    NULL |
+|   36 | Devil       | mp4    | 2012-07-24 | 8    |    NULL |
+|   37 | Devil Son   | mp4    | 2012-07-24 | 6    |    NULL |
+|   38 | Dad & Son   | mp3    | 2012-07-14 | 7    |    NULL |
+|   39 | Pepsi Cola  | mp3    | 2010-07-24 | 9    |    NULL |
+|   40 | Red Moon    | mp3    | 2010-06-24 | 10   |    NULL |
++------+-------------+--------+------------+------+---------+
+10 rows in set (0.01 sec)
+
+mysql> Select * from Song;
++------+---------------------+------------+------+
+| S_id | Title               | Author     | A_id |
++------+---------------------+------------+------+
+|   41 | Hold On             | Arijit     |   31 |
+|   42 | Hold me up          | Arijit     |   31 |
+|   43 | Pull me             | Devid      |   33 |
+|   44 | Lets go             | Devid      |   32 |
+|   45 | Chll waha           | Mithoon    |   34 |
+|   46 | Chll waha chaltehai | Jubin      |   35 |
+|   47 | Pyaar kia           | Jubin      |   36 |
+|   49 | Darna kya           | Mashmellow |   37 |
+|   50 | Darna kya tumse     | Mashmellow |   39 |
++------+---------------------+------------+------+
+9 rows in set (0.01 sec)
+
+mysql> INSERT INTO Song VALUES (51, 'Allen Joe', 'Mithoon', 31);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO Song VALUES (52, 'Kill Joe', 'Mithoon', 31);
+Query OK, 1 row affected (2.75 sec)
+
+mysql> INSERT INTO Song VALUES (53, 'Kill Joe K', 'Mithoon', 31);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from Album;
++------+-------------+--------+------------+------+---------+
+| A_id | A_title     | Format | CRD        | SSN  | No_Song |
++------+-------------+--------+------------+------+---------+
+|   31 | Mohabbat    | mp3    | 2022-04-30 | 2    |    NULL |
+|   32 | Joonune     | mp3    | 2022-05-20 | 1    |    NULL |
+|   33 | Joonuniat   | mp4    | 2012-05-20 | 3    |    NULL |
+|   34 | Joonuniatya | mp4    | 2012-05-21 | 5    |    NULL |
+|   35 | Juli        | mp4    | 2012-07-21 | 4    |    NULL |
+|   36 | Devil       | mp4    | 2012-07-24 | 8    |    NULL |
+|   37 | Devil Son   | mp4    | 2012-07-24 | 6    |    NULL |
+|   38 | Dad & Son   | mp3    | 2012-07-14 | 7    |    NULL |
+|   39 | Pepsi Cola  | mp3    | 2010-07-24 | 9    |    NULL |
+|   40 | Red Moon    | mp3    | 2010-06-24 | 10   |    NULL |
++------+-------------+--------+------------+------+---------+
+10 rows in set (0.01 sec)
+
+mysql> select * from Song;
++------+---------------------+------------+------+
+| S_id | Title               | Author     | A_id |
++------+---------------------+------------+------+
+|   41 | Hold On             | Arijit     |   31 |
+|   42 | Hold me up          | Arijit     |   31 |
+|   43 | Pull me             | Devid      |   33 |
+|   44 | Lets go             | Devid      |   32 |
+|   45 | Chll waha           | Mithoon    |   34 |
+|   46 | Chll waha chaltehai | Jubin      |   35 |
+|   47 | Pyaar kia           | Jubin      |   36 |
+|   49 | Darna kya           | Mashmellow |   37 |
+|   50 | Darna kya tumse     | Mashmellow |   39 |
+|   51 | Allen Joe           | Mithoon    |   31 |
+|   52 | Kill Joe            | Mithoon    |   31 |
+|   53 | Kill Joe K          | Mithoon    |   31 |
++------+---------------------+------------+------+
+12 rows in set (0.01 sec)
+
+mysql> update Album set No_Song = 5 where S_id = 41;
+ERROR 1054 (42S22): Unknown column 'S_id' in 'where clause'
+mysql> update Album set No_Song = 5 where A_id = 41;
+Query OK, 0 rows affected (0.01 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> Select * from Album;
++------+-------------+--------+------------+------+---------+
+| A_id | A_title     | Format | CRD        | SSN  | No_Song |
++------+-------------+--------+------------+------+---------+
+|   31 | Mohabbat    | mp3    | 2022-04-30 | 2    |    NULL |
+|   32 | Joonune     | mp3    | 2022-05-20 | 1    |    NULL |
+|   33 | Joonuniat   | mp4    | 2012-05-20 | 3    |    NULL |
+|   34 | Joonuniatya | mp4    | 2012-05-21 | 5    |    NULL |
+|   35 | Juli        | mp4    | 2012-07-21 | 4    |    NULL |
+|   36 | Devil       | mp4    | 2012-07-24 | 8    |    NULL |
+|   37 | Devil Son   | mp4    | 2012-07-24 | 6    |    NULL |
+|   38 | Dad & Son   | mp3    | 2012-07-14 | 7    |    NULL |
+|   39 | Pepsi Cola  | mp3    | 2010-07-24 | 9    |    NULL |
+|   40 | Red Moon    | mp3    | 2010-06-24 | 10   |    NULL |
++------+-------------+--------+------------+------+---------+
+10 rows in set (0.01 sec)
+
+mysql> update Album set No_Song = 5 where A_id = 31;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> Select * from Album;
++------+-------------+--------+------------+------+---------+
+| A_id | A_title     | Format | CRD        | SSN  | No_Song |
++------+-------------+--------+------------+------+---------+
+|   31 | Mohabbat    | mp3    | 2022-04-30 | 2    |       5 |
+|   32 | Joonune     | mp3    | 2022-05-20 | 1    |    NULL |
+|   33 | Joonuniat   | mp4    | 2012-05-20 | 3    |    NULL |
+|   34 | Joonuniatya | mp4    | 2012-05-21 | 5    |    NULL |
+|   35 | Juli        | mp4    | 2012-07-21 | 4    |    NULL |
+|   36 | Devil       | mp4    | 2012-07-24 | 8    |    NULL |
+|   37 | Devil Son   | mp4    | 2012-07-24 | 6    |    NULL |
+|   38 | Dad & Son   | mp3    | 2012-07-14 | 7    |    NULL |
+|   39 | Pepsi Cola  | mp3    | 2010-07-24 | 9    |    NULL |
+|   40 | Red Moon    | mp3    | 2010-06-24 | 10   |    NULL |
++------+-------------+--------+------------+------+---------+
+10 rows in set (0.04 sec)
+
+mysql> update Album set No_Song = 1 where A_id = 32;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update Album set No_Song = 1 where A_id = 33;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update Album set No_Song = 1 where A_id = 34;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update Album set No_Song = 1 where A_id = 35;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update Album set No_Song = 1 where A_id = 36;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update Album set No_Song = 1 where A_id = 37;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update Album set No_Song = 0 where A_id = 38;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update Album set No_Song = 0 where A_id = 40;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update Album set No_Song = 1 where A_id = 39;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> Select * from Album;
++------+-------------+--------+------------+------+---------+
+| A_id | A_title     | Format | CRD        | SSN  | No_Song |
++------+-------------+--------+------------+------+---------+
+|   31 | Mohabbat    | mp3    | 2022-04-30 | 2    |       5 |
+|   32 | Joonune     | mp3    | 2022-05-20 | 1    |       1 |
+|   33 | Joonuniat   | mp4    | 2012-05-20 | 3    |       1 |
+|   34 | Joonuniatya | mp4    | 2012-05-21 | 5    |       1 |
+|   35 | Juli        | mp4    | 2012-07-21 | 4    |       1 |
+|   36 | Devil       | mp4    | 2012-07-24 | 8    |       1 |
+|   37 | Devil Son   | mp4    | 2012-07-24 | 6    |       1 |
+|   38 | Dad & Son   | mp3    | 2012-07-14 | 7    |       0 |
+|   39 | Pepsi Cola  | mp3    | 2010-07-24 | 9    |       1 |
+|   40 | Red Moon    | mp3    | 2010-06-24 | 10   |       0 |
++------+-------------+--------+------------+------+---------+
+10 rows in set (0.01 sec)
+
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> desc Musician;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| SSN   | varchar(10) | NO   | PRI | NULL    |       |
+| Name  | varchar(20) | NO   |     | NULL    |       |
+| Addr  | varchar(20) | NO   |     | NULL    |       |
+| Ph_No | int(11)     | NO   |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+
+mysql> desc Instrument;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| I_id   | int(10)     | NO   | PRI | NULL    |       |
+| I_Name | varchar(20) | NO   |     | NULL    |       |
+| I_Key  | varchar(10) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> desc Play;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| SSN   | varchar(10) | NO   | PRI | NULL    |       |
+| I_id  | int(10)     | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+mysql> desc Album;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| A_id    | int(10)     | NO   | PRI | NULL    |       |
+| A_title | varchar(20) | NO   |     | NULL    |       |
+| Format  | varchar(20) | NO   |     | NULL    |       |
+| CRD     | date        | NO   |     | NULL    |       |
+| SSN     | varchar(10) | YES  | MUL | NULL    |       |
+| No_Song | int(10)     | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> select distinct(a.A_title) from Musician m, Instrument i, Play p, 
+Album a where m.SSN = p.SSN and i.I_id = p.I_id and i.I_Name = 'Flute' and 
+exist(select m.Name from Musician m, Instrument i, Play p, Album a where 
+m.SSN = p.SSN and i.I_id = p.I_id and i.I_Name = 'Guitar') and a.SSN in 
+(select SSN from Album where No_Song > (select avg(No_Song) from Album));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual 
+that corresponds to your MySQL server version for the right syntax to use 
+near 'select m.Name from Musician m, Instrument i, Play p, Album a where 
+m.SSN = p.SSN' at line 1
+mysql> mysql> select distinct(a.A_title) from Musician m, Instrument i, 
+Play p, Album a where m.SSN = p.SSN and i.I_id = p.I_id and i.I_Name = 
+'Flute' and exist(select m.Name from MusicInstrument i, Play p, Album a 
+where m.SSN = p.SSN and i.I_id = p.I_id and i.I_Name = 'Guitar') and a.SSN 
+in (select SSN from Album where No_Song > (select avg(No_Song) from 
+Album));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual 
+that corresponds to your MySQL server version for the right syntax to use 
+near 'select m.Name from Musician m, Instrument i, Play p, Album a where 
+m.SSN = p.SSN' at line 1
+mysql> 
+mysql> 
+mysql> 
+mysql> select distinct(a.A_title) from Musician m, Instrument i, Play p, 
+Album a where m.SSN = p.SSN and i.I_id = p.I_id and i.I_Name = 'Flute' and 
+exist(select m.Name from Musician m, Instrument i, Play p, Album a where 
+m.SSN = p.SSN and i.I_id = p.I_id and i.I_Name = 'Guitar') and a.SSN in 
+(select SSN from Album where No_Song > (select avg(No_Song) from Album));
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual 
+that corresponds to your MySQL server version for the right syntax to use 
+near 'select m.Name from Musician m, Instrument i, Play p, Album a where 
+m.SSN = p.SSN' at line 1
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> select a.Title from Musician m,Instrument i,Play p,Album a where 
+m.SSN=p.SSN and i.I_ID=p.I_ID and a.SSN=m.SSN and i.I_Name="Flute" and 
+m.SSN in(select p.SSN from Instrument i,Play p where i.I_ID=p.I_ID and 
+i.I_Name="Guitar")and No_songs > (select avg(No_songs)from Album);
+ERROR 1054 (42S22): Unknown column 'a.Title' in 'field list'
+mysql> Select * from Instrument;
++------+-----------+-------+
+| I_id | I_Name    | I_Key |
++------+-----------+-------+
+|   21 | Piano     | D#    |
+|   22 | Tabla     | F#    |
+|   23 | Tabla     | S#    |
+|   24 | Guitar    | S     |
+|   25 | Harmonium | S4    |
+|   26 | Flute     | Node4 |
+|   27 | Flute     | Node9 |
+|   28 | Drum      | 45D   |
+|   29 | Congo     | 46D   |
+|   30 | Drum      | A40   |
++------+-----------+-------+
+10 rows in set (1.65 sec)
+
+mysql> select a.A_title from Musician m,Instrument i,Play p,Album a where 
+m.SSN=p.SSN and i.I_id=p.I_id and a.SSN=m.SSN and i.I_Name="Flute" and 
+m.SSN in(select p.SSN from Instrument i,Play p where i.I_id=p.I_id and 
+i.I_Name="Guitar")and No_songs > (select avg(No_songs)from Album);
+ERROR 1054 (42S22): Unknown column 'No_songs' in 'where clause'
+mysql> select a.A_title from Musician m,Instrument i,Play p,Album a where 
+m.SSN=p.SSN and i.I_id=p.I_id and a.SSN=m.SSN and i.I_Name="Flute" and 
+m.SSN in(select p.SSN from Instrument i,Play p where i.I_id=p.I_id and 
+i.I_Name="Guitar")and No_songs > (select avg(No_song)from Album);
+ERROR 1054 (42S22): Unknown column 'No_songs' in 'where clause'
+mysql> select a.A_title from Musician m,Instrument i,Play p,Album a where 
+m.SSN=p.SSN and i.I_id=p.I_id and a.SSN=m.SSN and i.I_Name="Flute" and 
+m.SSN in(select p.SSN from Instrument i,Play p where i.I_id=p.I_id and 
+i.I_Name="Guitar")and No_songs > (select avg(No_Song)from Album);
+ERROR 1054 (42S22): Unknown column 'No_songs' in 'where clause'
+mysql> select a.A_title from Musician m,Instrument i,Play p,Album a where 
+m.SSN=p.SSN and i.I_id=p.I_id and a.SSN=m.SSN and i.I_Name="Flute" and 
+m.SSN in(select p.SSN from Instrument i,Play p where i.I_id=p.I_id and 
+i.I_Name="Guitar")and No_Song > (select avg(No_Song)from Album);
+Empty set (0.10 sec)
+
+mysql> INSERT INTO Song VALUES (54, 'Ki Joe K', 'Mithoon', 31);
+Query OK, 1 row affected (0.21 sec)
+
+mysql> INSERT INTO Song VALUES (55, 'Ki Joe K', 'Mithoon', 31);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO Song VALUES (56, 'Ki Joe Kai', 'Mithoon', 31);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO Song VALUES (57, 'Ki Joe Kaia', 'Mithoon', 31);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from Song;
++------+---------------------+------------+------+
+| S_id | Title               | Author     | A_id |
++------+---------------------+------------+------+
+|   41 | Hold On             | Arijit     |   31 |
+|   42 | Hold me up          | Arijit     |   31 |
+|   43 | Pull me             | Devid      |   33 |
+|   44 | Lets go             | Devid      |   32 |
+|   45 | Chll waha           | Mithoon    |   34 |
+|   46 | Chll waha chaltehai | Jubin      |   35 |
+|   47 | Pyaar kia           | Jubin      |   36 |
+|   49 | Darna kya           | Mashmellow |   37 |
+|   50 | Darna kya tumse     | Mashmellow |   39 |
+|   51 | Allen Joe           | Mithoon    |   31 |
+|   52 | Kill Joe            | Mithoon    |   31 |
+|   53 | Kill Joe K          | Mithoon    |   31 |
+|   54 | Ki Joe K            | Mithoon    |   31 |
+|   55 | Ki Joe K            | Mithoon    |   31 |
+|   56 | Ki Joe Kai          | Mithoon    |   31 |
+|   57 | Ki Joe Kaia         | Mithoon    |   31 |
++------+---------------------+------------+------+
+16 rows in set (0.01 sec)
+
+mysql> update Album set No_Song = 9 where A_id = 31;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from Album;
++------+-------------+--------+------------+------+---------+
+| A_id | A_title     | Format | CRD        | SSN  | No_Song |
++------+-------------+--------+------------+------+---------+
+|   31 | Mohabbat    | mp3    | 2022-04-30 | 2    |       9 |
+|   32 | Joonune     | mp3    | 2022-05-20 | 1    |       1 |
+|   33 | Joonuniat   | mp4    | 2012-05-20 | 3    |       1 |
+|   34 | Joonuniatya | mp4    | 2012-05-21 | 5    |       1 |
+|   35 | Juli        | mp4    | 2012-07-21 | 4    |       1 |
+|   36 | Devil       | mp4    | 2012-07-24 | 8    |       1 |
+|   37 | Devil Son   | mp4    | 2012-07-24 | 6    |       1 |
+|   38 | Dad & Son   | mp3    | 2012-07-14 | 7    |       0 |
+|   39 | Pepsi Cola  | mp3    | 2010-07-24 | 9    |       1 |
+|   40 | Red Moon    | mp3    | 2010-06-24 | 10   |       0 |
++------+-------------+--------+------------+------+---------+
+10 rows in set (1.24 sec)
+
+mysql> select a.A_title from Musician m,Instrument i,Play p,Album a where 
+m.SSN=p.SSN and i.I_id=p.I_id and a.SSN=m.SSN and i.I_Name="Flute" and 
+m.SSN in(select p.SSN from Instrument i,Play p where i.I_id=p.I_id and 
+i.I_Name="Guitar")and No_Song > (select avg(No_Song)from Album);
+Empty set (0.13 sec)
+
+mysql> select * from Instrument;
++------+-----------+-------+
+| I_id | I_Name    | I_Key |
++------+-----------+-------+
+|   21 | Piano     | D#    |
+|   22 | Tabla     | F#    |
+|   23 | Tabla     | S#    |
+|   24 | Guitar    | S     |
+|   25 | Harmonium | S4    |
+|   26 | Flute     | Node4 |
+|   27 | Flute     | Node9 |
+|   28 | Drum      | 45D   |
+|   29 | Congo     | 46D   |
+|   30 | Drum      | A40   |
++------+-----------+-------+
+10 rows in set (0.06 sec)
+
+mysql> select * from Play;
++-----+------+
+| SSN | I_id |
++-----+------+
+| 1   |   21 |
+| 1   |   22 |
+| 1   |   23 |
+| 3   |   23 |
+| 1   |   24 |
+| 1   |   25 |
+| 1   |   26 |
+| 7   |   26 |
+| 1   |   27 |
+| 1   |   28 |
+| 6   |   28 |
+| 1   |   29 |
+| 1   |   30 |
+| 5   |   30 |
++-----+------+
+14 rows in set (0.02 sec)
+
+mysql> select * from Produce;
+ERROR 1146 (42S02): Table '1RV21MC047.Produce' doesn't exist
+mysql> select * from Perform;
++-----+------+
+| SSN | S_id |
++-----+------+
+| 3   |   41 |
+| 4   |   41 |
+| 7   |   41 |
+| 9   |   41 |
+| 1   |   42 |
+| 2   |   43 |
+| 5   |   44 |
+| 6   |   45 |
+| 8   |   46 |
+| 1   |   47 |
++-----+------+
+10 rows in set (0.18 sec)
+
+mysql> update Play set SSN = 2 where I_id = 26;
+ERROR 1062 (23000): Duplicate entry '2-26' for key 'PRIMARY'
+mysql> insert into Play values('2', 26);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into Play values('2', 24);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> select a.A_title from Musician m,Instrument i,Play p,Album a where 
+m.SSN=p.SSN and i.I_id=p.I_id and a.SSN=m.SSN and i.I_Name="Flute" and 
+m.SSN in(select p.SSN from Instrument i,Play p where i.I_id=p.I_id and 
+i.I_Name="Guitar")and No_Song > (select avg(No_Song)from Album);
++----------+
+| A_title  |
++----------+
+| Mohabbat |
++----------+
+1 row in set (0.07 sec)
+
+mysql> select * from Album;
++------+-------------+--------+------------+------+---------+
+| A_id | A_title     | Format | CRD        | SSN  | No_Song |
++------+-------------+--------+------------+------+---------+
+|   31 | Mohabbat    | mp3    | 2022-04-30 | 2    |       9 |
+|   32 | Joonune     | mp3    | 2022-05-20 | 1    |       1 |
+|   33 | Joonuniat   | mp4    | 2012-05-20 | 3    |       1 |
+|   34 | Joonuniatya | mp4    | 2012-05-21 | 5    |       1 |
+|   35 | Juli        | mp4    | 2012-07-21 | 4    |       1 |
+|   36 | Devil       | mp4    | 2012-07-24 | 8    |       1 |
+|   37 | Devil Son   | mp4    | 2012-07-24 | 6    |       1 |
+|   38 | Dad & Son   | mp3    | 2012-07-14 | 7    |       0 |
+|   39 | Pepsi Cola  | mp3    | 2010-07-24 | 9    |       1 |
+|   40 | Red Moon    | mp3    | 2010-06-24 | 10   |       0 |
++------+-------------+--------+------------+------+---------+
+10 rows in set (1.93 sec)
+
+mysql> update Album set SSN = 3 where A_id = 34;
+Query OK, 1 row affected (0.13 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from Album;
++------+-------------+--------+------------+------+---------+
+| A_id | A_title     | Format | CRD        | SSN  | No_Song |
++------+-------------+--------+------------+------+---------+
+|   31 | Mohabbat    | mp3    | 2022-04-30 | 2    |       9 |
+|   32 | Joonune     | mp3    | 2022-05-20 | 1    |       1 |
+|   33 | Joonuniat   | mp4    | 2012-05-20 | 3    |       1 |
+|   34 | Joonuniatya | mp4    | 2012-05-21 | 3    |       1 |
+|   35 | Juli        | mp4    | 2012-07-21 | 4    |       1 |
+|   36 | Devil       | mp4    | 2012-07-24 | 8    |       1 |
+|   37 | Devil Son   | mp4    | 2012-07-24 | 6    |       1 |
+|   38 | Dad & Son   | mp3    | 2012-07-14 | 7    |       0 |
+|   39 | Pepsi Cola  | mp3    | 2010-07-24 | 9    |       1 |
+|   40 | Red Moon    | mp3    | 2010-06-24 | 10   |       0 |
++------+-------------+--------+------------+------+---------+
+10 rows in set (0.30 sec)
+
+mysql> select M.SSN, M.Name from Musician M where M.SSN not in(select 
+A.SSN from Album A, Musician M where A.SSN = M.SSN);
++-----+-------+
+| SSN | Name  |
++-----+-------+
+| 5   | Krish |
++-----+-------+
+1 row in set (0.02 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

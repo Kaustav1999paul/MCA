@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html>
+        <?xml version="1.0" encoding="utf-8"?>
+                <students>
+                        <student>
+                                <name>Kaustav Paul</name>
+                                <usn>RVCE21MCA001</usn>
+                        </student>
+                        <student>
+                                <name>AAA</name>
+                                <usn>21MCA0dg</usn>
+                        </student>
+                        <student>
+                                <name>BBB</name>
+                                <usn>21MCA0f9</usn>
+                        </student>
+                        <student>
+                                <name>CCC</name>
+                                <usn>21MCA022</usn>
+                        </student>
+                        <student>
+                                <name>DDD</name>
+                                <usn>21MCA01s3</usn>
+                        </student>
+                        <student>
+                                <name>EEE</name>
+                                <usn>21MCA678</usn>
+                        </student>
+                </students>
+        <head>
+                <style>
+
+			.but{
+				padding: 20px;
+				background-color: red;
+				border-radius: 20px;
+				border: none;
+				cursor: pointer;
+				color: white;
+				box-shadow: 0 0 10px 4px grey;
+				margin: 30px;
+				transition: 0.5s ease;
+			}
+
+			.but:hover{
+				background-color: orange;
+				padding: 30px;
+			}
+
+                        student{
+                                display:none;
+                        }
+
+                        table,th,td{
+				padding: 10px;
+				text-align: center;
+                                border:2px solid black;
+                                border-collapse:collapse;
+				background-color: white;
+				box-shadow: 0 0 10px 4px grey;
+                        }
+                        th,td{
+                                padding:15px;
+                        }
+                </style>
+        </head>
+        <body>
+                <script>
+                        function callTable(){
+                                        var i;
+                                        var myTable = "<tr><th>Name</th><th>USN</th></tr>";
+                                        var n = document.getElementsByTagName("student");
+                                        for(i=0;i<n.length;i++){
+                                                myTable += "<tr><td>"+n[i]
+                                                        .getElementsByTagName("name")[0]
+                                                        .childNodes[0].nodeValue+"</td><td>"
+                                                        +n[i].getElementsByTagName("usn")[0]
+                                                        .childNodes[0].nodeValue+"</td></tr>";
+                                                }
+                                document.getElementById("dataTable").innerHTML=myTable;
+                        }
+                </script>
+		<center>
+                <input type="button" class="but" onclick="callTable()" value="Click Here">
+                <br>
+                <table id="dataTable"></table>
+		</center>
+        </body>
+</html>

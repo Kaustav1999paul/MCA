@@ -1,0 +1,242 @@
+Experiment 2 
+
+
+
+
+
+CREATE TABLE PATIENT(PSSN VARCHAR(10), PName VARCHAR(30), PAge INT, PAddress VARCHAR(50),PRIMARY KEY(PSSN));
+
+CREATE TABLE DOCTOR(DSSN VARCHAR(10), DName VARCHAR(30), Speciality VARCHAR(30), ExpYr INT, PRIMARY KEY(DSSN));
+
+CREATE TABLE PHCOMPANY(CName VARCHAR(30), CAddress VARCHAR(50), CPhone_No BIGINT, PRIMARY KEY(CName));
+
+CREATE TABLE PHARMACY(PHName VARCHAR(30), PHPhone_No BIGINT, PHAddress VARCHAR(50), PRIMARY KEY(PHName));
+
+CREATE TABLE DRUG(TradeName VARCHAR(30), Formula VARCHAR(30), CName VARCHAR(30), PRIMARY KEY(TradeName), FOREIGN KEY(CName) REFERENCES PHCOMPANY(CName));
+
+CREATE TABLE CONTRACT_WITH(Start_Date DATE, End_Date DATE, Text VARCHAR(30), Supervisor VARCHAR(30), CName VARCHAR(30), PHName VARCHAR(30), PRIMARY KEY(CName, PHName), FOREIGN KEY(CName) REFERENCES PHCOMPANY(CName), FOREIGN KEY(PHName) REFERENCES PHARMACY(PHName));
+
+CREATE TABLE SELL(Price FLOAT, PHName VARCHAR(30), TradeName VARCHAR(30), PRIMARY KEY(PHName, TradeName), FOREIGN KEY(PHName) REFERENCES PHARMACY(PHName), FOREIGN KEY(TradeName) REFERENCES DRUG(TradeName));
+
+CREATE TABLE PRESCRIBE(Date1 DATE,Quantity VARCHAR(20), DSSN VARCHAR(10), TradeName VARCHAR(30), PSSN VARCHAR(10), PRIMARY KEY(DSSN, TradeName, PSSN), FOREIGN KEY(DSSN) REFERENCES DOCTOR(DSSN), FOREIGN KEY(TradeName) REFERENCES DRUG(TradeName), FOREIGN KEY(PSSN) REFERENCES PATIENT(PSSN));
+
+CREATE TABLE CHECK1(PSSN VARCHAR(10), DSSN VARCHAR(10), PRIMARY KEY(PSSN,DSSN), FOREIGN KEY(DSSN) REFERENCES DOCTOR(DSSN), FOREIGN KEY(PSSN) REFERENCES PATIENT(PSSN));
+
+show tables;
+
+
+
+
+
+
+---------------
+Data Entry
+---------------
+
+
+INSERT INTO PHARMACY VALUES ('Raj', 4566541253, 'JP Nagar');
+INSERT INTO PHARMACY VALUES ('Raja', 4566545253, 'RR Nagar');
+INSERT INTO PHARMACY VALUES ('Raju', 4566545200, 'RR Nagar');
+INSERT INTO PHARMACY VALUES ('Rajua', 4566541200, 'RR Nagar');
+INSERT INTO PHARMACY VALUES ('Raan', 4566541200, 'RR Nagar');
+INSERT INTO PHARMACY VALUES ('Raanu', 1566541200, 'RR Nagar');
+INSERT INTO PHARMACY VALUES ('Babuu', 1566541230, 'RR Nagar');
+INSERT INTO PHARMACY VALUES ('Sona', 1566541566, 'RR Nagar');
+INSERT INTO PHARMACY VALUES ('Meera', 1566441566, 'RR Nagar');
+INSERT INTO PHARMACY VALUES ('Meer', 1966441566, 'RR Nagar');
+INSERT INTO PHARMACY VALUES ('Mary', 1966441560, 'RR Nagar');
+INSERT INTO PHARMACY VALUES ('Mardelo', 1766441560, 'RR Nagar');
+INSERT INTO PHARMACY VALUES ('Mardi', 1766441590, 'RR Nagar');
+INSERT INTO PHARMACY VALUES ('Josep', 1766444390, 'RR Nagar');
+INSERT INTO PHARMACY VALUES ('Jose', 0766444390, 'RR Nagar');
+INSERT INTO PHARMACY VALUES ('Josh', 1766444090, 'Jaya Nagar');
+
+
+
+
+
+
+INSERT INTO PHCOMPANY VALUES ('CAD Pharma Inc', 'RR Nagar', 8796541592);
+INSERT INTO PHCOMPANY VALUES ('ACD Pharma Inc', 'RR Nagar', 9796541592);
+INSERT INTO PHCOMPANY VALUES ('ABC Pharma Inc', 'JP Nagar', 9096541592);
+INSERT INTO PHCOMPANY VALUES ('ABD Pharma Inc', 'Kormangla', 9096541562);
+INSERT INTO PHCOMPANY VALUES ('XXZ Pharma Inc', 'Kormangla', 0096541562);
+INSERT INTO PHCOMPANY VALUES ('KK Pharma Inc', 'Magistic', 1096541562)
+INSERT INTO PHCOMPANY VALUES ('KoX Pharma Inc', 'Magistic', 1096521562);
+INSERT INTO PHCOMPANY VALUES ('KoT Pharma Inc', 'Moon', 1096520562);
+INSERT INTO PHCOMPANY VALUES ('TT Pharma Inc', 'Moon', 1096520062);
+INSERT INTO PHCOMPANY VALUES ('TTL Pharma Inc', 'Moon Gali', 6096520062);
+INSERT INTO PHCOMPANY VALUES ('TTLC Pharma Inc', 'Moon Galn', 6096520092);
+
+
+
+
+
+
+INSERT INTO DRUG VALUES ('Dolo', 'Tablet', 'CAD Pharma Inc');
+INSERT INTO DRUG(TradeName, Formula, CName) VALUES ('HHOmega', 'Capsule', 'CAD Pharma Inc');
+INSERT INTO DRUG(TradeName, Formula, CName) VALUES ('Poisonka', 'Capsule', 'ABC Pharma Inc'); 
+INSERT INTO DRUG(TradeName, Formula, CName) VALUES ('PoiTron', 'Capsule', 'XXZ Pharma Inc'); 
+INSERT INTO DRUG(TradeName, Formula, CName) VALUES ('PoiTro', 'Capsule', 'TT Pharma Inc');;
+INSERT INTO DRUG(TradeName, Formula, CName) VALUES ('PoiTroi', 'Capsule', 'TTL Pharma Inc');
+INSERT INTO DRUG(TradeName, Formula, CName) VALUES ('PoiTroion', 'Capsule', 'TTLC Pharma Inc');
+INSERT INTO DRUG(TradeName, Formula, CName) VALUES ('Gackfruit Cough', 'Serup', 'ABD Pharma Inc');
+
+
+
+
+
+
+INSERT INTO DOCTOR VALUES ('D101', 'Edmund', 'Eye Specialist', 10); 
+INSERT INTO DOCTOR VALUES ('D102', 'Ela', 'Eye Specialist', 11);
+INSERT INTO DOCTOR VALUES ('D103', 'Ala', 'Nose Specialist', 10);
+INSERT INTO DOCTOR VALUES ('D104', 'Alice', 'Skin Specialist', 10);
+INSERT INTO DOCTOR VALUES ('D105', 'Anna', 'Cardiologist', 20);
+INSERT INTO DOCTOR VALUES ('D106', 'Sheela', 'OrthoPedic Surgeon', 17);
+INSERT INTO DOCTOR VALUES ('D107', 'Sheha', 'OrthoPedic Surgeon', 17);
+INSERT INTO DOCTOR VALUES ('D108', 'Saha', 'Gyno Surgeon', 17);
+INSERT INTO DOCTOR VALUES ('D109', 'Sahani', 'Gyno Surgeon', 17);
+
+
+
+
+
+
+INSERT INTO PATIENT VALUES ('P101', 'Ishani', 21, 'MG Road');
+INSERT INTO PATIENT VALUES ('P102', 'Isha', 21, 'Mageri Road');
+INSERT INTO PATIENT VALUES ('P103', 'Ishita', 21, 'Mageri Road');
+INSERT INTO PATIENT VALUES ('P104', 'Aish', 20, 'Kengeri');
+INSERT INTO PATIENT VALUES ('P105', 'Aishwaria', 23, 'Kengeri');
+INSERT INTO PATIENT VALUES ('P106', 'Pyush', 5, 'Kengeri');
+INSERT INTO PATIENT VALUES ('P107', 'Pyusha', 56, 'Kengeri Left');
+INSERT INTO PATIENT VALUES ('P108', 'Punit', 61, 'Kengeri Right');
+INSERT INTO PATIENT VALUES ('P109', 'Pintu', 41, 'RR Right');
+INSERT INTO PATIENT VALUES ('P110', 'Pintushali', 40, 'RR Right');
+insert into PATIENT values('P111', 'Ishania', 21, 'MGK Road');
+insert into PATIENT values('P112', 'Ishana', 21, 'MGK Road');
+insert into PATIENT values('P113', 'Ishami', 24, 'MGK Road');
+insert into PATIENT values('P114', 'Ishamia', 24, 'MGK Road');
+insert into PATIENT values('P115', 'Ishamiani', 24, 'MGK Road');
+insert into PATIENT values('P116', 'Ishamiai', 20, 'MGK Road');
+insert into PATIENT values('P117', 'Lishamiai', 10, 'MGK Road');
+insert into PATIENT values('P118', 'Lishami', 10, 'MGK Road')
+insert into PATIENT values('P119', 'Lishamia', 30, 'MGK Road');
+insert into PATIENT values('P120', 'Lishamiai', 31, 'MGK Road');
+
+
+
+
+
+INSERT INTO SELL VALUES(35.0, 'Jose' , 'Dolo');
+INSERT INTO SELL VALUES(45.0, 'Josh' , 'Poisonka');
+INSERT INTO SELL VALUES(55.0, 'Mardelo' , 'Dolo');
+INSERT INTO SELL VALUES(25.0, 'Mardi' , 'HHOmega');
+INSERT INTO SELL VALUES(35.0, 'Mary' , 'Poisonka');
+INSERT INTO SELL VALUES(25.0, 'Meera' , 'PoiTroi');
+INSERT INTO SELL VALUES(15.0, 'Raanu' , 'PoiTron');
+INSERT INTO SELL VALUES(55.0, 'Raj' , 'PoiTron');
+INSERT INTO SELL VALUES(65.0, 'Raja' , 'PoiTroi');
+INSERT INTO SELL VALUES(35.0, 'Raju' , 'HHOmega');
+------------------------------------------------------
+INSERT INTO SELL VALUES(23, 'Raju', 'Gackfruit Cough');
+INSERT INTO SELL VALUES(23, 'Josh', 'Dolo');
+INSERT INTO SELL VALUES(23, 'Mardi', 'Dolo');
+INSERT INTO SELL VALUES(23, 'Mary', 'Dolo');
+INSERT INTO SELL VALUES(23, 'Meera', 'Dolo');
+INSERT INTO SELL VALUES(23, 'Raanu', 'Dolo');
+INSERT INTO SELL VALUES(23, 'Raj', 'Dolo');
+INSERT INTO SELL VALUES(23, 'Raja', 'Dolo');
+INSERT INTO SELL VALUES(23, 'Raju', 'Dolo');
+INSERT INTO SELL VALUES(23, 'Josep', 'Dolo');
+INSERT INTO SELL VALUES(23, 'Meer', 'Dolo');
+INSERT INTO SELL VALUES(23, 'Raan', 'Dolo');
+INSERT INTO SELL VALUES(23, 'Rajua', 'Dolo');
+INSERT INTO SELL VALUES(23, 'Sona', 'Dolo');
+
+
+
+
+
+
+
+INSERT INTO PRESCRIBE VALUES("2013-10-01" , '10 Tab' , 'D103', 'Dolo' , 'P101');
+INSERT INTO PRESCRIBE VALUES("2013-10-02" , '19 Tab' , 'D103', 'HHOmega' , 'P102');
+INSERT INTO PRESCRIBE VALUES("2013-10-01", '9 Tablets', 'D103', 'Gackfruit Cough', 'P102');
+INSERT INTO PRESCRIBE VALUES("2013-10-02", '10 Tablets', 'D103', 'Dolo', 'P103');
+INSERT INTO PRESCRIBE VALUES("2013-10-03", '17 Tablets', 'D103', 'Dolo', 'P104');
+INSERT INTO PRESCRIBE VALUES("2013-10-01", '10 Tablets', 'D103', 'HHOmega', 'P105');
+INSERT INTO PRESCRIBE VALUES("2013-10-04", '1 Tablets', 'D103', 'Poisonka', 'P106');
+INSERT INTO PRESCRIBE VALUES("2013-10-01", '10 Tablets', 'D103', 'PoiTroion', 'P107');
+INSERT INTO PRESCRIBE VALUES("2013-10-05", '20 Tablets', 'D103', 'PoiTroi', 'P108');
+INSERT INTO PRESCRIBE VALUES("2013-10-01", '24 Tablets', 'D103', 'Dolo', 'P109');
+INSERT INTO PRESCRIBE VALUES("2013-10-01", '10 Tablets', 'D103', 'PoiTro', 'P110');
+INSERT INTO PRESCRIBE VALUES("2013-10-06", '10 Tablets', 'D103', 'Dolo', 'P111');
+INSERT INTO PRESCRIBE VALUES("2013-10-07", '15 Tablets', 'D103', 'PoiTroion', 'P112');
+INSERT INTO PRESCRIBE VALUES("2013-10-08", '10 Tablets', 'D103', 'PoiTron', 'P113');
+INSERT INTO PRESCRIBE VALUES("2013-10-08", '19 Tablets', 'D103', 'Dolo', 'P114');
+INSERT INTO PRESCRIBE VALUES("2013-10-01", '10 Tablets', 'D103', 'PoiTron', 'P115');
+INSERT INTO PRESCRIBE VALUES("2013-10-09", '90 Tablets', 'D103', 'PoiTron', 'P116');
+--------------------------------------------------------------------------------------
+INSERT INTO PRESCRIBE VALUES("2013-10-10", '10 Tablets', 'D103', 'PoiTro', 'P119');
+INSERT INTO PRESCRIBE VALUES("2013-10-10", '10 Tablets', 'D103', 'PoiTro', 'P120');
+INSERT INTO PRESCRIBE VALUES("2013-10-10", '10 Tablets', 'D103', 'PoiTro', 'P118');
+INSERT INTO PRESCRIBE VALUES("2013-10-11", '10 Tablets', 'D103', 'PoiTro', 'P117');
+
+
+
+
+
+
+
+
+INSERT INTO CONTRACT_WITH VALUES("2021-12-20" ,"2021-12-20" , 'Company CAD Pharma inc', 'saksha', 'ABC Pharma Inc','Babuu');
+INSERT INTO CONTRACT_WITH VALUES("2021-12-20" ,"2021-12-20" , 'Company D Pharma inc', 'William', 'ABC Pharma Inc','Jose');
+INSERT INTO CONTRACT_WITH VALUES("2021-12-20" ,"2021-12-20" , 'Company AD Pharma inc', 'Paul', 'ABC Pharma Inc','Josh');
+INSERT INTO CONTRACT_WITH VALUES("2021-12-20" ,"2021-12-20" , 'Company CA Pharma inc', 'Georgie', 'ABC Pharma Inc','Josep');
+INSERT INTO CONTRACT_WITH VALUES("2021-12-20" ,"2021-12-20" , 'Company CD Pharma inc', 'Shushmitha', 'ABC Pharma Inc','Mardelo');
+INSERT INTO CONTRACT_WITH VALUES("2021-12-20" ,"2021-12-20" , 'Company AD Pharma inc', 'Swasthik', 'ABC Pharma Inc','Mardi');
+INSERT INTO CONTRACT_WITH VALUES("2021-12-20" ,"2021-12-20" , 'Company AD Pharma inc', 'Niveditha', 'ABC Pharma Inc','Mary');
+INSERT INTO CONTRACT_WITH VALUES("2021-12-20" ,"2021-12-20" , 'Company AD Pharma inc', 'Hari', 'ABC Pharma Inc','Meer');
+INSERT INTO CONTRACT_WITH VALUES("2021-12-20" ,"2021-12-20" , 'Company CA Pharma inc', 'Gauri', 'ABC Pharma Inc','Meera')
+INSERT INTO CONTRACT_WITH VALUES("2021-12-20" ,"2021-12-20" , 'Company CAD Pharma inc', 'Ashok', 'ABC Pharma Inc','Raan');
+INSERT INTO CONTRACT_WITH VALUES("2021-12-20" ,"2021-12-20" , 'Company CD Pharma inc', 'Ashoka', 'ABC Pharma Inc','Raanu');
+INSERT INTO CONTRACT_WITH VALUES("2021-12-20" ,"2021-12-20" , 'Company AD Pharma inc', 'Sharanyani', 'ABC Pharma Inc','Raj');
+INSERT INTO CONTRACT_WITH VALUES("2021-12-20" ,"2021-12-20" , 'Company CD Pharma inc', 'Shar', 'ABC Pharma Inc','Raja');
+INSERT INTO CONTRACT_WITH VALUES("2021-12-20" ,"2021-12-20" , 'Company D Pharma inc', 'Bharanya', 'ABC Pharma Inc','Rajua');
+INSERT INTO CONTRACT_WITH VALUES("2021-12-20" ,"2021-12-20" , 'Company A Pharma inc', 'sakshani', 'ABC Pharma Inc','Sona');
+
+
+
+
+
+----------
+QUERIES
+----------
+
+
+1>
+SELECT P.Pname, D.DName FROM PATIENT P, DOCTOR D, CHECK1 CH WHERE P.PSSN=CH.PSSN AND CH.DSSN=D.DSSN AND PAge=20 AND Speciality="Eye Specialist";
+
+
+2>
+SELECT D.DSSN,D.DName,COUNT(DISTINCT(PR.PSSN)) FROM PRESCRIBE PR,DOCTOR D WHERE PR.DSSN=D.DSSN AND PR.Date1 LIKE "2013%" GROUP BY DSSN HAVING COUNT(PR.PSSN)>=20;
+
+
+3>
+SELECT D.* FROM DOCTOR D WHERE D.ExpYr = (SELECT MAX(D.ExpYr) FROM DOCTOR D);
+
+
+4>
+SELECT C.*, count(CW.CName) FROM PHCOMPANY C, PHARMACY PH, CONTRACT_WITH CW WHERE C.CName = CW.CName AND CW.PHName = PH.PHName GROUP BY(CW.CName) HAVING COUNT(CW.CName) > 10;
+
+
+5>
+select D.*, count(S.TradeName) from SELL S, DRUG D where D.TradeName = S.TradeName group by (S.TradeName) having count(S.TradeName) = 1;
+
+
+6>
+select D.*, count(S.TradeName) from SELL S, DRUG D where D.TradeName = S.TradeName group by (S.TradeName) having count(S.TradeName) = (select count(*) from PHARMACY); 
+
+
+
+

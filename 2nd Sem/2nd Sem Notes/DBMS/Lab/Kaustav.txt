@@ -1,0 +1,2222 @@
+help Data Types
+help AUTO_INCREMENT
+help INT
+help FLOAT
+help BOOLEAN
+help CHAR
+help Table Maintenance
+help CHECK TABLE
+help ANALYZE TABLE
+help Functions
+help Date and Time Functions
+help Logical Operators
+help Comparison Operators
+help !=
+CREATE TABLE STUDENT(Name varchar(20), USN varchar(10), sub1 int(10), sub2 int(10));
+INSERT INTO STUDENT(Name, USN, sub1, sub2) value("Kaustav", "1RV21MC047", 80, 86);
+SELECT * FORM STUDENT;
+DESCRIBE STUDENT;
+ALTER TABLE STUDENT ADD age INT;
+UPDATE STUDENT SET age = 21 WHERE USN = "1RV21MC047";
+UPDATE STUDENT SET age = 21 WHERE sub1 >= 70;
+
+
+
+
+
+OUTPUT
+--------------
+batch2@mcalab2-HP-280-G3-MT:~$ mysql -u 1RV21MC047 -p -h 172.16.34.35
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 132
+Server version: 5.7.38-0ubuntu0.18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| 1RV21MC047         |
++--------------------+
+2 rows in set (0.00 sec)
+
+mysql> use 1RV21MC047;
+Database changed
+mysql> help
+
+For information about MySQL products and services, visit:
+   http://www.mysql.com/
+For developer information, including the MySQL Reference Manual, visit:
+   http://dev.mysql.com/
+To buy MySQL Enterprise support, training, or other products, visit:
+   https://shop.mysql.com/
+
+List of all MySQL commands:
+Note that all text commands must be first on line and end with ';'
+?         (\?) Synonym for `help'.
+clear     (\c) Clear the current input statement.
+connect   (\r) Reconnect to the server. Optional arguments are db and host.
+delimiter (\d) Set statement delimiter.
+edit      (\e) Edit command with $EDITOR.
+ego       (\G) Send command to mysql server, display result vertically.
+exit      (\q) Exit mysql. Same as quit.
+go        (\g) Send command to mysql server.
+help      (\h) Display this help.
+nopager   (\n) Disable pager, print to stdout.
+notee     (\t) Don't write into outfile.
+pager     (\P) Set PAGER [to_pager]. Print the query results via PAGER.
+print     (\p) Print current command.
+prompt    (\R) Change your mysql prompt.
+quit      (\q) Quit mysql.
+rehash    (\#) Rebuild completion hash.
+source    (\.) Execute an SQL script file. Takes a file name as an argument.
+status    (\s) Get status information from the server.
+system    (\!) Execute a system shell command.
+tee       (\T) Set outfile [to_outfile]. Append everything into given outfile.
+use       (\u) Use another database. Takes database name as argument.
+charset   (\C) Switch to another charset. Might be needed for processing binlog with multi-byte charsets.
+warnings  (\W) Show warnings after every statement.
+nowarning (\w) Don't show warnings after every statement.
+resetconnection(\x) Clean session context.
+query_attributes Sets string parameters (name1 value1 name2 value2 ...) for the next query to pick up.
+ssl_session_data_print Serializes the current SSL session data to stdout or file
+
+For server side help, type 'help contents'
+
+mysql> help contents
+You asked for help about help category: "Contents"
+For more information, type 'help <item>', where <item> is one of the following
+categories:
+   Account Management
+   Administration
+   Compound Statements
+   Contents
+   Data Definition
+   Data Manipulation
+   Data Types
+   Functions
+   Geographic Features
+   Help Metadata
+   Language Structure
+   Plugins
+   Procedures
+   Storage Engines
+   Table Maintenance
+   Transactions
+   User-Defined Functions
+   Utility
+
+mysql> help Data Types
+You asked for help about help category: "Data Types"
+For more information, type 'help <item>', where <item> is one of the following
+topics:
+   AUTO_INCREMENT
+   BIGINT
+   BINARY
+   BIT
+   BLOB
+   BLOB DATA TYPE
+   BOOLEAN
+   CHAR
+   CHAR BYTE
+   DATE
+   DATETIME
+   DEC
+   DECIMAL
+   DOUBLE
+   DOUBLE PRECISION
+   ENUM
+   FLOAT
+   INT
+   INTEGER
+   LONGBLOB
+   LONGTEXT
+   MEDIUMBLOB
+   MEDIUMINT
+   MEDIUMTEXT
+   SET DATA TYPE
+   SMALLINT
+   TEXT
+   TIME
+   TIMESTAMP
+   TINYBLOB
+   TINYINT
+   TINYTEXT
+   VARBINARY
+   VARCHAR
+   YEAR DATA TYPE
+
+mysql> help AUTO_INCREMENT
+Name: 'AUTO_INCREMENT'
+Description:
+The AUTO_INCREMENT attribute can be used to generate a unique identity
+for new rows:
+
+URL: https://dev.mysql.com/doc/refman/5.7/en/example-auto-increment.html
+
+Examples:
+CREATE TABLE animals (
+     id MEDIUMINT NOT NULL AUTO_INCREMENT,
+     name CHAR(30) NOT NULL,
+     PRIMARY KEY (id)
+);
+
+INSERT INTO animals (name) VALUES
+    ('dog'),('cat'),('penguin'),
+    ('lax'),('whale'),('ostrich');
+
+SELECT * FROM animals;
+
+mysql> help INT
+Name: 'INT'
+Description:
+INT[(M)] [UNSIGNED] [ZEROFILL]
+
+A normal-size integer. The signed range is -2147483648 to 2147483647.
+The unsigned range is 0 to 4294967295.
+
+URL: https://dev.mysql.com/doc/refman/5.7/en/numeric-type-syntax.html
+
+
+mysql> help FLOAT
+Name: 'FLOAT'
+Description:
+FLOAT[(M,D)] [UNSIGNED] [ZEROFILL]
+
+A small (single-precision) floating-point number. Permissible values
+are -3.402823466E+38 to -1.175494351E-38, 0, and 1.175494351E-38 to
+3.402823466E+38. These are the theoretical limits, based on the IEEE
+standard. The actual range might be slightly smaller depending on your
+hardware or operating system.
+
+M is the total number of digits and D is the number of digits following
+the decimal point. If M and D are omitted, values are stored to the
+limits permitted by the hardware. A single-precision floating-point
+number is accurate to approximately 7 decimal places.
+
+FLOAT(M,D) is a nonstandard MySQL extension.
+
+UNSIGNED, if specified, disallows negative values.
+
+Using FLOAT might give you some unexpected problems because all
+calculations in MySQL are done with double precision. See
+https://dev.mysql.com/doc/refman/5.7/en/no-matching-rows.html.
+
+URL: https://dev.mysql.com/doc/refman/5.7/en/numeric-type-syntax.html
+
+
+mysql> help BOOLEAN
+Name: 'BOOLEAN'
+Description:
+BOOL, BOOLEAN
+
+These types are synonyms for TINYINT(1). A value of zero is considered
+false. Nonzero values are considered true:
+
+mysql> SELECT IF(0, 'true', 'false');
++------------------------+
+| IF(0, 'true', 'false') |
++------------------------+
+| false                  |
++------------------------+
+
+mysql> SELECT IF(1, 'true', 'false');
++------------------------+
+| IF(1, 'true', 'false') |
++------------------------+
+| true                   |
++------------------------+
+
+mysql> SELECT IF(2, 'true', 'false');
++------------------------+
+| IF(2, 'true', 'false') |
++------------------------+
+| true                   |
++------------------------+
+
+However, the values TRUE and FALSE are merely aliases for 1 and 0,
+respectively, as shown here:
+
+mysql> SELECT IF(0 = FALSE, 'true', 'false');
++--------------------------------+
+| IF(0 = FALSE, 'true', 'false') |
++--------------------------------+
+| true                           |
++--------------------------------+
+
+mysql> SELECT IF(1 = TRUE, 'true', 'false');
++-------------------------------+
+| IF(1 = TRUE, 'true', 'false') |
++-------------------------------+
+| true                          |
++-------------------------------+
+
+mysql> SELECT IF(2 = TRUE, 'true', 'false');
++-------------------------------+
+| IF(2 = TRUE, 'true', 'false') |
++-------------------------------+
+| false                         |
++-------------------------------+
+
+mysql> SELECT IF(2 = FALSE, 'true', 'false');
++--------------------------------+
+| IF(2 = FALSE, 'true', 'false') |
++--------------------------------+
+| false                          |
++--------------------------------+
+
+The last two statements display the results shown because 2 is equal to
+neither 1 nor 0.
+
+URL: https://dev.mysql.com/doc/refman/5.7/en/numeric-type-syntax.html
+
+
+mysql> help CHAR
+Name: 'CHAR'
+Description:
+[NATIONAL] CHAR[(M)] [CHARACTER SET charset_name] [COLLATE
+collation_name]
+
+A fixed-length string that is always right-padded with spaces to the
+specified length when stored. M represents the column length in
+characters. The range of M is 0 to 255. If M is omitted, the length is
+1.
+
+*Note*:
+
+Trailing spaces are removed when CHAR values are retrieved unless the
+PAD_CHAR_TO_FULL_LENGTH SQL mode is enabled.
+
+URL: https://dev.mysql.com/doc/refman/5.7/en/string-type-syntax.html
+
+
+mysql> help Functions  
+help Functions
+^C
+mysql> help Table Maintenance
+You asked for help about help category: "Table Maintenance"
+For more information, type 'help <item>', where <item> is one of the following
+topics:
+   ANALYZE TABLE
+   CHECK TABLE
+   CHECKSUM TABLE
+   OPTIMIZE TABLE
+   REPAIR TABLE
+
+mysql> help CHECK TABLE
+Name: 'CHECK TABLE'
+Description:
+Syntax:
+CHECK TABLE tbl_name [, tbl_name] ... [option] ...
+
+option: {
+    FOR UPGRADE
+  | QUICK
+  | FAST
+  | MEDIUM
+  | EXTENDED
+  | CHANGED
+}
+
+CHECK TABLE checks a table or tables for errors. For MyISAM tables, the
+key statistics are updated as well. CHECK TABLE can also check views
+for problems, such as tables that are referenced in the view definition
+that no longer exist.
+
+To check a table, you must have some privilege for it.
+
+CHECK TABLE works for InnoDB, MyISAM, ARCHIVE, and CSV tables.
+
+Before running CHECK TABLE on InnoDB tables, see
+https://dev.mysql.com/doc/refman/5.7/en/check-table.html#check-table-in
+nodb.
+
+CHECK TABLE is supported for partitioned tables, and you can use ALTER
+TABLE ... CHECK PARTITION to check one or more partitions; for more
+information, see [HELP ALTER TABLE], and
+https://dev.mysql.com/doc/refman/5.7/en/partitioning-maintenance.html.
+
+CHECK TABLE ignores virtual generated columns that are not indexed.
+
+URL: https://dev.mysql.com/doc/refman/5.7/en/check-table.html
+
+
+mysql> help ANALYZE TABLE      
+help ANALYZE TABLE
+^C
+mysql> help ANALYZE TABLE
+Name: 'ANALYZE TABLE'
+Description:
+Syntax:
+ANALYZE [NO_WRITE_TO_BINLOG | LOCAL]
+    TABLE tbl_name [, tbl_name] ...
+
+ANALYZE TABLE performs a key distribution analysis and stores the
+distribution for the named table or tables. For MyISAM tables, this
+statement is equivalent to using myisamchk --analyze.
+
+This statement requires SELECT and INSERT privileges for the table.
+
+ANALYZE TABLE works with InnoDB, NDB, and MyISAM tables. It does not
+work with views.
+
+ANALYZE TABLE is supported for partitioned tables, and you can use
+ALTER TABLE ... ANALYZE PARTITION to analyze one or more partitions;
+for more information, see [HELP ALTER TABLE], and
+https://dev.mysql.com/doc/refman/5.7/en/partitioning-maintenance.html.
+
+During the analysis, the table is locked with a read lock for InnoDB
+and MyISAM.
+
+ANALYZE TABLE removes the table from the table definition cache, which
+requires a flush lock. If there are long running statements or
+transactions still using the table, subsequent statements and
+transactions must wait for those operations to finish before the flush
+lock is released. Because ANALYZE TABLE itself typically finishes
+quickly, it may not be apparent that delayed transactions or statements
+involving the same table are due to the remaining flush lock.
+
+By default, the server writes ANALYZE TABLE statements to the binary
+log so that they replicate to replication slaves. To suppress logging,
+specify the optional NO_WRITE_TO_BINLOG keyword or its alias LOCAL.
+
+URL: https://dev.mysql.com/doc/refman/5.7/en/analyze-table.html
+
+
+mysql> help Functions
+You asked for help about help category: "Functions"
+For more information, type 'help <item>', where <item> is one of the following
+categories:
+   Bit Functions
+   Comparison Operators
+   Control Flow Functions
+   Date and Time Functions
+   Encryption Functions
+   GROUP BY Functions and Modifiers
+   Information Functions
+   Locking Functions
+   Logical Operators
+   Miscellaneous Functions
+   Numeric Functions
+   Spatial Functions
+   String Functions
+
+mysql> help Date and Time Functions
+You asked for help about help category: "Date and Time Functions"
+For more information, type 'help <item>', where <item> is one of the following
+topics:
+   ADDDATE
+   ADDTIME
+   CONVERT_TZ
+   CURDATE
+   CURRENT_DATE
+   CURRENT_TIME
+   CURRENT_TIMESTAMP
+   CURTIME
+   DATE FUNCTION
+   DATEDIFF
+   DATE_ADD
+   DATE_FORMAT
+   DATE_SUB
+   DAY
+   DAYNAME
+   DAYOFMONTH
+   DAYOFWEEK
+   DAYOFYEAR
+   EXTRACT
+   FROM_DAYS
+   FROM_UNIXTIME
+   GET_FORMAT
+   HOUR
+   LAST_DAY
+   LOCALTIME
+   LOCALTIMESTAMP
+   MAKEDATE
+   MAKETIME
+   MICROSECOND
+   MINUTE
+   MONTH
+   MONTHNAME
+   NOW
+   PERIOD_ADD
+   PERIOD_DIFF
+   QUARTER
+   SECOND
+   SEC_TO_TIME
+   STR_TO_DATE
+   SUBDATE
+   SUBTIME
+   SYSDATE
+   TIME FUNCTION
+   TIMEDIFF
+   TIMESTAMP FUNCTION
+   TIMESTAMPADD
+   TIMESTAMPDIFF
+   TIME_FORMAT
+   TIME_TO_SEC
+   TO_DAYS
+   TO_SECONDS
+   UNIX_TIMESTAMP
+   UTC_DATE
+   UTC_TIME
+   UTC_TIMESTAMP
+   WEEK
+   WEEKDAY
+   WEEKOFYEAR
+   YEAR
+   YEARWEEK
+
+mysql> help Logical Operators
+You asked for help about help category: "Logical Operators"
+For more information, type 'help <item>', where <item> is one of the following
+topics:
+   !
+   AND
+   ASSIGN-EQUAL
+   ASSIGN-VALUE
+   OR
+   XOR
+
+mysql> helo !
+    -> help AND
+    -> helo !
+    -> ^C^C^L^L^L^L
+
+    -> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -> 
+^C
+mysql> help Comparison Operators
+You asked for help about help category: "Comparison Operators"
+For more information, type 'help <item>', where <item> is one of the following
+topics:
+   !=
+   <
+   <=
+   <=>
+   =
+   >
+   >=
+   BETWEEN AND
+   COALESCE
+   GREATEST
+   IN
+   INTERVAL
+   IS
+   IS NOT
+   IS NOT NULL
+   IS NULL
+   ISNULL
+   LEAST
+   NOT BETWEEN
+   NOT IN
+
+mysql> help !=
+Name: '!='
+Description:
+Syntax:
+<>, !=
+
+Not equal:
+
+URL: https://dev.mysql.com/doc/refman/5.7/en/comparison-operators.html
+
+Examples:
+mysql> SELECT '.01' <> '0.01';
+        -> 1
+mysql> SELECT .01 <> '0.01';
+        -> 0
+mysql> SELECT 'zapp' <> 'zappp';
+        -> 1
+
+mysql> CREATE TABLE STUDENT(Name varchar(20), USN varchar(10), sub1 int(10), sub2 int)
+    -> exit
+exit
+^C
+mysql> CREATE TABLE STUDENT(Name varchar(20), USN varchar(10), sub1 int(10), sub2 int(10));
+Query OK, 0 rows affected (0.22 sec)
+
+mysql> show tables;
++----------------------+
+| Tables_in_1RV21MC047 |
++----------------------+
+| STUDENT              |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO STUDENT(Name, USN, sub1, sub2) value("Kaustav", "1RV21MC047", 80, 86);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO STUDENT(Name, USN, sub1, sub2) value("Tanuj", "1RV21MC048", 60, 66);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO STUDENT(Name, USN, sub1, sub2) value("Manasi", "1RV21MC057", 88, 66);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO STUDENT(Name, USN, sub1, sub2) value("Dashlene", "1RV21MC033", 98, 36);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO STUDENT(Name, USN, sub1, sub2) value("Madhuri", "1RV21MC233", 70, 96);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> SELECT * FORM STUDENT;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FORM STUDENT' at line 1
+mysql> SELECT * FROM STUDENT;
++----------+------------+------+------+
+| Name     | USN        | sub1 | sub2 |
++----------+------------+------+------+
+| Kaustav  | 1RV21MC047 |   80 |   86 |
+| Tanuj    | 1RV21MC048 |   60 |   66 |
+| Manasi   | 1RV21MC057 |   88 |   66 |
+| Dashlene | 1RV21MC033 |   98 |   36 |
+| Madhuri  | 1RV21MC233 |   70 |   96 |
++----------+------------+------+------+
+5 rows in set (0.00 sec)
+
+mysql> INSERT INTO STUDENT(Name, USN, sub1, sub2) value("bHARAT", "1RV21MC283", 90, 96);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO STUDENT(Name, USN, sub1, sub2) value("Gaurav", "1RV21MC28", 10, 46);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO STUDENT(Name, USN, sub1, sub2) value("Ashutosh", "1RV21MC276", 40, 96);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO STUDENT(Name, USN, sub1, sub2) value("Anjeli", "1RV21MC010", 100, 96);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO STUDENT(Name, USN, sub1, sub2) value("Rohan", "1RV21MC110", 19, 96);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> SELECT * FROM STUDENT;
++----------+------------+------+------+
+| Name     | USN        | sub1 | sub2 |
++----------+------------+------+------+
+| Kaustav  | 1RV21MC047 |   80 |   86 |
+| Tanuj    | 1RV21MC048 |   60 |   66 |
+| Manasi   | 1RV21MC057 |   88 |   66 |
+| Dashlene | 1RV21MC033 |   98 |   36 |
+| Madhuri  | 1RV21MC233 |   70 |   96 |
+| bHARAT   | 1RV21MC283 |   90 |   96 |
+| Gaurav   | 1RV21MC28  |   10 |   46 |
+| Ashutosh | 1RV21MC276 |   40 |   96 |
+| Anjeli   | 1RV21MC010 |  100 |   96 |
+| Rohan    | 1RV21MC110 |   19 |   96 |
++----------+------------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> DESCRIBE STUDENT;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| Name  | varchar(20) | YES  |     | NULL    |       |
+| USN   | varchar(10) | YES  |     | NULL    |       |
+| sub1  | int(10)     | YES  |     | NULL    |       |
+| sub2  | int(10)     | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> ALTER TABLE STUDENT;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> ADD age int(255);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ADD age int(255)' at line 1
+mysql> ADD age int(10);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ADD age int(10)' at line 1
+mysql> ADD Age int(10);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ADD Age int(10)' at line 1
+mysql> ALTER TABLE STUDENT;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> ADD Age int(10);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ADD Age int(10)' at line 1
+mysql> ADD COLUMN Age int(10);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ADD COLUMN Age int(10)' at line 1
+mysql> ADD COLUMN Age INT NOT NULL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ADD COLUMN Age INT NOT NULL' at line 1
+mysql> help ALTER;
+Many help items for your request exist.
+To make a more specific request, please type 'help <item>',
+where <item> is one of the following
+topics:
+   ALTER DATABASE
+   ALTER EVENT
+   ALTER FUNCTION
+   ALTER INSTANCE
+   ALTER LOGFILE GROUP
+   ALTER PROCEDURE
+   ALTER SCHEMA
+   ALTER SERVER
+   ALTER TABLE
+   ALTER TABLESPACE
+   ALTER USER
+   ALTER VIEW
+   GRANT
+   SPATIAL INDEXES
+
+mysql> help ALTER TABLE;
+Name: 'ALTER TABLE'
+Description:
+Syntax:
+ALTER TABLE tbl_name
+    [alter_specification [, alter_specification] ...]
+    [partition_options]
+
+alter_specification:
+    table_options
+  | ADD [COLUMN] col_name column_definition
+        [FIRST | AFTER col_name]
+  | ADD [COLUMN] (col_name column_definition,...)
+  | ADD {INDEX|KEY} [index_name]
+        [index_type] (key_part,...) [index_option] ...
+  | ADD {FULLTEXT|SPATIAL} [INDEX|KEY] [index_name]
+        (key_part,...) [index_option] ...
+  | ADD [CONSTRAINT [symbol]] PRIMARY KEY
+        [index_type] (key_part,...)
+        [index_option] ...
+  | ADD [CONSTRAINT [symbol]] UNIQUE [INDEX|KEY]
+        [index_name] [index_type] (key_part,...)
+        [index_option] ...
+  | ADD [CONSTRAINT [symbol]] FOREIGN KEY
+        [index_name] (col_name,...)
+        reference_definition
+  | ADD CHECK (expr)
+  | ALGORITHM [=] {DEFAULT|INPLACE|COPY}
+  | ALTER [COLUMN] col_name {SET DEFAULT literal | DROP DEFAULT}
+  | CHANGE [COLUMN] old_col_name new_col_name column_definition
+        [FIRST|AFTER col_name]
+  | [DEFAULT] CHARACTER SET [=] charset_name [COLLATE [=] collation_name]
+  | CONVERT TO CHARACTER SET charset_name [COLLATE collation_name]
+  | {DISABLE|ENABLE} KEYS
+  | {DISCARD|IMPORT} TABLESPACE
+  | DROP [COLUMN] col_name
+  | DROP {INDEX|KEY} index_name
+  | DROP PRIMARY KEY
+  | DROP FOREIGN KEY fk_symbol
+  | FORCE
+  | LOCK [=] {DEFAULT|NONE|SHARED|EXCLUSIVE}
+  | MODIFY [COLUMN] col_name column_definition
+        [FIRST | AFTER col_name]
+  | ORDER BY col_name [, col_name] ...
+  | RENAME {INDEX|KEY} old_index_name TO new_index_name
+  | RENAME [TO|AS] new_tbl_name
+  | {WITHOUT|WITH} VALIDATION
+
+partition_options:
+    partition_option [partition_option] ...
+
+partition_option:
+    ADD PARTITION (partition_definition)
+  | DROP PARTITION partition_names
+  | DISCARD PARTITION {partition_names | ALL} TABLESPACE
+  | IMPORT PARTITION {partition_names | ALL} TABLESPACE
+  | TRUNCATE PARTITION {partition_names | ALL}
+  | COALESCE PARTITION number
+  | REORGANIZE PARTITION partition_names INTO (partition_definitions)
+  | EXCHANGE PARTITION partition_name WITH TABLE tbl_name [{WITH|WITHOUT} VALIDATION]
+  | ANALYZE PARTITION {partition_names | ALL}
+  | CHECK PARTITION {partition_names | ALL}
+  | OPTIMIZE PARTITION {partition_names | ALL}
+  | REBUILD PARTITION {partition_names | ALL}
+  | REPAIR PARTITION {partition_names | ALL}
+  | REMOVE PARTITIONING
+  | UPGRADE PARTITIONING
+
+key_part:
+    col_name [(length)] [ASC | DESC]
+
+index_type:
+    USING {BTREE | HASH}
+
+index_option:
+    KEY_BLOCK_SIZE [=] value
+  | index_type
+  | WITH PARSER parser_name
+  | COMMENT 'string'
+
+table_options:
+    table_option [[,] table_option] ...
+
+table_option:
+    AUTO_INCREMENT [=] value
+  | AVG_ROW_LENGTH [=] value
+  | [DEFAULT] CHARACTER SET [=] charset_name
+  | CHECKSUM [=] {0 | 1}
+  | [DEFAULT] COLLATE [=] collation_name
+  | COMMENT [=] 'string'
+  | COMPRESSION [=] {'ZLIB'|'LZ4'|'NONE'}
+  | CONNECTION [=] 'connect_string'
+  | {DATA|INDEX} DIRECTORY [=] 'absolute path to directory'
+  | DELAY_KEY_WRITE [=] {0 | 1}
+  | ENCRYPTION [=] {'Y' | 'N'}
+  | ENGINE [=] engine_name
+  | INSERT_METHOD [=] { NO | FIRST | LAST }
+  | KEY_BLOCK_SIZE [=] value
+  | MAX_ROWS [=] value
+  | MIN_ROWS [=] value
+  | PACK_KEYS [=] {0 | 1 | DEFAULT}
+  | PASSWORD [=] 'string'
+  | ROW_FORMAT [=] {DEFAULT|DYNAMIC|FIXED|COMPRESSED|REDUNDANT|COMPACT}
+  | STATS_AUTO_RECALC [=] {DEFAULT|0|1}
+  | STATS_PERSISTENT [=] {DEFAULT|0|1}
+  | STATS_SAMPLE_PAGES [=] value
+  | TABLESPACE tablespace_name [STORAGE {DISK|MEMORY}]
+  | UNION [=] (tbl_name[,tbl_name]...)
+
+partition_options:
+    (see CREATE TABLE options)
+
+ALTER TABLE changes the structure of a table. For example, you can add
+or delete columns, create or destroy indexes, change the type of
+existing columns, or rename columns or the table itself. You can also
+change characteristics such as the storage engine used for the table or
+the table comment.
+
+o To use ALTER TABLE, you need ALTER, CREATE, and INSERT privileges for
+  the table. Renaming a table requires ALTER and DROP on the old table,
+  ALTER, CREATE, and INSERT on the new table.
+
+o Following the table name, specify the alterations to be made. If none
+  are given, ALTER TABLE does nothing.
+
+o The syntax for many of the permissible alterations is similar to
+  clauses of the CREATE TABLE statement. column_definition clauses use
+  the same syntax for ADD and CHANGE as for CREATE TABLE. For more
+  information, see [HELP CREATE TABLE].
+
+o The word COLUMN is optional and can be omitted.
+
+o Multiple ADD, ALTER, DROP, and CHANGE clauses are permitted in a
+  single ALTER TABLE statement, separated by commas. This is a MySQL
+  extension to standard SQL, which permits only one of each clause per
+  ALTER TABLE statement. For example, to drop multiple columns in a
+  single statement, do this:
+
+ALTER TABLE t2 DROP COLUMN c, DROP COLUMN d;
+
+o If a storage engine does not support an attempted ALTER TABLE
+  operation, a warning may result. Such warnings can be displayed with
+  SHOW WARNINGS. See [HELP SHOW WARNINGS]. For information on
+  troubleshooting ALTER TABLE, see
+  https://dev.mysql.com/doc/refman/5.7/en/alter-table-problems.html.
+
+o For information about generated columns, see
+  https://dev.mysql.com/doc/refman/5.7/en/alter-table-generated-columns
+  .html.
+
+o For usage examples, see
+  https://dev.mysql.com/doc/refman/5.7/en/alter-table-examples.html.
+
+o With the mysql_info() C API function, you can find out how many rows
+  were copied by ALTER TABLE. See
+  https://dev.mysql.com/doc/refman/5.7/en/mysql-info.html.
+
+URL: https://dev.mysql.com/doc/refman/5.7/en/alter-table.html
+
+
+mysql> ALTER TABLE STUDENT age INT(10);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'age INT(10)' at line 1
+mysql> ALTER TABLE STUDENT ADD age INT;
+Query OK, 0 rows affected (0.56 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe STUDENT;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| Name  | varchar(20) | YES  |     | NULL    |       |
+| USN   | varchar(10) | YES  |     | NULL    |       |
+| sub1  | int(10)     | YES  |     | NULL    |       |
+| sub2  | int(10)     | YES  |     | NULL    |       |
+| age   | int(11)     | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from STUDENT;
++----------+------------+------+------+------+
+| Name     | USN        | sub1 | sub2 | age  |
++----------+------------+------+------+------+
+| Kaustav  | 1RV21MC047 |   80 |   86 | NULL |
+| Tanuj    | 1RV21MC048 |   60 |   66 | NULL |
+| Manasi   | 1RV21MC057 |   88 |   66 | NULL |
+| Dashlene | 1RV21MC033 |   98 |   36 | NULL |
+| Madhuri  | 1RV21MC233 |   70 |   96 | NULL |
+| bHARAT   | 1RV21MC283 |   90 |   96 | NULL |
+| Gaurav   | 1RV21MC28  |   10 |   46 | NULL |
+| Ashutosh | 1RV21MC276 |   40 |   96 | NULL |
+| Anjeli   | 1RV21MC010 |  100 |   96 | NULL |
+| Rohan    | 1RV21MC110 |   19 |   96 | NULL |
++----------+------------+------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> UPDATE STUDENT SET age = 21 WHERE USN = 1RV21MC047
+    -> EXIT
+EXIT
+^C
+mysql> UPDATE STUDENT SET age = 21 WHERE USN = 1RV21MC047;
+ERROR 1054 (42S22): Unknown column '1RV21MC047' in 'where clause'
+mysql> UPDATE STUDENT SET age = 21 WHERE USN = "1RV21MC047";
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from STUDENT;
++----------+------------+------+------+------+
+| Name     | USN        | sub1 | sub2 | age  |
++----------+------------+------+------+------+
+| Kaustav  | 1RV21MC047 |   80 |   86 |   21 |
+| Tanuj    | 1RV21MC048 |   60 |   66 | NULL |
+| Manasi   | 1RV21MC057 |   88 |   66 | NULL |
+| Dashlene | 1RV21MC033 |   98 |   36 | NULL |
+| Madhuri  | 1RV21MC233 |   70 |   96 | NULL |
+| bHARAT   | 1RV21MC283 |   90 |   96 | NULL |
+| Gaurav   | 1RV21MC28  |   10 |   46 | NULL |
+| Ashutosh | 1RV21MC276 |   40 |   96 | NULL |
+| Anjeli   | 1RV21MC010 |  100 |   96 | NULL |
+| Rohan    | 1RV21MC110 |   19 |   96 | NULL |
++----------+------------+------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> UPDATE STUDENT SET age = 21 WHERE age = NULL;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select * from STUDENT;
++----------+------------+------+------+------+
+| Name     | USN        | sub1 | sub2 | age  |
++----------+------------+------+------+------+
+| Kaustav  | 1RV21MC047 |   80 |   86 |   21 |
+| Tanuj    | 1RV21MC048 |   60 |   66 | NULL |
+| Manasi   | 1RV21MC057 |   88 |   66 | NULL |
+| Dashlene | 1RV21MC033 |   98 |   36 | NULL |
+| Madhuri  | 1RV21MC233 |   70 |   96 | NULL |
+| bHARAT   | 1RV21MC283 |   90 |   96 | NULL |
+| Gaurav   | 1RV21MC28  |   10 |   46 | NULL |
+| Ashutosh | 1RV21MC276 |   40 |   96 | NULL |
+| Anjeli   | 1RV21MC010 |  100 |   96 | NULL |
+| Rohan    | 1RV21MC110 |   19 |   96 | NULL |
++----------+------------+------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> UPDATE STUDENT SET age = 21 WHERE sub1 >= 70;
+Query OK, 5 rows affected (0.12 sec)
+Rows matched: 6  Changed: 5  Warnings: 0
+
+mysql> select * from STUDENT;
++----------+------------+------+------+------+
+| Name     | USN        | sub1 | sub2 | age  |
++----------+------------+------+------+------+
+| Kaustav  | 1RV21MC047 |   80 |   86 |   21 |
+| Tanuj    | 1RV21MC048 |   60 |   66 | NULL |
+| Manasi   | 1RV21MC057 |   88 |   66 |   21 |
+| Dashlene | 1RV21MC033 |   98 |   36 |   21 |
+| Madhuri  | 1RV21MC233 |   70 |   96 |   21 |
+| bHARAT   | 1RV21MC283 |   90 |   96 |   21 |
+| Gaurav   | 1RV21MC28  |   10 |   46 | NULL |
+| Ashutosh | 1RV21MC276 |   40 |   96 | NULL |
+| Anjeli   | 1RV21MC010 |  100 |   96 |   21 |
+| Rohan    | 1RV21MC110 |   19 |   96 | NULL |
++----------+------------+------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> UPDATE STUDENT SET age = 26 WHERE sub1 < 70;
+Query OK, 4 rows affected (0.03 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql> select * from STUDENT;
++----------+------------+------+------+------+
+| Name     | USN        | sub1 | sub2 | age  |
++----------+------------+------+------+------+
+| Kaustav  | 1RV21MC047 |   80 |   86 |   21 |
+| Tanuj    | 1RV21MC048 |   60 |   66 |   26 |
+| Manasi   | 1RV21MC057 |   88 |   66 |   21 |
+| Dashlene | 1RV21MC033 |   98 |   36 |   21 |
+| Madhuri  | 1RV21MC233 |   70 |   96 |   21 |
+| bHARAT   | 1RV21MC283 |   90 |   96 |   21 |
+| Gaurav   | 1RV21MC28  |   10 |   46 |   26 |
+| Ashutosh | 1RV21MC276 |   40 |   96 |   26 |
+| Anjeli   | 1RV21MC010 |  100 |   96 |   21 |
+| Rohan    | 1RV21MC110 |   19 |   96 |   26 |
++----------+------------+------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> SHOW TABLES;
++----------------------+
+| Tables_in_1RV21MC047 |
++----------------------+
+| STUDENT              |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> EXIT
+Bye
+batch2@mcalab2-HP-280-G3-MT:~$ HISTORY
+HISTORY: command not found
+batch2@mcalab2-HP-280-G3-MT:~$ history
+    1  mysql -u 1RV21MC047 -p -h 172.16.34.35
+    2  HISTORY
+    3  history
+batch2@mcalab2-HP-280-G3-MT:~$ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Date: 14/07/22
+
+
+
+batch2@mcalab2-HP-280-G3-MT:~$ mysql -u 1RV21MC047 -p -h 172.16.34.35
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 429
+Server version: 5.7.38-0ubuntu0.18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| 1RV21MC047         |
++--------------------+
+2 rows in set (0.00 sec)
+
+mysql> use 1RV21MC047;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++----------------------+
+| Tables_in_1RV21MC047 |
++----------------------+
+| STUDENT              |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> create table Musician(SSN varchar(10) Primary Key, Name varchar(20) not null, Addr varchar(20) not null, Ph_No int not null);
+Query OK, 0 rows affected (0.23 sec)
+
+mysql> create table Instrument(I_id int(10) Primary Key, I_Name varchar(20) not null);
+Query OK, 0 rows affected (0.20 sec)
+
+mysql> create table Album(A_id int(10) Primary Key, A_title varchar(20) not null, Format varchar(20) not null, CRD date not null, SSN varchar(10), foreign key(SSN) references Musician(SSN));
+Query OK, 0 rows affected (0.27 sec)
+
+mysql> create table Song(S_id int(10) Primary Key, Title varchar(20) not null, Author varchar(20) not null, A_id int(10) not null, foreign key(A_id) references Album(A_id));
+Query OK, 0 rows affected (0.28 sec)
+
+mysql> create table Play(SSN varchar(10), I_id int(10) not null, foreign key(SSN) references Musician(SSN), foreign key(I_id) references Instrument(I_id), primary key(SSN, I_id));
+Query OK, 0 rows affected (0.27 sec)
+
+mysql> create table Perform(SSN varchar(10), S_id int(10) not null, foreign key(SSN) references Musician(SSN), foreign key(S_id) references Song(S_id), primary key(SSN, S_id));
+Query OK, 0 rows affected (0.27 sec)
+
+mysql> show tables;
++----------------------+
+| Tables_in_1RV21MC047 |
++----------------------+
+| Album                |
+| Instrument           |
+| Musician             |
+| Perform              |
+| Play                 |
+| STUDENT              |
+| Song                 |
++----------------------+
+7 rows in set (0.00 sec)
+
+mysql> desc Musician;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| SSN   | varchar(10) | NO   | PRI | NULL    |       |
+| Name  | varchar(20) | NO   |     | NULL    |       |
+| Addr  | varchar(20) | NO   |     | NULL    |       |
+| Ph_No | int(11)     | NO   |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc Instrument;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| I_id   | int(10)     | NO   | PRI | NULL    |       |
+| I_Name | varchar(20) | NO   |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> desc Album;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| A_id    | int(10)     | NO   | PRI | NULL    |       |
+| A_title | varchar(20) | NO   |     | NULL    |       |
+| Format  | varchar(20) | NO   |     | NULL    |       |
+| CRD     | date        | NO   |     | NULL    |       |
+| SSN     | varchar(10) | YES  | MUL | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> desc Song;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| S_id   | int(10)     | NO   | PRI | NULL    |       |
+| Title  | varchar(20) | NO   |     | NULL    |       |
+| Author | varchar(20) | NO   |     | NULL    |       |
+| A_id   | int(10)     | NO   | MUL | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc Play;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| SSN   | varchar(10) | NO   | PRI | NULL    |       |
+| I_id  | int(10)     | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> desc Perform;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| SSN   | varchar(10) | NO   | PRI | NULL    |       |
+| S_id  | int(10)     | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> show create table play;
+ERROR 1146 (42S02): Table '1RV21MC047.play' doesn't exist
+mysql> show create table Play;
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                                                                                                              |
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Play  | CREATE TABLE `Play` (
+  `SSN` varchar(10) NOT NULL,
+  `I_id` int(10) NOT NULL,
+  PRIMARY KEY (`SSN`,`I_id`),
+  KEY `I_id` (`I_id`),
+  CONSTRAINT `Play_ibfk_1` FOREIGN KEY (`SSN`) REFERENCES `Musician` (`SSN`),
+  CONSTRAINT `Play_ibfk_2` FOREIGN KEY (`I_id`) REFERENCES `Instrument` (`I_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 |
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Date: 21/07/22
+
+
+
+
+batch2@mcalab2-HP-280-G3-MT:~$ history
+    1  sudo mysql -u root -p;
+    2  mysql -u root -p;
+    3  mysql -u root -p
+    4  ls
+    5  cd Desktop/
+    6  clear
+    7  nano commands.txt
+    8  mysql -u 1RV21MC047 -p -h 172.16.34.35
+    9  HISTORY
+   10  history
+   11  mysql -u 1RV21MC047 -p -h 172.16.34.35
+   12  nano tt
+   13  history
+   14  mysql -u 1RV21MC047 -p -h 172.16.34.35
+   15  history
+   16  mysql -u 1RV21MC047 -p -h 172.16.34.35
+   17  clear
+   18  mysql -u 1RV21MC047 -p -h 172.16.34.35
+   19  mysql -u 1RV21MC047 -p -h 172.16.34.35clear
+   20  history
+batch2@mcalab2-HP-280-G3-MT:~$ mysql -u 1RV21MC047 -p -h 172.16.34.35
+Enter password: 
+ERROR 2003 (HY000): Can't connect to MySQL server on '172.16.34.35:3306' (101)
+batch2@mcalab2-HP-280-G3-MT:~$ mysql -u 1RV21MC047 -p -h 172.16.34.35
+Enter password: 
+ERROR 1045 (28000): Access denied for user '1RV21MC047'@'172.16.34.155' (using password: YES)
+batch2@mcalab2-HP-280-G3-MT:~$ mysql -u 1RV21MC047 -p -h 172.16.34.35
+Enter password: 
+ERROR 1045 (28000): Access denied for user '1RV21MC047'@'172.16.34.155' (using password: YES)
+batch2@mcalab2-HP-280-G3-MT:~$ mysql -u 1RV21MC047 -p -h 172.16.34.35
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 707
+Server version: 5.7.38-0ubuntu0.18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;\
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| 1RV21MC047         |
++--------------------+
+2 rows in set (0.00 sec)
+
+mysql> use 1RV21MC047;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> 
+mysql> show tables
+    -> show tables;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'show tables' at line 2
+mysql> show tables;
++----------------------+
+| Tables_in_1RV21MC047 |
++----------------------+
+| Album                |
+| Instrument           |
+| Musician             |
+| Perform              |
+| Play                 |
+| STUDENT              |
+| Song                 |
++----------------------+
+7 rows in set (0.00 sec)
+
+mysql> INSERT INTO MUSICIAN(SSN, NAME, ADDRESS, PHONE_NO)VALUES(1301,’Peter’, ‘LA
+    -> California’, 9854623214);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '��Peter’, ‘LA
+California’, 9854623214)' at line 1
+mysql> INSERT INTO MUS(SSN, NAME, ADDRESS, PHONE_NO)VALUES(1301,’Peter’, ‘LA California’, 9854623214);
+mysql> desc Musician;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| SSN   | varchar(10) | NO   | PRI | NULL    |       |
+| Name  | varchar(20) | NO   |     | NULL    |       |
+| Addr  | varchar(20) | NO   |     | NULL    |       |
+| Ph_No | int(11)     | NO   |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> desc Album;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| A_id    | int(10)     | NO   | PRI | NULL    |       |
+| A_title | varchar(20) | NO   |     | NULL    |       |
+| Format  | varchar(20) | NO   |     | NULL    |       |
+| CRD     | date        | NO   |     | NULL    |       |
+| SSN     | varchar(10) | YES  | MUL | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> desc Songs;
+ERROR 1146 (42S02): Table '1RV21MC047.Songs' doesn't exist
+mysql> desc Song;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| S_id   | int(10)     | NO   | PRI | NULL    |       |
+| Title  | varchar(20) | NO   |     | NULL    |       |
+| Author | varchar(20) | NO   |     | NULL    |       |
+| A_id   | int(10)     | NO   | MUL | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> INSERT INTO MUSICIAN(SSN, NAME, ADDRESS, PHONE_NO)VALUES(1301,’Peter’, ‘LA
+    -> California’, 9854623214);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '��Peter’, ‘LA
+California’, 9854623214)' at line 1
+mysql> insert into Musician(SSN, Name, Addr,Ph_No) values(1, 'Peter', 'LA', 87654378);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into Musician(SSN, Name, Addr,Ph_No) values(2, 'Devid', 'LA', 87654678);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Musician(SSN, Name, Addr,Ph_No) values(2, 'Jhonny', 'America', 67654678);
+ERROR 1062 (23000): Duplicate entry '2' for key 'PRIMARY'
+mysql> insert into Musician(SSN, Name, Addr,Ph_No) values(3, 'John', 'America', 67644678);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into Musician(SSN, Name, Addr,Ph_No) values(4, 'Johnina', 'America', 67644128);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Musician(SSN, Name, Addr,Ph_No) values(5, 'Krish', 'USA', 676441648);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into Musician(SSN, Name, Addr,Ph_No) values(6, 'Krishna', 'USA', 676441008);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Musician(SSN, Name, Addr,Ph_No) values(7, 'Kiran', 'USA', 672441008);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Musician(SSN, Name, Addr,Ph_No) values(8, 'Karan', 'USA', 672331008);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Musician(SSN, Name, Addr,Ph_No) values(9, 'Karana', 'India', 672331238);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Musician(SSN, Name, Addr,Ph_No) values(10, 'Rohan', 'India', 672231238);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> show table Musician;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Musician' at line 1
+mysql> Select * from table Musician;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table Musician' at line 1
+mysql> Select * from Musician;
++-----+---------+---------+-----------+
+| SSN | Name    | Addr    | Ph_No     |
++-----+---------+---------+-----------+
+| 1   | Peter   | LA      |  87654378 |
+| 10  | Rohan   | India   | 672231238 |
+| 2   | Devid   | LA      |  87654678 |
+| 3   | John    | America |  67644678 |
+| 4   | Johnina | America |  67644128 |
+| 5   | Krish   | USA     | 676441648 |
+| 6   | Krishna | USA     | 676441008 |
+| 7   | Kiran   | USA     | 672441008 |
+| 8   | Karan   | USA     | 672331008 |
+| 9   | Karana  | India   | 672331238 |
++-----+---------+---------+-----------+
+10 rows in set (0.00 sec)
+
+mysql> desc Instrument;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| I_id   | int(10)     | NO   | PRI | NULL    |       |
+| I_Name | varchar(20) | NO   |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> Alter table Instrument Add I_Key varchar(10);
+Query OK, 0 rows affected (0.45 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Instrument;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| I_id   | int(10)     | NO   | PRI | NULL    |       |
+| I_Name | varchar(20) | NO   |     | NULL    |       |
+| I_Key  | varchar(10) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> INSERT INTO Instrument(I_id, I_Name, I_Key) VALUES(901, “Piano”,”D#”);
+    -> exit()
+exit()
+^C
+mysql> insert into Instrument(I_id, I_Name, I_Key) values(21, “Piano”,”D#”);
+    -> exit
+    -> exit()
+    -> ^C^C^C
+
+^C
+mysql> insert into Instrument(I_id, I_Name, I_Key) values (21, “Piano”,”D#”);
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '��Piano”,”D' at line 1
+mysql> insert into Instrument(I_id, I_Name, I_Key) values (21, 'Piano','D#');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into Instrument(I_id, I_Name, I_Key) values (22, 'Tabla','F#');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Instrument(I_id, I_Name, I_Key) values (23, 'Tabla','S#');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into Instrument(I_id, I_Name, I_Key) values (24, 'Guitar','S');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into Instrument(I_id, I_Name, I_Key) values (25, 'Harmonium','S4');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into Instrument(I_id, I_Name, I_Key) values (26, 'Flute','Node4');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Instrument(I_id, I_Name, I_Key) values (27, 'Flute','Node9');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Instrument(I_id, I_Name, I_Key) values (27, 'Drum','45D');
+ERROR 1062 (23000): Duplicate entry '27' for key 'PRIMARY'
+mysql> insert into Instrument(I_id, I_Name, I_Key) values (28, 'Drum','45D');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Instrument(I_id, I_Name, I_Key) values (29, 'Congo','46D');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into Instrument(I_id, I_Name, I_Key) values (30, 'Drum','A40');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> Select * from Instrument;
++------+-----------+-------+
+| I_id | I_Name    | I_Key |
++------+-----------+-------+
+|   21 | Piano     | D#    |
+|   22 | Tabla     | F#    |
+|   23 | Tabla     | S#    |
+|   24 | Guitar    | S     |
+|   25 | Harmonium | S4    |
+|   26 | Flute     | Node4 |
+|   27 | Flute     | Node9 |
+|   28 | Drum      | 45D   |
+|   29 | Congo     | 46D   |
+|   30 | Drum      | A40   |
++------+-----------+-------+
+10 rows in set (0.00 sec)
+
+mysql> show tables;
++----------------------+
+| Tables_in_1RV21MC047 |
++----------------------+
+| Album                |
+| Instrument           |
+| Musician             |
+| Perform              |
+| Play                 |
+| STUDENT              |
+| Song                 |
++----------------------+
+7 rows in set (0.00 sec)
+
+mysql> desc Album;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| A_id    | int(10)     | NO   | PRI | NULL    |       |
+| A_title | varchar(20) | NO   |     | NULL    |       |
+| Format  | varchar(20) | NO   |     | NULL    |       |
+| CRD     | date        | NO   |     | NULL    |       |
+| SSN     | varchar(10) | YES  | MUL | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.04 sec)
+
+mysql> Select * from Album;
+Empty set (0.00 sec)
+
+mysql> Select * from Musician;
++-----+---------+---------+-----------+
+| SSN | Name    | Addr    | Ph_No     |
++-----+---------+---------+-----------+
+| 1   | Peter   | LA      |  87654378 |
+| 10  | Rohan   | India   | 672231238 |
+| 2   | Devid   | LA      |  87654678 |
+| 3   | John    | America |  67644678 |
+| 4   | Johnina | America |  67644128 |
+| 5   | Krish   | USA     | 676441648 |
+| 6   | Krishna | USA     | 676441008 |
+| 7   | Kiran   | USA     | 672441008 |
+| 8   | Karan   | USA     | 672331008 |
+| 9   | Karana  | India   | 672331238 |
++-----+---------+---------+-----------+
+10 rows in set (0.00 sec)
+
+mysql> ALTER TABLE Album UPDATE SSN INT;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'UPDATE SSN INT' at line 1
+mysql> ALTER TABLE Album ADD SSN INT;
+ERROR 1060 (42S21): Duplicate column name 'SSN'
+mysql> alter table Album modify SSN integer references Musician(SSN);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'references Musician(SSN)' at line 1
+mysql> alter Album modify SSN integer references Musician(SSN);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Album modify SSN integer references Musician(SSN)' at line 1
+mysql> alter table Album modify SSN integer);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> alter table Album modify SSN integer;
+ERROR 1832 (HY000): Cannot change column 'SSN': used in a foreign key constraint 'Album_ibfk_1'
+mysql> alter table Album drop foreign key 'Album_ibfk_1' ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''Album_ibfk_1'' at line 1
+mysql> alter table Album drop foreign key Album_ibfk_1 ;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table Album modify SSN integer;
+Query OK, 0 rows affected (0.71 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table Album modify SSN integer references Musician(SSN);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'references Musician(SSN)' at line 1
+mysql> alter table Album add foreign key(SSN) references Musician(SSN);
+ERROR 1215 (HY000): Cannot add foreign key constraint
+mysql> alter table Album modify foreign key(SSN) references Musician(SSN);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foreign key(SSN) references Musician(SSN)' at line 1
+mysql> alter table Album modify SSN references Musician(SSN);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'references Musician(SSN)' at line 1
+mysql> alter table Album modify SSN references Musician(SSN);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'references Musician(SSN)' at line 1
+mysql> desc Album;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| A_id    | int(10)     | NO   | PRI | NULL    |       |
+| A_title | varchar(20) | NO   |     | NULL    |       |
+| Format  | varchar(20) | NO   |     | NULL    |       |
+| CRD     | date        | NO   |     | NULL    |       |
+| SSN     | int(11)     | YES  | MUL | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> show create table Album;
++-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                                 |
++-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Album | CREATE TABLE `Album` (
+  `A_id` int(10) NOT NULL,
+  `A_title` varchar(20) NOT NULL,
+  `Format` varchar(20) NOT NULL,
+  `CRD` date NOT NULL,
+  `SSN` int(11) DEFAULT NULL,
+  PRIMARY KEY (`A_id`),
+  KEY `SSN` (`SSN`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 |
++-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> 
+mysql> alter table Album drop SSN;
+Query OK, 0 rows affected (0.41 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Album;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| A_id    | int(10)     | NO   | PRI | NULL    |       |
+| A_title | varchar(20) | NO   |     | NULL    |       |
+| Format  | varchar(20) | NO   |     | NULL    |       |
+| CRD     | date        | NO   |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.14 sec)
+
+mysql> alter table Album add SSN integer(11) references Musician(SSN);
+Query OK, 0 rows affected (0.42 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Album;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| A_id    | int(10)     | NO   | PRI | NULL    |       |
+| A_title | varchar(20) | NO   |     | NULL    |       |
+| Format  | varchar(20) | NO   |     | NULL    |       |
+| CRD     | date        | NO   |     | NULL    |       |
+| SSN     | int(11)     | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> show create table Album;
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                            |
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Album | CREATE TABLE `Album` (
+  `A_id` int(10) NOT NULL,
+  `A_title` varchar(20) NOT NULL,
+  `Format` varchar(20) NOT NULL,
+  `CRD` date NOT NULL,
+  `SSN` int(11) DEFAULT NULL,
+  PRIMARY KEY (`A_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 |
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.04 sec)
+
+mysql> desc Album;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| A_id    | int(10)     | NO   | PRI | NULL    |       |
+| A_title | varchar(20) | NO   |     | NULL    |       |
+| Format  | varchar(20) | NO   |     | NULL    |       |
+| CRD     | date        | NO   |     | NULL    |       |
+| SSN     | int(11)     | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from Album;
+Empty set (0.00 sec)
+
+mysql> alter table Musician modify SSN varchar(10);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Musician;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| SSN   | varchar(10) | NO   | PRI | NULL    |       |
+| Name  | varchar(20) | NO   |     | NULL    |       |
+| Addr  | varchar(20) | NO   |     | NULL    |       |
+| Ph_No | int(11)     | NO   |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table Musician modify SSN integer(11);
+ERROR 1833 (HY000): Cannot change column 'SSN': used in a foreign key constraint 'Perform_ibfk_1' of table '1RV21MC047.Perform'
+mysql> desc Perform;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| SSN   | varchar(10) | NO   | PRI | NULL    |       |
+| S_id  | int(10)     | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> drop Album;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Album' at line 1
+mysql> drop table Album;
+ERROR 1217 (23000): Cannot delete or update a parent row: a foreign key constraint fails
+mysql> alter table Album add SSN varchar(10) references Musician(SSN);
+ERROR 1060 (42S21): Duplicate column name 'SSN'
+mysql> alter table Album modify SSN varchar(10) references Musician(SSN);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'references Musician(SSN)' at line 1
+mysql> alter table Album modify SSN varchar(10);
+Query OK, 0 rows affected (0.63 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table Album set foreign key(SSN) references Musician(SSN);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'set foreign key(SSN) references Musician(SSN)' at line 1
+mysql> alter table Album modify foreign key(SSN) references Musician(SSN);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foreign key(SSN) references Musician(SSN)' at line 1
+mysql> alter table Album add foreign key(SSN) references Musician(SSN);
+Query OK, 0 rows affected (0.62 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Album;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| A_id    | int(10)     | NO   | PRI | NULL    |       |
+| A_title | varchar(20) | NO   |     | NULL    |       |
+| Format  | varchar(20) | NO   |     | NULL    |       |
+| CRD     | date        | NO   |     | NULL    |       |
+| SSN     | varchar(10) | YES  | MUL | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> Select * from Musician;
++-----+---------+---------+-----------+
+| SSN | Name    | Addr    | Ph_No     |
++-----+---------+---------+-----------+
+| 1   | Peter   | LA      |  87654378 |
+| 10  | Rohan   | India   | 672231238 |
+| 2   | Devid   | LA      |  87654678 |
+| 3   | John    | America |  67644678 |
+| 4   | Johnina | America |  67644128 |
+| 5   | Krish   | USA     | 676441648 |
+| 6   | Krishna | USA     | 676441008 |
+| 7   | Kiran   | USA     | 672441008 |
+| 8   | Karan   | USA     | 672331008 |
+| 9   | Karana  | India   | 672331238 |
++-----+---------+---------+-----------+
+10 rows in set (0.00 sec)
+
+mysql> insert into Album(A_id, A_title, Format, CRD, SSN) values(31, 'Mohabbat', 'mp3', 2013/04/31, '2');
+ERROR 1292 (22007): Incorrect date value: '16.233870967741935483' for column 'CRD' at row 1
+mysql> insert into Album(A_id, A_title, Format, CRD, SSN) values(31, 'Mohabbat', 'mp3', '2013/04/31', '2');
+ERROR 1292 (22007): Incorrect date value: '2013/04/31' for column 'CRD' at row 1
+mysql> insert into Album(A_id, A_title, Format, CRD, SSN) values(31, 'Mohabbat', 'mp3', '2014-04-31', '2');
+ERROR 1292 (22007): Incorrect date value: '2014-04-31' for column 'CRD' at row 1
+mysql> insert into Album(A_id, A_title, Format, CRD, SSN) values(31, 'Mohabbat', 'mp3', "2014-04-31", '2');
+ERROR 1292 (22007): Incorrect date value: '2014-04-31' for column 'CRD' at row 1
+mysql> desc Album;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| A_id    | int(10)     | NO   | PRI | NULL    |       |
+| A_title | varchar(20) | NO   |     | NULL    |       |
+| Format  | varchar(20) | NO   |     | NULL    |       |
+| CRD     | date        | NO   |     | NULL    |       |
+| SSN     | varchar(10) | YES  | MUL | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into Album values(31, 'Mohabbat', 'mp3', "2014-04-31", '2');
+ERROR 1292 (22007): Incorrect date value: '2014-04-31' for column 'CRD' at row 1
+mysql> insert into Album values(31, 'Mohabbat', 'mp3', "2022-04-31", '2');
+ERROR 1292 (22007): Incorrect date value: '2022-04-31' for column 'CRD' at row 1
+mysql> insert into Album values(31, 'Mohabbat', 'mp3', "2022-04-30", '2');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Album values(32, 'Joonune', 'mp3', "2022-05-20", '1');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Album values(33, 'Joonuniat', 'mp4', "2012-05-20", '3');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Album values(33, 'Joonuniatya', 'mp4', "2012-05-21", '5');
+ERROR 1062 (23000): Duplicate entry '33' for key 'PRIMARY'
+mysql> insert into Album values(34, 'Joonuniatya', 'mp4', "2012-05-21", '5');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Album values(35, 'Juli', 'mp4', "2012-07-21", '4');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into Album values(36, 'Devil', 'mp4', "2012-07-24", '8');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Album values(37, 'Devil Son', 'mp4', "2012-07-24", '6');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Album values(37, 'Dad & Son', 'mp3', "2012-07-14", '7');
+ERROR 1062 (23000): Duplicate entry '37' for key 'PRIMARY'
+mysql> insert into Album values(38, 'Dad & Son', 'mp3', "2012-07-14", '7');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Album values(39, 'Pepsi Cola', 'mp3', "2010-07-24", '9');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Album values(39, 'Red Moon', 'mp3', "2010-06-24", '10');
+ERROR 1062 (23000): Duplicate entry '39' for key 'PRIMARY'
+mysql> insert into Album values(40, 'Red Moon', 'mp3', "2010-06-24", '10');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> Select * from Album;
++------+-------------+--------+------------+------+
+| A_id | A_title     | Format | CRD        | SSN  |
++------+-------------+--------+------------+------+
+|   31 | Mohabbat    | mp3    | 2022-04-30 | 2    |
+|   32 | Joonune     | mp3    | 2022-05-20 | 1    |
+|   33 | Joonuniat   | mp4    | 2012-05-20 | 3    |
+|   34 | Joonuniatya | mp4    | 2012-05-21 | 5    |
+|   35 | Juli        | mp4    | 2012-07-21 | 4    |
+|   36 | Devil       | mp4    | 2012-07-24 | 8    |
+|   37 | Devil Son   | mp4    | 2012-07-24 | 6    |
+|   38 | Dad & Son   | mp3    | 2012-07-14 | 7    |
+|   39 | Pepsi Cola  | mp3    | 2010-07-24 | 9    |
+|   40 | Red Moon    | mp3    | 2010-06-24 | 10   |
++------+-------------+--------+------------+------+
+10 rows in set (0.00 sec)
+
+mysql> desc Song;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| S_id   | int(10)     | NO   | PRI | NULL    |       |
+| Title  | varchar(20) | NO   |     | NULL    |       |
+| Author | varchar(20) | NO   |     | NULL    |       |
+| A_id   | int(10)     | NO   | MUL | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc Album;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| A_id    | int(10)     | NO   | PRI | NULL    |       |
+| A_title | varchar(20) | NO   |     | NULL    |       |
+| Format  | varchar(20) | NO   |     | NULL    |       |
+| CRD     | date        | NO   |     | NULL    |       |
+| SSN     | varchar(10) | YES  | MUL | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> desc Song;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| S_id   | int(10)     | NO   | PRI | NULL    |       |
+| Title  | varchar(20) | NO   |     | NULL    |       |
+| Author | varchar(20) | NO   |     | NULL    |       |
+| A_id   | int(10)     | NO   | MUL | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into Song values(41, 'Hold On', 'Arijit', 31);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into Song values(41, 'Hold me up', 'Arijit', 31);
+ERROR 1062 (23000): Duplicate entry '41' for key 'PRIMARY'
+mysql> insert into Song values(42, 'Hold me up', 'Arijit', 31);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into Song values(43, 'Pull me', 'Devid', 33);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Song values(44, 'Lets go', 'Devid', 32);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Song values(45, 'Chll waha', 'Mithoon', 34);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Song values(46, 'Chll waha chaltehai', 'Jubin', 35);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Song values(46, 'Pyaar kia', 'Jubin', 36);
+ERROR 1062 (23000): Duplicate entry '46' for key 'PRIMARY'
+mysql> insert into Song values(47, 'Pyaar kia', 'Jubin', 36);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Song values(48, 'Pyaar kia toh darna kya', 'Mashmellow', 37);
+ERROR 1406 (22001): Data too long for column 'Title' at row 1
+mysql> insert into Song values(49, 'Pyaar kia toh darna kya', 'Mashmellow', 37);
+ERROR 1406 (22001): Data too long for column 'Title' at row 1
+mysql> insert into Song values(49, 'Darna kya', 'Mashmellow', 37);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Song values(50, 'Darna kya tumse', 'Mashmellow', 39);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> Select * from Song;
++------+---------------------+------------+------+
+| S_id | Title               | Author     | A_id |
++------+---------------------+------------+------+
+|   41 | Hold On             | Arijit     |   31 |
+|   42 | Hold me up          | Arijit     |   31 |
+|   43 | Pull me             | Devid      |   33 |
+|   44 | Lets go             | Devid      |   32 |
+|   45 | Chll waha           | Mithoon    |   34 |
+|   46 | Chll waha chaltehai | Jubin      |   35 |
+|   47 | Pyaar kia           | Jubin      |   36 |
+|   49 | Darna kya           | Mashmellow |   37 |
+|   50 | Darna kya tumse     | Mashmellow |   39 |
++------+---------------------+------------+------+
+9 rows in set (0.00 sec)
+
+mysql> show tables;
++----------------------+
+| Tables_in_1RV21MC047 |
++----------------------+
+| Album                |
+| Instrument           |
+| Musician             |
+| Perform              |
+| Play                 |
+| STUDENT              |
+| Song                 |
++----------------------+
+7 rows in set (0.00 sec)
+
+mysql> desc Play;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| SSN   | varchar(10) | NO   | PRI | NULL    |       |
+| I_id  | int(10)     | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> Select * from Musician;
++-----+---------+---------+-----------+
+| SSN | Name    | Addr    | Ph_No     |
++-----+---------+---------+-----------+
+| 1   | Peter   | LA      |  87654378 |
+| 10  | Rohan   | India   | 672231238 |
+| 2   | Devid   | LA      |  87654678 |
+| 3   | John    | America |  67644678 |
+| 4   | Johnina | America |  67644128 |
+| 5   | Krish   | USA     | 676441648 |
+| 6   | Krishna | USA     | 676441008 |
+| 7   | Kiran   | USA     | 672441008 |
+| 8   | Karan   | USA     | 672331008 |
+| 9   | Karana  | India   | 672331238 |
++-----+---------+---------+-----------+
+10 rows in set (0.00 sec)
+
+mysql> Select * from Instrument;
++------+-----------+-------+
+| I_id | I_Name    | I_Key |
++------+-----------+-------+
+|   21 | Piano     | D#    |
+|   22 | Tabla     | F#    |
+|   23 | Tabla     | S#    |
+|   24 | Guitar    | S     |
+|   25 | Harmonium | S4    |
+|   26 | Flute     | Node4 |
+|   27 | Flute     | Node9 |
+|   28 | Drum      | 45D   |
+|   29 | Congo     | 46D   |
+|   30 | Drum      | A40   |
++------+-----------+-------+
+10 rows in set (0.00 sec)
+
+mysql> insert into Play values('1', 21);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Play values('1', 22);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Play values('1', 23);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Play values('1', 24);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Play values('1', 25);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into Play values('1', 26);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Play values('1', 27);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into Play values('1', 28);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Play values('1', 29);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Play values('1', 30);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Play values('5', 30);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Play values('3', 23);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Play values('7', 26);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into Play values('6', 28);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> Select * from Play;
++-----+------+
+| SSN | I_id |
++-----+------+
+| 1   |   21 |
+| 1   |   22 |
+| 1   |   23 |
+| 3   |   23 |
+| 1   |   24 |
+| 1   |   25 |
+| 1   |   26 |
+| 7   |   26 |
+| 1   |   27 |
+| 1   |   28 |
+| 6   |   28 |
+| 1   |   29 |
+| 1   |   30 |
+| 5   |   30 |
++-----+------+
+14 rows in set (0.00 sec)
+
+mysql> show tables;
++----------------------+
+| Tables_in_1RV21MC047 |
++----------------------+
+| Album                |
+| Instrument           |
+| Musician             |
+| Perform              |
+| Play                 |
+| STUDENT              |
+| Song                 |
++----------------------+
+7 rows in set (0.00 sec)
+
+mysql> Select * from Song;
++------+---------------------+------------+------+
+| S_id | Title               | Author     | A_id |
++------+---------------------+------------+------+
+|   41 | Hold On             | Arijit     |   31 |
+|   42 | Hold me up          | Arijit     |   31 |
+|   43 | Pull me             | Devid      |   33 |
+|   44 | Lets go             | Devid      |   32 |
+|   45 | Chll waha           | Mithoon    |   34 |
+|   46 | Chll waha chaltehai | Jubin      |   35 |
+|   47 | Pyaar kia           | Jubin      |   36 |
+|   49 | Darna kya           | Mashmellow |   37 |
+|   50 | Darna kya tumse     | Mashmellow |   39 |
++------+---------------------+------------+------+
+9 rows in set (0.00 sec)
+
+mysql> Select * from Musician;
++-----+---------+---------+-----------+
+| SSN | Name    | Addr    | Ph_No     |
++-----+---------+---------+-----------+
+| 1   | Peter   | LA      |  87654378 |
+| 10  | Rohan   | India   | 672231238 |
+| 2   | Devid   | LA      |  87654678 |
+| 3   | John    | America |  67644678 |
+| 4   | Johnina | America |  67644128 |
+| 5   | Krish   | USA     | 676441648 |
+| 6   | Krishna | USA     | 676441008 |
+| 7   | Kiran   | USA     | 672441008 |
+| 8   | Karan   | USA     | 672331008 |
+| 9   | Karana  | India   | 672331238 |
++-----+---------+---------+-----------+
+10 rows in set (0.00 sec)
+
+mysql> desc Perform;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| SSN   | varchar(10) | NO   | PRI | NULL    |       |
+| S_id  | int(10)     | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into Perform values('4', 41);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into Perform values('3', 41);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Perform values('7', 41);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Perform values('9', 41);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Perform values('1', 42);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Perform values('2', 43);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Perform values('5', 44);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Perform values('6', 45);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into Perform values('8', 46);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Perform values('1', 47);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> Select * from Perform;
++-----+------+
+| SSN | S_id |
++-----+------+
+| 3   |   41 |
+| 4   |   41 |
+| 7   |   41 |
+| 9   |   41 |
+| 1   |   42 |
+| 2   |   43 |
+| 5   |   44 |
+| 6   |   45 |
+| 8   |   46 |
+| 1   |   47 |
++-----+------+
+10 rows in set (0.00 sec)
+
+mysql> 
+mysql> Select * from Musician;
++-----+---------+---------+-----------+
+| SSN | Name    | Addr    | Ph_No     |
++-----+---------+---------+-----------+
+| 1   | Peter   | LA      |  87654378 |
+| 10  | Rohan   | India   | 672231238 |
+| 2   | Devid   | LA      |  87654678 |
+| 3   | John    | America |  67644678 |
+| 4   | Johnina | America |  67644128 |
+| 5   | Krish   | USA     | 676441648 |
+| 6   | Krishna | USA     | 676441008 |
+| 7   | Kiran   | USA     | 672441008 |
+| 8   | Karan   | USA     | 672331008 |
+| 9   | Karana  | India   | 672331238 |
++-----+---------+---------+-----------+
+10 rows in set (0.00 sec)
+
+mysql>  Select M.Name as Musician_Name,
+    -> S.Title as Song_Title,
+    -> A.Title as Album_Title
+    -> from Musician M, Song S, Album A
+    -> where A.A_id = S.A_id and p.SSN = ^C^C^X^C
+
+^C
+mysql>  Select M.Name, S.Title, A.Title from Musician M, Song S, Album A, Perform P where A.A_id = S.A_id and P.SSN = M.SSN and P.S_id = S.S_id;
+ERROR 1054 (42S22): Unknown column 'A.Title' in 'field list'
+mysql> desc Album;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| A_id    | int(10)     | NO   | PRI | NULL    |       |
+| A_title | varchar(20) | NO   |     | NULL    |       |
+| Format  | varchar(20) | NO   |     | NULL    |       |
+| CRD     | date        | NO   |     | NULL    |       |
+| SSN     | varchar(10) | YES  | MUL | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql>  Select M.Name, S.Title, A.A_title from Musician M, Song S, Album A, Perform P where A.A_id = S.A_id and P.SSN = M.SSN and P.S_id = S.S_id;
++---------+---------------------+-------------+
+| Name    | Title               | A_title     |
++---------+---------------------+-------------+
+| Peter   | Hold me up          | Mohabbat    |
+| Peter   | Pyaar kia           | Devil       |
+| Devid   | Pull me             | Joonuniat   |
+| John    | Hold On             | Mohabbat    |
+| Johnina | Hold On             | Mohabbat    |
+| Krish   | Lets go             | Joonune     |
+| Krishna | Chll waha           | Joonuniatya |
+| Kiran   | Hold On             | Mohabbat    |
+| Karan   | Chll waha chaltehai | Juli        |
+| Karana  | Hold On             | Mohabbat    |
++---------+---------------------+-------------+
+10 rows in set (0.00 sec)
+
+mysql> Select M.SSN, M.Name from Musician M where M.SSN not in (Select M.SSN from Musician M, Album A where M.SSN = A.SSN);
+Empty set (0.00 sec)
+
+mysql> Select S.* from Song S, Perform P weher S.S_id = P.S_id group by P.S_id having count(P.S_id) >= 3;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'weher S.S_id = P.S_id group by P.S_id having count(P.S_id) >= 3' at line 1
+mysql> Select S.* from Song S, Perform P where S.S_id = P.S_id group by P.S_id having count(P.S_id) >= 3;
++------+---------+--------+------+
+| S_id | Title   | Author | A_id |
++------+---------+--------+------+
+|   41 | Hold On | Arijit |   31 |
++------+---------+--------+------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+

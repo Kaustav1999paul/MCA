@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Inventory</title>
+        <link rel="stylesheet" href="index.css">
+    </head>
+<style>
+nav li a{
+        letter-spacing: 1px;
+        transition: 0.5s ease;
+        color: blue;
+}
+
+nav li a:hover{
+        letter-spacing: 10px;
+        font-size: 20px;
+}
+
+.container{
+        width: 10%;
+        height: 110px;
+        border: none;
+        padding: 15px;
+        border-radius: 10px;
+        cursor: pointer;
+        box-shadow: 0 0 10px 10px grey;
+        transition: 0.2s ease;
+}
+
+.container.active{
+        height: 240px;
+        box-shadow: 0 0 10px 15px grey;
+}
+
+.container.active p{
+        visibility: visible;
+}
+
+
+.foot{
+        margin-top: 15px;
+        padding-left: 10%;
+        padding-right: 10%;
+        display: flex;
+        height: 85px;
+        background-image: linear-gradient(45deg, blue, green);
+        color: white;
+        flex-direction: row;
+        justify-content: center;
+        transition: 0.5s ease;
+}
+
+.container .Details{
+        text-align: center;
+        visibility: hidden;
+}
+
+.pay{
+        padding: 10px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+}
+</style>
+
+    <body>
+        <nav>
+                <img src="rvcelogo.jpeg" style="width: 60px;">
+            <ul>
+                <li><a>Home</a></li>
+                <li><a>Cart</a></li>
+                <li><a>Account</a></li>
+            </ul>
+        </nav>
+        <center><h1 style="margin-top: 30px;">Inventory Management System</h1></center>
+
+        <section style="height: 270px;">
+                <div class="container active">
+                        <div style="height: 100px">
+                        <img class="abc" src="../images/image1.jpeg">
+                        <div class="info">
+                                <p1>Item 1</p1>
+                                <p2>Rs: 4000</p2>
+                        </div></div>
+                        <div class="Details" style="margin-top: 30px;">
+                                <p><b>Details</b></p>
+                                <p style="font-size: 15px;">The best gaming mouse inthe market</p>
+                        </div>
+                </div>
+
+                <div class="container">
+                        <div style="height: 100px">
+                        <img class="abc" src="../images/image2.jpeg">
+                        <div class="info">
+                                <p1>Item 2</p1>
+                                <p2>Rs: 3000</p2>
+                        </div></div>
+                        <div class="Details" style="margin-top: 30px;">
+                                <p><b>Details</b></p>
+                                <p style="font-size: 15px;">The best gaming mouse inthe market</p>
+                        </div>
+                </div>
+
+
+                <div class="container">
+                        <div style="height: 100px">
+                        <img class="abc" src="../images/image3.jpeg">
+                        <div class="info">
+                                <p1>Item 3</p1>
+                                <p2>Rs: 5000</p2>
+                        </div></div>
+                        <div class="Details" style="margin-top: 30px;">
+                                <p><b>Details</b></p>
+                                <p style="font-size: 15px;">The best gaming mouse inthe market</p>
+                        </div>
+                </div>
+                <div class="container">
+                        <div style="height: 100px">
+                        <img class="abc" src="../images/image5.jpeg">
+                        <div class="info">
+                                <p1>Item 4</p1>
+                                <p2>Rs: 2000</p2>
+                        </div></div>
+                        <div class="Details" style="margin-top: 30px;">
+                                <p><b>Details</b></p>
+                                <p style="font-size: 15px;">The best gaming mouse inthe market</p>
+                        </div>
+                </div>
+                <div class="container">
+                   <div style="height: 100px">
+                        <img class="abc" src="../images/image2.jpeg">
+                        <div class="info">
+                                <p1>Item 5</p1>
+                                <p2>Rs: 9000</p2>
+                        </div></div>
+                        <div class="Details" style="margin-top: 30px;">
+                                <p><b>Details</b></p>
+                                <p style="font-size: 15px;">The best gaming mouse inthe market</p>
+                        </div>
+                </div>
+
+        </section>
+
+
+        <footer class="foot">
+                <h2 style="margin-top: 20px;">rvce&copy2022</h2>
+        </footer>
+
+
+        <script type="text/javascript">
+                const a = document.querySelectorAll('.container')
+
+                a.forEach((card) => {
+                        card.addEventListener('click', ()=>{
+                                removeFun()
+                                card.classList.add('active')
+                        })
+                })
+
+                function removeFun(){
+                        a.forEach((card) => {
+                                card.classList.remove('active')
+                        })
+                }
+        </script>
+    </body>
+</html>

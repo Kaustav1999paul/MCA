@@ -1,0 +1,105 @@
+<html>
+<head>
+<title>Book Store</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+
+
+<style>
+nav{
+background-color: orange;
+box-shadow: 0 10px 10px 10px grey;
+}
+
+.container{
+margin-top: 20px;
+display: flex;
+flex-direction: row;
+padding: 30px;
+justify-content: space-between;
+}
+
+.card{
+cursor: pointer;
+border-radius: 20px;
+padding: 20px;
+transition: 0.5s ease;
+justify-content: center;
+box-shadow: 0 5px 10px 10px grey;
+}
+
+.card-header{
+margin-top: 10px;
+}
+
+.card:hover{
+box-shadow: 0 10px 10px 10px grey;
+border-radius: 20px;
+height: 140px;
+border: 0px solid black;
+padding: 10px;
+}
+</style>
+<body style="background-color: white;">
+
+<div class="jumbotron">
+        <h2 class="text-center">Book Store</h2>
+        <h6 class="text-center">Buy and sell books online</h6>
+</div>
+<nav class="nav navbar-expand">
+        
+                <ul class="nav navbar-nav">
+                        <li class="nav navbar-item"><a href="#">Home</a>
+                        <li class="nav navbar-item"><a href="#">Account</a>
+                        <li class="nav navbar-item"><a href="#">Cart</a>
+                </ul>
+        
+</nav>
+
+
+<div class="container">
+
+        <div class="card">
+                <div class="card-img-top">
+                        <img style="height:210px;" src="image1.jpeg">
+                </div>
+                <div class="card-header"><p1><b>Book 1</b></p1></div>
+                <div class="card-body"><p3>This is book 1</p3></div>
+                <button class="btn-primary">Add to cart</button>
+        </div>
+
+
+        <div class="card">
+                <div class="card-img-top">
+                        <img style="height:210px;" src="imag3.jpeg">
+                </div>
+                <div class="card-header"><p1><b>Book 2</b></p1></div>
+                <div class="card-body"><p3>This is book 2</p3></div>
+                <button class="btn-primary">Add to cart</button>
+        </div>
+
+        <div class="card">
+                <div class="card-img-top">
+                        <img style="height:210px;" src="imag5.jpeg">
+                </div>
+                <div class="card-header"><p1><b>Book 3</b></p1></div>
+                <div class="card-body"><p3>This is book 3</p3></div>
+                <button class="btn-primary">Add to cart</button>
+        </div>
+
+        <div class="card">
+                <div class="card-img-top">
+                        <img style="height:210px;" src="image4.jpeg">
+                </div>
+                <div class="card-header"><p1><b>Book 4</b></p1></div>
+                <div class="card-body"><p3>This is book 4</p3></div>
+                <button class="btn-primary">Add to cart</button>
+        </div>
+
+
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</body>
+</html>

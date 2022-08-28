@@ -1,0 +1,98 @@
+
+Using passwordless:
+-------------------
+Step1: On local server generate keys using ssh-keygen
+Step2: go to user_home/.ssh then here you will find two files
+		id_rsa  (private key, it should be safe)
+		id_rsa.pub (public, this has to share with remote servers)
+Step3: use below command to share public key with remtoe server, it will ask password
+       ssh-copy-id username@remote_server_ip    
+Step4: if step3 is success then use below command to login with remote server, it wont ask password now
+        ssh username@remote_server_ip
+
+
+Using Passwrod:
+
+ssh user_name@remote_ip
+
+ssh remote_ip   (here remote user name is same as local terminal user)
+
+===================================================
+
+servers_info.txt
+----------------
+18.212.27.210  automation automation@123 date
+18.212.185.2   tomcat tomcat123 whoami
+
+execute_different_cmds_on_different_servers_with_differnt_users_and_passwords.sh
+--------------------------------------------------------------------------------
+#!/bin/bash
+while read ser user pass cmd1 cmd2
+do
+  echo "Executing $cmd1 on $ser with user as $user and password $pass"
+  sshpass -p $pass ssh -n -o StrictHostKeyChecking=No $user@$ser "$cmd1" 
+  echo "Executing $cmd2 on $ser with user as $user and password $pass"
+  sshpass -p $pass ssh -n -o StrictHostKeyChecking=No $user@$ser "$cmd2"
+  echo "---------------------------------------------------------"
+done < servers_info.txt
+
+====================================================
+
+Basic ssh command to run commands on remote server:
+
+ssh -t -o StrictHostKeyChecking=No automation@54.91.148.241 "date"
+----------------------------
+Using sshpass (providing password for ssh):
+
+sshpass -p "automation@123" ssh -t -o StrictHostKeyChecking=No automation@54.91.148.241 "date"
+or
+sshpass -f  path_for_password_file ssh -t -o StrictHostKeyChecking=No automation@54.91.148.241 "date"
+or
+export SSHPASS="automation@123"
+sshpass -e ssh -t -o StrictHostKeyChecking=No automation@54.91.148.241 "date"
+
+==============================================================
+
+
+
+
+
+!/bin/bash
+
+<< my_com
+echo "The date command output on the server: 100.26.187.33"
+sshpass -f pass ssh -o StrictHostKeyChecking=No automation@100.26.187.33 "date"
+echo "-------------------------------------------------------"
+echo "The uptime command output on the server: 100.26.187.33"
+sshpass -f pass ssh -o StrictHostKeyChecking=No automation@100.26.187.33 "uptime"
+echo "-------------------------------------------------------"
+echo "The free -m command output on the server: 100.26.187.33"
+sshpass -f pass ssh -o StrictHostKeyChecking=No automation@100.26.187.33 "free -m"
+echo "-------------------------------------------------------"
+my_com
+
+
+for each_ser in $(cat remote_servers.txt)
+do
+  echo "Executing cmds on $each_ser"
+  echo "============================" 
+  for each_cmd in date uptime "free -m"
+  do
+    echo "The $each_md command output on the server: $each_ser"
+    #sshpass -f pass ssh -o StrictHostKeyChecking=No automation@$each_ser "$each_cmd"
+    ssh -o StrictHostKeyChecking=No automation@$each_ser "$each_cmd"
+    echo "-------------------------------------------------------"
+  done
+
+done 
+
+
+
+
+
+
+
+
+
+
+

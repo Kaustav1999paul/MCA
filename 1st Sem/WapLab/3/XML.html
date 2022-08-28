@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student Database</title>
+</head>
+
+<style>
+table{
+ border-collapse:collapse;
+ width:1200px;
+ border:2px solid black;
+ height:300px;
+ text-align:center;
+}
+th{
+ background-color:black;
+ color:white;
+ font-weight:bold;
+}
+tr{
+ background-color:grey;
+ color:black;
+}
+</style>
+
+
+<body>
+<h2>STUDENT INFORMATION</h2>
+<button type="button" onclick="studentMain()">Get Student Information</button>
+<br><br>
+<table id="StudTable">
+
+
+<script type="text/javascript">
+ function studentMain(){
+  var sam = new XMLHttpRequest();
+  sam.onreadystatechange = function (){
+   if (this.readyState == 4 && this.status == 200){
+    myFunction(this);
+     }
+  };
+  sam.open("GET","progs.xml",true)
+  sam.send();
+ }
+
+ function myFunction(xml){
+  var table="<tr><th>NAME</th><th>USN</th></tr>";
+  var x=xml.responseXML.getElementsByTagName("student");
+  for(var i=0; i<x.length; i++){
+   table+="<tr><td>"
+       +x[i].getElementsByTagName("name")[0].childNodes[0].nodeValue+"</td><td>"
+       +x[i].getElementsByTagName("usn")[0].childNodes[0].nodeValue+"</td></tr>"
+      }   
+   document.getElementById("StudTable").innerHTML=table;
+}
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Login Page</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+h2{
+ font-size:38px;
+ font-weight:bold;
+ color:black;
+ padding:20px;
+}
+
+body{
+ background-color:#2ef2ab;
+ height:100vh;
+ width:100vw;
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ justify-content:center;
+}
+
+form{
+ border:1;
+ font-weight:bold;
+}
+
+#userid, #pswd{
+ border:1px solid;
+ margin-left:30px;
+}
+
+#button, #reset{
+ margin-top:15px;
+ margin-left:55px;
+}
+
+</style>
+</head>
+<body>
+<script>
+
+var username = /^[a-z0-9A-Z]{8}$/;
+var password = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*\d)(?=.*[a-z]).{8}$/;
+
+
+function check(form){
+ var usn = form.userid.value;
+ var pwd = form.pswd.value;
+ var time=new Date();
+ time=time.getHours()+":"+time.getMinutes()+":"+time.getSeconds();
+
+
+ if(username.test(usn) && password.test(pwd)){
+   alert("WELCOME TO WAP LAB");
+   document.write("Welcome " +usn+"<br>The Time is "+time);
+   document.body.bgColor=randomcolor(); 
+    }
+ else if(usn=="RVCE031" && pwd=="mca"){
+   alert("WELCOME TO WAP LAB");
+   document.write("Welcome Kishan<br>The Time is "+time);
+   document.body.bgColor="#ff0000";
+    }
+ else if(usn=="RVCE014" && pwd=="mca"){
+   alert("WELCOME TO WAP LAB");
+   document.write("Welcome Krupa<br>The Time is "+time);
+   document.body.bgColor="#00ff00";
+    }
+ else if(usn=="RVCE001" && pwd=="mca"){
+   alert("WELCOME TO WAP LAB");
+   document.write("Welcome Coztav<br>The Time is "+time);
+   document.body.bgColor="#7F4DB5";
+    }
+ else{
+   alert("INCORRECT USERNAME/PASSWORD");
+    };
+}
+
+function randomcolor(){
+ var num="0123456789ABCDEF";
+ var colr="#";
+ for(var count=0;count<6;count++){
+ colr=colr + num[Math.ceil(Math.random()*16)];
+   }
+ console.log("Color Code : "+colr)
+ return colr;
+}
+</script>
+
+<h2>LOGIN HERE !!!</h2>
+<div class="container-fixed">
+ <form>
+    USERNAME<input type="text" id="userid" placeholder="Enter Username"  required><br><br>
+    PASSWORD<input type="password" id="pswd" placeholder="Enter Password" required><br><br>
+    <input type="checkbox"> Remember me<br>
+    <input type="button" id="button" class="btn btn-success" onClick="check(this.form)" value="LOGIN">
+    <input type="reset" id="reset" class="btn btn-danger" value="RESET">
+  </form>
+ </div>
+</body>
+</html>

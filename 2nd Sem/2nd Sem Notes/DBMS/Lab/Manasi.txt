@@ -1,0 +1,243 @@
+Program 1
+
+create table Musician(SSN varchar(10) primary key,Name varchar(20) not 
+null,Address varchar(20) not null,Ph_number int(30) not null);
+
+create table Instrument(I_ID int(10) primary key,I_Name varchar(20) not 
+null,M_key varchar(20) not null);
+
+create table Album(A_ID int(10) primary key,Title varchar(20) not 
+null,Format varchar(20) not null,Copyright date,SSN varchar(20),foreign 
+key(SSN) references Musician(SSN));
+
+create table Song(S_ID int(10) primary key,Title varchar(20) not 
+null,Author varchar(20) not null,A_ID int(10),foreign key(A_ID) references 
+Album(A_ID));
+
+create table Play(SSN varchar(10),I_ID int(10) not null,foreign key(SSN) 
+references Musician(SSN),foreign key(I_ID) references 
+Instrument(I_ID),primary key(SSN,I_ID));
+
+create table Perform(SSN varchar(10),S_ID int(10) not null,foreign 
+key(SSN) references Musician(SSN),foreign key(S_ID) references 
+Song(S_ID),primary key(SSN,S_ID));
+mysql> desc Musician;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| SSN       | varchar(10) | NO   | PRI | NULL    |       |
+| Name      | varchar(20) | NO   |     | NULL    |       |
+| Address   | varchar(20) | NO   |     | NULL    |       |
+| Ph_number | int(30)     | NO   |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc Instrument;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| I_ID   | int(10)     | NO   | PRI | NULL    |       |
+| I_Name | varchar(20) | NO   |     | NULL    |       |
+| M_key  | varchar(20) | NO   |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc Album;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| A_ID      | int(10)     | NO   | PRI | NULL    |       |
+| Title     | varchar(20) | NO   |     | NULL    |       |
+| Format    | varchar(20) | NO   |     | NULL    |       |
+| Copyright | date        | YES  |     | NULL    |       |
+| SSN       | varchar(20) | YES  | MUL | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> desc Song;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| S_ID   | int(10)     | NO   | PRI | NULL    |       |
+| Title  | varchar(20) | NO   |     | NULL    |       |
+| Author | varchar(20) | NO   |     | NULL    |       |
+| A_ID   | int(10)     | YES  | MUL | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc Play;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| SSN   | varchar(10) | NO   | PRI | NULL    |       |
+| I_ID  | int(10)     | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> desc Perform;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| SSN   | varchar(10) | NO   | PRI | NULL    |       |
+| S_ID  | int(10)     | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+Insertion
+
+select * from Musician;
++-----+-----------------+----------+-----------+
+| SSN | Name            | Address  | Ph_number |
++-----+-----------------+----------+-----------+
+| 1   | Sonu Nigam      | Mumbai   | 987067999 |
+| 10  | Sanjit Hegade   | Manglore | 913452095 |
+| 2   | Shreya Ghoshal  | Banglore | 987679909 |
+| 3   | Arijit Singh    | Delhi    | 887679909 |
+| 4   | A.R.Rehaman     | Mumbai   | 787656908 |
+| 5   | Vijay Prakash   | Mysore   | 935388000 |
+| 6   | Arundati        | Hubli    | 972349807 |
+| 7   | Arjun Janya     | Sirsi    | 912093784 |
+| 8   | Gayatri         | Dharwad  | 854690265 |
+| 9   | Balasubramanyam | Banglore | 742368907 |
++-----+-----------------+----------+-----------+
+
+select * from Instrument;
++------+--------+-------+
+| I_ID | I_Name | M_key |
++------+--------+-------+
+| I_01 | Flute  | C     |
+| I_02 | Piano  | A     |
+| I_03 | Tabla  | D     |
+| I_04 | Violin | A     |
+| I_05 | Guitar | C#    |
+| I_06 | Piano  | F     |
+| I_07 | Cello  | O     |
+| I_08 | Tabla  | A     |
+| I_09 | Guitar | B     |
+| I_10 | Flute  | D     |
++------+--------+-------+
+
+select * from Album;
++------+--------------+--------+------------+------+
+| A_ID | Title        | Format | Copyright  | SSN  |
++------+--------------+--------+------------+------+
+| A_01 | Ashiqui      | Mp3    | 2000-11-09 | 2    |
+| A_02 | Galipata     | Mp3    | 2019-08-17 | 2    |
+| A_03 | Mungaru Male | Mp3    | 2015-01-12 | 6    |
+| A_04 | Bhramastra   | Mp3    | 2022-02-19 | 3    |
+| A_05 | Silent       | Mp3    | 2001-12-10 | 4    |
+| A_06 | Rainbow      | Mp4    | 2017-07-29 | 5    |
+| A_07 | Spring       | Mp3    | 2019-02-21 | 1    |
+| A_08 | Golden       | Mp4    | 2022-03-21 | 10   |
+| A_09 | Beautiful    | Mp3    | 2020-08-30 | 4    |
+| A_10 | Blue         | Mp4    | 2013-05-10 | 9    |
++------+--------------+--------+------------+------+
+
+
+mysql> select * from Song;
++------+---------+-----------+------+
+| S_ID | Title   | Author    | A_ID |
++------+---------+-----------+------+
+| S_01 | Raazi   | Mahesh    | A_03 |
+| S_02 | Dua     | Rakesh    | A_06 |
+| S_03 | Deepam  | Suresh    | A_01 |
+| S_04 | Nadi    | Manjunath | A_03 |
+| S_05 | Mahadev | Arijit    | A_04 |
+| S_06 | Male    | Jubin     | A_08 |
+| S_07 | Red     | John      | A_06 |
+| S_08 | Lily    | Peter     | A_05 |
+| S_09 | Maa     | Arvind    | A_07 |
+| S_10 | Tum     | Priya     | A_02 |
++------+---------+-----------+------+
+
+select * from Play;
++-----+------+
+| SSN | I_ID |
++-----+------+
+| 5   | I_01 |
+| 6   | I_01 |
+| 10  | I_02 |
+| 5   | I_02 |
+| 8   | I_02 |
+| 3   | I_03 |
+| 5   | I_03 |
+| 5   | I_04 |
+| 4   | I_05 |
+| 5   | I_05 |
+| 7   | I_05 |
+| 5   | I_06 |
+| 5   | I_07 |
+| 5   | I_08 |
+| 5   | I_09 |
+| 5   | I_10 |
++-----+------+
+
+select * from Perform;
++-----+------+
+| SSN | S_ID |
++-----+------+
+| 1   | S_01 |
+| 7   | S_03 |
+| 2   | S_05 |
+| 3   | S_05 |
+| 4   | S_05 |
+| 5   | S_05 |
+| 1   | S_07 |
+| 6   | S_07 |
+| 7   | S_07 |
+| 8   | S_07 |
+| 5   | S_09 |
++-----+------+
+Queries
+
+1) select m.Name as Musician_Name,s.Title as Song_Name,a.Title as 
+Album_Title from Musician m,Song s,Album a,Perform p where m.SSN=p.SSN and 
+s.S_ID=p.S_ID and a.A_ID=s.A_ID;
++----------------+-----------+--------------+
+| Musician_Name  | Song_Name | Album_Title  |
++----------------+-----------+--------------+
+| Sonu Nigam     | Raazi     | Mungaru Male |
+| Sonu Nigam     | Red       | Rainbow      |
+| Shreya Ghoshal | Mahadev   | Bhramastra   |
+| Arijit Singh   | Mahadev   | Bhramastra   |
+| A.R.Rehaman    | Mahadev   | Bhramastra   |
+| Vijay Prakash  | Mahadev   | Bhramastra   |
+| Vijay Prakash  | Maa       | Spring       |
+| Arundati       | Red       | Rainbow      |
+| Arjun Janya    | Deepam    | Ashiqui      |
+| Arjun Janya    | Red       | Rainbow      |
+| Gayatri        | Red       | Rainbow      |
++----------------+-----------+--------------+
+
+
+2) select distinct m.Name as Musician_Name  from Musician m,Album a where 
+m.SSN not in (select m.SSN from Musician m,Album a where m.SSN=a.SSN);
+
++---------------+
+| Musician_Name |
++---------------+
+| Arjun Janya   |
+| Gayatri       |
++---------------+
+
+3) select s.*,count(p.S_ID) as No_of_songs from Song s,Perform p where 
+s.S_ID=p.S_ID group by p.S_ID having count(p.S_ID)>=3;
+
++------+---------+--------+------+-------------+
+| S_ID | Title   | Author | A_ID | No_of_songs |
++------+---------+--------+------+-------------+
+| S_05 | Mahadev | Arijit | A_04 |           4 |
+| S_07 | Red     | John   | A_06 |           4 |
++------+---------+--------+------+-------------+
+

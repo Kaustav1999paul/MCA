@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table{
+ margin-top:60px;
+ margin-left:30px;
+ border-collapse:collapse;
+ width:1200px;
+ border:2px solid black;
+ height:300px;
+ text-align:center;
+}
+th{
+ background-color:black;
+ color:white;
+ font-weight:bold;
+}
+tr{
+ background-color:grey;
+ color:black;
+}
+h2{
+ text-align:center;
+ color:Blue;
+ font-size:48px;
+}
+#button{
+ font-size:18px;
+}
+</style>
+<body>
+  <h2>Displaying Students Information In Table</h2>
+  <div style="display:grid;">
+    <input type="button" id="button" onClick="createTable()" value="Click Here!!!">
+    <p id="para1"></p>
+  </div>
+  <script>
+    function createTable(){
+     var stud=`[
+                   {
+                    "stud_ID" : "RVCEMCA21031",
+                    "stud_Name" : "Kishankumar Dahiya",
+                    "stud_DOB" : "15/06/1999",
+                    "stud_Batch" : "2021 - 23"
+                    },
+                   {
+                    "stud_ID" : "RVCEMCA21032",
+                    "stud_Name" : "Harikumar D'Souza",
+                    "stud_DOB" : "25/10/1998",
+                    "stud_Batch" : "2021 - 24"
+                    },
+                   {
+                    "stud_ID" : "RVCEMCA21033",
+                    "stud_Name" : "Minariz D'Souza",
+                    "stud_DOB" : "5/9/1999",
+                    "stud_Batch" : "2021 - 23"
+                    },
+                   {
+                    "stud_ID" : "RVCEMCA21034",
+                    "stud_Name" : "Alwin Fernandes",
+                    "stud_DOB" : "11/3/1999",
+                    "stud_Batch" : "2021 - 23"
+                    },
+                   {
+                    "stud_ID" : "RVCEMCA21035",
+                    "stud_Name" : "Harikumar Gouda",
+                    "stud_DOB" : "25/7/2000",
+                    "stud_Batch" : "2022 - 24"
+                    },
+                   {
+                    "stud_ID" : "RVCEMCA21036",
+                    "stud_Name" : "Komal Solanki",
+                    "stud_DOB" : "22/8/1998",
+                    "stud_Batch" : "2021 - 23"
+                    },
+                   {
+                    "stud_ID" : "RVCEMCA21037",
+                    "stud_Name" : "Debaditya Haider",
+                    "stud_DOB" : "2/12/2000",
+                    "stud_Batch" : "2021 - 23"
+                    }]`
+     students=JSON.parse(stud)
+     var tableBody="<table border=1><tr><th>USN</th><th>Name</th><th>Date of Birth</th><th>Branch</th><tr>"
+   
+     students.forEach(function(d){
+      tableBody+="<tr><td>"+d.stud_ID+"</td><td>"+d.stud_Name+"</td><td>"+d.stud_DOB+"</td><td>"+d.stud_Batch+"</td></tr>"
+      });
+     
+     tableBody+="</table>"
+   
+     document.getElementById("para1").innerHTML=tableBody;
+   }
+   </script>
+</body>
+</html>

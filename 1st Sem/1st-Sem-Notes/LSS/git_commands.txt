@@ -1,0 +1,270 @@
+austav@kaustav:~$ ssh-keygen -t ed25519 -C manasishimpiger@gmail.com
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/home/kaustav/.ssh/id_ed25519): 
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /home/kaustav/.ssh/id_ed25519
+Your public key has been saved in /home/kaustav/.ssh/id_ed25519.pub
+The key fingerprint is:
+SHA256:Om+cfnqmDOVgObkHhQNymVQjc+rWwqmBfiuc6UhptDE manasishimpiger@gmail.com
+The key's randomart image is:
++--[ED25519 256]--+
+|  ..*++          |
+|   oo* o         |
+|    . o .        |
+| . o o =         |
+|.E. * O S        |
+|o =+ o O         |
+|.*+.  =.o.       |
+|+=. .  *+ +      |
+|o...   o**       |
++----[SHA256]-----+
+kaustav@kaustav:~$ ls
+anaconda3  Android  Desktop  Documents  Downloads  localvar.sh  Music  Pictures  progs  Public  scr.sh  snap  StudioProjects  Templates  Videos
+kaustav@kaustav:~$ ls -al
+total 172
+drwxr-x--- 31 kaustav kaustav  4096 Apr  2 10:35 .
+drwxr-xr-x  4 root    root     4096 Apr  2 19:03 ..
+drwxrwxr-x  3 kaustav kaustav  4096 Mar 28 10:56 .anaconda
+drwxrwxr-x 28 kaustav kaustav  4096 Mar 28 11:11 anaconda3
+drwxrwxr-x  4 kaustav kaustav  4096 Mar 15 19:57 .android
+drwxrwxr-x  3 kaustav kaustav  4096 Mar  5 12:24 Android
+-rw-------  1 kaustav kaustav 11226 Apr  2 18:58 .bash_history
+-rw-r--r--  1 kaustav kaustav   220 Mar  4 18:35 .bash_logout
+-rw-r--r--  1 kaustav kaustav  4254 Mar 28 10:43 .bashrc
+drwx------ 26 kaustav kaustav  4096 Mar 28 10:55 .cache
+drwxrwxr-x  2 kaustav kaustav  4096 Mar 28 11:51 .conda
+-rw-rw-r--  1 kaustav kaustav    49 Mar 28 11:33 .condarc
+drwx------ 22 kaustav kaustav  4096 Apr  2 10:33 .config
+drwxrwxr-x  3 kaustav kaustav  4096 Mar 28 10:56 .continuum
+drwxr-xr-x  2 kaustav kaustav  4096 Mar 21 22:24 Desktop
+drwxr-xr-x  9 kaustav kaustav  4096 Apr  2 10:34 Documents
+drwxr-xr-x  3 kaustav kaustav  4096 Mar 30 19:03 Downloads
+-rw-rw-r--  1 kaustav kaustav    61 Mar  4 21:25 .gitconfig
+drwx------  2 kaustav kaustav  4096 Mar 28 21:54 .gnupg
+drwxrwxr-x  8 kaustav kaustav  4096 Mar 15 19:48 .gradle
+-rw-rw-r--  1 kaustav kaustav     0 Mar 28 13:03 .hidden
+drwxrwxr-x  3 kaustav kaustav  4096 Mar 21 20:41 .ipython
+drwxrwxr-x  4 kaustav kaustav  4096 Mar  5 12:23 .java
+drwxrwxr-x  2 kaustav kaustav  4096 Mar 21 22:09 .jupyter
+drwx------  6 kaustav kaustav  4096 Mar 21 20:40 .local
+-rwxrwxrwx  1 kaustav kaustav   503 Mar 21 17:45 localvar.sh
+drwx------  4 kaustav kaustav  4096 Mar 14 13:51 .mozilla
+drwxr-xr-x  2 kaustav kaustav  4096 Mar  4 18:42 Music
+drwxr-xr-x  2 kaustav kaustav  4096 Apr  2 19:03 Pictures
+drwx------  3 kaustav kaustav  4096 Mar  4 21:03 .pki
+-rw-r--r--  1 kaustav kaustav   807 Mar  4 18:35 .profile
+drwxrwxr-x  2 kaustav kaustav  4096 Mar 28 13:19 progs
+drwxr-xr-x  2 kaustav kaustav  4096 Mar  4 18:42 Public
+-rwxrwxrwx  1 kaustav kaustav   172 Mar 21 17:37 scr.sh
+-rw-rw-r--  1 kaustav kaustav    66 Mar 22 18:05 .selected_editor
+drwx------  9 kaustav kaustav  4096 Mar 28 21:59 snap
+drwx------  2 kaustav kaustav  4096 Apr  2 19:16 .ssh
+drwxrwxr-x  3 kaustav kaustav  4096 Mar 15 19:44 StudioProjects
+-rw-r--r--  1 kaustav kaustav     0 Mar  4 19:20 .sudo_as_admin_successful
+drwxr-xr-x  2 kaustav kaustav  4096 Mar  4 18:42 Templates
+drwxr-xr-x  2 kaustav kaustav  4096 Mar 30 20:08 Videos
+drwxrwxr-x  3 kaustav kaustav  4096 Mar  4 21:03 .vscode
+kaustav@kaustav:~$ eval "$(ssh-agent -s)"
+Agent pid 35578
+kaustav@kaustav:~$ ~/.ssh/id_ed25519.pub
+bash: /home/kaustav/.ssh/id_ed25519.pub: Permission denied
+kaustav@kaustav:~$ sudo ~/.ssh/id_ed25519.pub
+sudo: /home/kaustav/.ssh/id_ed25519.pub: command not found
+kaustav@kaustav:~$ sudo ~/.ssh/id_ed25519.pub
+sudo: /home/kaustav/.ssh/id_ed25519.pub: command not found
+kaustav@kaustav:~$ cd .ssh/id_ed25519.pub
+bash: cd: .ssh/id_ed25519.pub: Not a directory
+kaustav@kaustav:~$ cd .ssh
+kaustav@kaustav:~/.ssh$ ls -l
+total 20
+-rw------- 1 kaustav kaustav  419 Apr  2 19:16 id_ed25519
+-rw-r--r-- 1 kaustav kaustav  107 Apr  2 19:16 id_ed25519.pub
+-rw------- 1 kaustav kaustav 3381 Mar 27 12:04 id_rsa
+-rw-r--r-- 1 kaustav kaustav  741 Mar 27 12:04 id_rsa.pub
+-rw-r--r-- 1 kaustav kaustav 1110 Mar 27 12:20 known_hosts
+kaustav@kaustav:~/.ssh$ sudo nano id_ed25519.pub
+kaustav@kaustav:~/.ssh$ ssh-add ~/.ssh/id_ed25519.pub
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@         WARNING: UNPROTECTED PRIVATE KEY FILE!          @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+Permissions 0644 for '/home/kaustav/.ssh/id_ed25519.pub' are too open.
+It is required that your private key files are NOT accessible by others.
+This private key will be ignored.
+kaustav@kaustav:~/.ssh$ cd ~
+kaustav@kaustav:~$ ssh -T git@github.com
+Hi Manasi-Shimpiger! You've successfully authenticated, but GitHub does not provide shell access.
+kaustav@kaustav:~$ git clone git@github.com:Manasi-Shimpiger/demo.git
+Cloning into 'demo'...
+remote: Enumerating objects: 6, done.
+remote: Counting objects: 100% (6/6), done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 6 (delta 0), reused 0 (delta 0), pack-reused 0
+Receiving objects: 100% (6/6), 231.17 KiB | 408.00 KiB/s, done.
+kaustav@kaustav:~$ ls
+anaconda3  demo     Documents  localvar.sh  Pictures  Public  snap            Templates
+Android    Desktop  Downloads  Music        progs     scr.sh  StudioProjects  Videos
+kaustav@kaustav:~$ cd demo
+kaustav@kaustav:~/demo$ ls
+'Manasi Shimpiger.pdf'   README.md
+kaustav@kaustav:~/demo$ cd ..
+kaustav@kaustav:~$ mkdir Mansi
+kaustav@kaustav:~$ cd Mansi
+kaustav@kaustav:~/Mansi$ nano file1.txt
+kaustav@kaustav:~/Mansi$ git remote add origin git@github.com:Manasi-Shimpiger/Mansi.git
+fatal: not a git repository (or any of the parent directories): .git
+kaustav@kaustav:~/Mansi$ git init
+hint: Using 'master' as the name for the initial branch. This default branch name
+hint: is subject to change. To configure the initial branch name to use in all
+hint: of your new repositories, which will suppress this warning, call:
+hint: 
+hint: 	git config --global init.defaultBranch <name>
+hint: 
+hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+hint: 'development'. The just-created branch can be renamed via this command:
+hint: 
+hint: 	git branch -m <name>
+Initialized empty Git repository in /home/kaustav/Mansi/.git/
+kaustav@kaustav:~/Mansi$ git add
+Nothing specified, nothing added.
+hint: Maybe you wanted to say 'git add .'?
+hint: Turn this message off by running
+hint: "git config advice.addEmptyPathspec false"
+kaustav@kaustav:~/Mansi$ git add .
+kaustav@kaustav:~/Mansi$ git commit -am "Hello"
+[master (root-commit) 5c62cbe] Hello
+ 1 file changed, 1 insertion(+)
+ create mode 100644 file1.txt
+kaustav@kaustav:~/Mansi$ git push
+fatal: No configured push destination.
+Either specify the URL from the command-line or configure a remote repository using
+
+    git remote add <name> <url>
+
+and then push using the remote name
+
+    git push <name>
+
+kaustav@kaustav:~/Mansi$ git remote add origin git@github.com:Manasi-Shimpiger/Mansi.git
+kaustav@kaustav:~/Mansi$ git push origin
+fatal: The current branch master has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin master
+
+kaustav@kaustav:~/Mansi$ git push --set-upstream origin master
+Warning: Permanently added the ECDSA host key for IP address '13.234.210.38' to the list of known hosts.
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 218 bytes | 109.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+To github.com:Manasi-Shimpiger/Mansi.git
+ * [new branch]      master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
+kaustav@kaustav:~/Mansi$ ls
+file1.txt
+kaustav@kaustav:~/Mansi$ ls -l
+total 4
+-rw-rw-r-- 1 kaustav kaustav 9 Apr  2 19:46 file1.txt
+kaustav@kaustav:~/Mansi$ ls -al
+total 16
+drwxrwxr-x  3 kaustav kaustav 4096 Apr  2 19:48 .
+drwxr-x--- 33 kaustav kaustav 4096 Apr  2 19:46 ..
+-rw-rw-r--  1 kaustav kaustav    9 Apr  2 19:46 file1.txt
+drwxrwxr-x  8 kaustav kaustav 4096 Apr  2 19:52 .git
+kaustav@kaustav:~/Mansi$ git config [--global] user.name "Manasi-Shimpiger"
+error: key does not contain a section: [--global]
+kaustav@kaustav:~/Mansi$ git config --global credential.username "Manasi-Shimpiger"
+kaustav@kaustav:~/Mansi$ ls
+file1.txt
+kaustav@kaustav:~/Mansi$ nano file2.txt
+kaustav@kaustav:~/Mansi$ git add .
+kaustav@kaustav:~/Mansi$ git commit "M2"
+error: pathspec 'M2' did not match any file(s) known to git
+kaustav@kaustav:~/Mansi$ git commit -am "M2"
+[master b4a47c5] M2
+ 1 file changed, 1 insertion(+)
+ create mode 100644 file2.txt
+kaustav@kaustav:~/Mansi$ git push --set-upstream origin master
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 277 bytes | 277.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+To github.com:Manasi-Shimpiger/Mansi.git
+   5c62cbe..b4a47c5  master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
+kaustav@kaustav:~/Mansi$ git remote add origin master1 
+error: remote origin already exists.
+kaustav@kaustav:~/Mansi$ git remote add origin1 master1 
+kaustav@kaustav:~/Mansi$ nano file3.txt
+kaustav@kaustav:~/Mansi$ git add .
+kaustav@kaustav:~/Mansi$ git commit -am "hhhhh"
+[master d53d835] hhhhh
+ 1 file changed, 1 insertion(+)
+ create mode 100644 file3.txt
+kaustav@kaustav:~/Mansi$ git push origin1 
+fatal: 'master1' does not appear to be a git repository
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+kaustav@kaustav:~/Mansi$ git branch master1
+kaustav@kaustav:~/Mansi$ git push origin1 
+fatal: 'master1' does not appear to be a git repository
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+kaustav@kaustav:~/Mansi$ git branch
+* master
+  master1
+kaustav@kaustav:~/Mansi$ git push origin master1
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 311 bytes | 311.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+remote: 
+remote: Create a pull request for 'master1' on GitHub by visiting:
+remote:      https://github.com/Manasi-Shimpiger/Mansi/pull/new/master1
+remote: 
+To github.com:Manasi-Shimpiger/Mansi.git
+ * [new branch]      master1 -> master1
+kaustav@kaustav:~/Mansi$ git checkout branch1
+error: pathspec 'branch1' did not match any file(s) known to git
+kaustav@kaustav:~/Mansi$ git checkout master1
+Switched to branch 'master1'
+kaustav@kaustav:~/Mansi$ git checkout master1
+Already on 'master1'
+kaustav@kaustav:~/Mansi$ git merge main
+merge: main - not something we can merge
+kaustav@kaustav:~/Mansi$ git merge origin
+merge: origin - not something we can merge
+kaustav@kaustav:~/Mansi$ git config --global user.name "Manasi-Shimpiger"
+kaustav@kaustav:~/Mansi$ nano file4.txt
+kaustav@kaustav:~/Mansi$ git add .
+
+
+kaustav@kaustav:~/Mansi$ git commit -am "sdvsdvadfvdf"
+[master1 217892b] sdvsdvadfvdf
+ 1 file changed, 1 insertion(+)
+ create mode 100644 file4.txt
+kaustav@kaustav:~/Mansi$ git push origin master
+Total 0 (delta 0), reused 0 (delta 0), pack-reused 0
+To github.com:Manasi-Shimpiger/Mansi.git
+   b4a47c5..d53d835  master -> master
+kaustav@kaustav:~/Mansi$ git push origin master1
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 292 bytes | 292.00 KiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To github.com:Manasi-Shimpiger/Mansi.git
+   d53d835..217892b  master1 -> master1
+kaustav@kaustav:~/Mansi$ 
+

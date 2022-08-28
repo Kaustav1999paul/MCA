@@ -1,0 +1,47 @@
+
+How do I create a sub shell in Unix?
+Just put the commands to be run in the sub-shell inside parentheses. 
+This causes bash to start the commands as a separate process.
+
+OpenSSH is the premier connectivity tool for remote login with the SSH protocol. 
+It encrypts all traffic to eliminate eavesdropping, connection hijacking, and other attacks. 
+In addition, OpenSSH provides a large suite of secure tunneling capabilities, several authentication 
+methods, and sophisticated configuration options.
+
+expr command
+The expr command in Unix evaluates a given expression and displays its corresponding output. 
+It is used for:
+-> Basic operations like addition, subtraction, multiplication, division, and modulus on integers.
+-> Evaluating regular expressions, string operations like substring, length of strings etc.
+
+Set Command
+It is used to set or unset specific flags and settings inside the shell environment. 
+(determines the behavior of the script and helps in executing the tasks without any issue) 
+It can be used to change or display the shell attributes and parameters. 
+https://www.geeksforgeeks.org/shell-scripting-set-command/
+
+bc command
+bc command is used for command line calculator. It is similar to basic calculator 
+by using which we can do basic mathematical calculations. 
+bc command and expr command for doing arithmetic calculations.
+https://www.geeksforgeeks.org/bc-command-linux-examples/
+
+test command
+The test command compares one element against another and returns true or false. 
+The test command takes an EXPRESSION as an argument. 
+After calculating the EXPRESSION, the test returns a value to the bash variable “$?”. 
+If the value is 0, then the expression evaluation was true. 
+If the value is 1, then the expression evaluation was false.
+https://linuxhint.com/bash-test-command/
+
+Subshell
+Whenever you run a shell script, it creates a new process called subshell and your script will get 
+executed using a subshell.
+A Subshell can be used to do parallel processing.
+https://linuxhandbook.com/subshell/
+
+
+
+
+
+

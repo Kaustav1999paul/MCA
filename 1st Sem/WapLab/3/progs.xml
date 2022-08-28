@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<students>
+ <student>
+  <name>Ravi</name>
+  <usn>RVCE031</usn>
+  <branch>MCA</branch>
+  <year>2021</year>
+ </student>
+ <student>
+  <name>Kumar</name>
+  <usn>RVCE032</usn>
+  <branch>MCA</branch>
+  <year>2021</year>
+ </student>
+ <student>
+  <name>Himesh</name>
+  <usn>RVCE033</usn>
+  <branch>MCA</branch>
+  <year>2023</year>
+ </student>
+<student>
+  <name>Gopal</name>
+  <usn>RVCE034</usn>
+  <branch>MCA</branch>
+  <year>2021</year>
+ </student>
+</students>
